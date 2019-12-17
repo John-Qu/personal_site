@@ -1,42 +1,107 @@
-baseurl = "/"
+baseurl = "https://johnqu.site/"
 languageCode = "en-us"
-title = "Hugo Ivy"
+title = "John | 曲"
 theme = "hugo-ivy"
-googleAnalytics = ""
-disqusShortname = ""
+googleAnalytics = "UA-154716505-1"
+disqusShortname = "John Qu"
 ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
 preserveTaxonomyNames = true
 footnotereturnlinkcontents = "↩"
-
+hasCJKLanguage = true
+enableEmoji = true
+rssLimit = 100
 [permalinks]
-    post = "/post/:year/:month/:day/:slug/"
-    note = "/note/:year/:month/:day/:slug/"
+    cn = "/cn/:year/:month/:slug/"
+    en = "/en/:year/:month/:slug/"
 
 [[menu.main]]
+    name = "About"
+    url = "/en/about/"
+    weight = 1
+[[menu.main]]
+    name = "Blog"
+    url = "/en/"
+    weight = 2
+[[menu.main]]
+    name = "关于"
+    url = "/cn/about/"
+    weight = 3
+[[menu.main]]
+    name = "日志"
+    url = "/cn/"
+    weight = 4
+[[menu.en]]
     name = "Home"
     url = "/"
     weight = 1
-[[menu.main]]
+[[menu.en]]
     name = "About"
-    url = "/about/"
+    url = "/en/about/"
     weight = 2
-[[menu.main]]
+[[menu.en]]
+    name = "Blog"
+    url = "/en/"
+    weight = 3
+[[menu.en]]
     name = "Categories"
     url = "/categories/"
-    weight = 3
-[[menu.main]]
+    weight = 4
+[[menu.en]]
     name = "Tags"
     url = "/tags/"
+    weight = 5
+[[menu.en]]
+    name = "中文"
+    url = "/cn/"
+    weight = 6
+#[[menu.main]]
+#    name = "Subscribe"
+#    url = "/index.xml"
+[[menu.cn]]
+    name = "首页"
+    url = "/"
+    weight = 1
+[[menu.cn]]
+    name = "关于"
+    url = "/cn/about/"
+    weight = 2
+[[menu.cn]]
+    name = "日志"
+    url = "/cn/"
+    weight = 3
+[[menu.cn]]
+    name = "分类"
+    url = "/categories/"
     weight = 4
-[[menu.main]]
-    name = "Subscribe"
-    url = "/index.xml"
+[[menu.cn]]
+    name = "标签"
+    url = "/tags/"
+    weight = 5
+[[menu.cn]]
+    name = "English"
+    url = "/en/"
+    weight = 6
 
 [params]
-    description = "A Hugo theme ported from the static site generator Ivy."
-    footer = "&copy; [Yihui Xie](https://yihui.name) 2017 | [Github](https://github.com/yihui) | [Twitter](https://twitter.com/xieyihui)"
-
+    description = "Reflection in Transition"
+    footer = "&copy; [John Qu](https://johnqu.site) 2019 | [Github](https://github.com/john-qu)"
+    customJS = [
+    "js/fix-toc.js",
+    "js/center-img.js",
+    "js/right-quote.js",
+    "js/no-highlight.js",
+    "js/fix-footnote.js",
+    "js/math-code.js",
+    "js/external-link.js",
+    "js/alt-title.js",
+    "js/header-link.js"
+    ]
+    githubContentURL = "https://github.com/john-qu/johnqu.site/edit/master/content/"
+    twitterImage = "/images/logo.png"
+    
   highlightjsVersion = "9.12.0"
   highlightjsCDN = "//cdn.bootcss.com"
   highlightjsLang = ["r", "yaml", "tex"]
   highlightjsTheme = "github"
+
+
