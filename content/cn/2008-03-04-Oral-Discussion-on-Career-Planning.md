@@ -7,6 +7,7 @@ tags:
 - 
 categories:
 - 
+typora-root-url: ../../static
 ---
 
 Miss Jou, as supervisor  of oral group meeting today, suggested us to talk about the personal  ideal job, after the topic of doctorate last week. Me, Ben, Allen, and  Shorden, have lots of stimulating ideas as following:
