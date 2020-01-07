@@ -12,7 +12,7 @@ Email：johnqu1982@gmail.com；主页：<https://johnqu.site>；现居住于中�
 
 ## 研究兴趣
 
-数据可视化，统计图形，交互式图形；统计计算；动态报告，可重复性研究
+机械凸轮曲线，灌装机构原理；设备组装调试，现场问题对策；开源制图软件，文档图书翻译
 
 ## 教育背景
 
@@ -21,14 +21,7 @@ Email：johnqu1982@gmail.com；主页：<https://johnqu.site>；现居住于中�
 
 ## 获得奖励
 
-- 2008.06 中国人民大学2008届院级优秀毕业生
-- 2007.12 中国人民大学2006~2007学年优秀研究生奖学金
-- 2007.12 中国人民大学2006~2007学年“三好学生”
-
-- 2006.04 美国数学建模大赛成功参与奖（[论文](https://github.com/downloads/yihui/yihui.github.com/MCM-2006-paper-Yihui-Xie.pdf)；[证书](https://db.yihui.org/imgur/c3soC.jpg)）
-- 2005.12 中国人民大学2004~2005学年“学习优秀奖学金”
-- 2005.06 中国人民大学2004~2005学年度“院系优秀共青团员”
-- 2003.12 中国人民大学2002~2003学年“校级三好学生”
+- 
 
 
 ## 工作经历
@@ -57,14 +50,15 @@ Email：johnqu1982@gmail.com；主页：<https://johnqu.site>；现居住于中�
 ### 亲近设备
 
 - 单缸/双缸压缩机装配线
-- 
+
+    
 
 ## 机械设计与计算机应用水平
 
 擅长使用网页制作软件，以及统计建模、统计编程和统计计算软件
 
 - 机械软件：熟悉 [FreeCAD](http://www.freecadweb.org/)、LibreCAD；~~已弃用 Solidworks、Simens NX、CAXA、MatLab（已忘光）、MSC Adams（没成功），Catia（只两天）~~
-- 语言：开源胶水语言 [Python](http://www.python.org/)，网页语言 HTML、CSS，数据库语言 SQL，以及 Bash 脚本
+- 语言：胶水语言 [Python](http://www.python.org/)，网页语言 HTML、CSS，数据库语言 SQL，以及 Bash 脚本
 - 应用程序：
 - 操作系统：日常使用 macOS，2017 年前使用 Windows
 - 计算机等级：无任何等级证书
