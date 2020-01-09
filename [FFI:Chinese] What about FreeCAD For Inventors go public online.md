@@ -82,61 +82,79 @@ Tell me what you think
 
 ---
 
+Re: [FFI/Chinese] Willing to accepted the offer but come with doult 
+
 Hello Brad,
 
 Thank you for your reply, with so much explanation. My son and daughter can play together now, and I spend most of my spare (someday full) time with them. They inspire me a lot.
 
-I had accepted your proposals. But after considering them for one morning, I have to say, "no thanks". Here is my initial ideas and later considerations.
+I had accepted your proposals early this morning.
 
-First, let's discuss about the money.
+>   I would suggest this:
+>
+>   1) By all means, feel free to update the book for 0.19. Just keep the 0.19 changes in a new branch.
+>
+>   2) Let's publish the chinese version on kobo. You set the price.  Anything more than $0.00 is fine with me. We split royalties as agreed  through Purple Squirrel.
+>
+>   3) Release one chapter (Batman?) free of charge on github and bookdown.
+>
+>   4) when 0.19 version of the book is released, we release the rest of 0.18 for free.
+>
+>   Tell me what you think
 
-I was thinking about seting the price of Chinese version as \$1.9(about 14  yuan, an ordinary price for a thine book in China ) or \$0.19 (about one and a half yuan, a little tip for an article on Wechat App). But am I serious or just joking? If I am serious, do I dare to speak aloud among friends that I am selling a translated book writen for 0.17 but they acturally found 0.19 is recomanded now? If I am not serious, why do I bother you and Dupuy to publish it on Kobo? 
+But after considering them for a few hours, I have to say, "no, thanks." Here are my initial ideas and later considerations. 
 
-I admire your belief that money can lead to opportunities. I can't say how much but your work do make some money. However, I believe money both in my left and right pocket is mine, which is kind of resource I can use to achieve my desires. It seems the amount you pay Yorik for the work of Path core code is equal to what you got with the first book for Packt publishing. I don't know whether there will be Path workbench if you didn't earn any money from book selling. Will yorik help for free?
+First, let's discuss the money.
 
-In this case, money point opposite to my direction. I want more people see my work. But money as a kind of wall, keep them away.
+I was thinking about setting the price of the Chinese version as of 0.17 (about one yuan, a little tip for an article on Wechat App). But am I serious or just kidding? If I am serious, do I dare to speak aloud among friends that I am selling a translated book written for 0.17 but they actually found 0.19 is recommended now? If I am not serious, why do I bother you and Dupuy to publish it on Kobo? 
 
-Second let's discuss about the publishing.
+I admire your belief that money can lead to opportunities. I can't say how much, but your work does make some money. However, I believe cash both in my left and right pocket is mine, which is a kind of resource I can use to achieve my desires. It seems the amount you pay @yorik for the work of Path core code is equal to what you got with the first book for Packt publishing. I guess there surely will be a Path workbench if you didn't earn any money from that bookselling. Could @yorik help for free, couldn't he?
 
-You recommended that I make a chapter (such as Batman) on GitHub and bookdown. I was thinking about can we make more chapters public, such as chapter 5 feathers in part one and chapter 14 cam in part three, because FFI have three parts and these three chapters are most valuable for me. However, when I scan the translated texts, I am eager to edit the sentences and reformat the paragraphs. I realized that the publishing of these chapters means something for me, but means nothing for readers. It only shows I can translate such technical English contents into such level of Chinese. It will not help the readers enter the CAD world for it is still sample chapters, saying, "go to buy, or go away"
+In this case, the money point opposite my direction. I want more people to see my work. But money, as a kind of wall, keep them away.
 
-I learn Python by reading Prof. Downey's Think Python. He wrote an article [Free Books, Why Not](http://www.greenteapress.com/free_books.html). He felt the same unconvienience with you as he says:
+Second, let's discuss the publishing.
 
->    If your book is your baby, it's hard to let strangers have their way with it.  But if you want creative people to work with your material, you have to allow them to take ownership.
+You recommended that I make a chapter (such as Batman) on GitHub and bookdown. I was thinking about the opportunity that we make more content public, such as chapter 5 feathers in part one and chapter 14 cam in part three because FFI has three parts, and these three chapters are most valuable for me. However, when I scan the translated texts, I am eager to edit the sentences and reformat the paragraphs. I realized that the publishing of these chapters means something for me, but fails in helping readers. It only shows I can translate such technical English texts into such a level of Chinese. It will not help the readers enter the CAD world for it is only sample chapters, saying, "go to buy, or go away."
 
-His book is about computational thinking, while our book is about CAD tool. He sells 12/2000 hard copies in the first week, ten of them in his mother's hand. FreeCAD faces a special engineering field, and there are many other commercial tools in using. FreeCAD is free to download and under havey developing, while my former colleages are still using solidworks 2011 without license. Is there any better way to publish tool coaching book for short shelf time? 
+I learn Python by reading Prof. Downey's Think Python. He felt the same inconvenience with you as he says:
 
-Xie believes the conventional way is not necessary nowadays. Although his book is publishing via a publisher, he ask no author money (actually he cannot get directly by law) in order to let the hard copy cheaper and easier to deliver to many R/rStudio users. More readers, more comments, more typo trackers, more critics. Those sounds might trigger these action as to:
+>   If your book is your baby, it's hard to let strangers have their way with it.  But if you want creative people to work with your material, you have to allow them to take ownership.
+>
+>   ---- [Free Books, Why Not](http://www.greenteapress.com/free_books.html).
+
+His book is about computational thinking, while our book is about CAD tools. He sells 12/2000 hard copies in the first week, ten of them in his mother's hand. FreeCAD faces some engineering fields, and there are many other commercial tools in the market. FreeCAD is free to download and under a massive development, while my former colleagues are still using Solidworks 2011 without a license. Is there any better way to publish a tool coaching book for short shelf time? 
+
+Xie believes the conventional way is not necessary nowadays. Although his book is publishing via a publisher, he asks no author money (actually he cannot get directly by law) to let the hard copy cheaper and easier to deliver to many R/Rstudio users. More readers, more comments, more typo trackers, more critics. Those sounds might trigger these action as to:
 
 -   update quickly, on time, no known mistake hanging for the next edition
 -   push author(s) continuously iterate, improve, keep up with version and
 -   inspire more contributors and translators involved in this list.
 
-You plan to release v017 (my objective version) for free when the book for 019 is on kobo. I take a certain doubt whether someone will take his time to read it when his is struggling with FreeCAD 019. It says 017 is python 2, and from 018 FC is on python 3. I know it makes no difference for FFI, but if I were a new comer who know nothing about inner working of FC, I would be confused in choosing to read new edition with money or scan the outdated version because it is free.
+You plan to release v017 (my objective version) for free when the book for 019 is on kobo. I am a little doubt whether someone will take his time to read it when he is struggling with FreeCAD 019. FC 017 is in python 2, and from 018 FC is in python 3. I know it makes no difference for FFI, but if I were a newcomer who knows nothing about the inner working of FC, I would be confused about choosing a new edition with money or the outdated version because it is free.
 
-In general, what I want to say is relationship.
+In general, what I want to say is the relationship.
 
 To quote NormandC:
 
 >   I think this close relationship between end users and developers that we have here is unrivalled in the CAD world. 
 >
->   ​    ---- [Re: FreeCAD For Inventors Book Published](https://forum.freecadweb.org/viewtopic.php?f=8&t=30959&start=10#p256732)
+>    ---- [Re: FreeCAD For Inventors Book Published](https://forum.freecadweb.org/viewtopic.php?f=8&t=30959&start=10#p256732)
 
 My intension in translating FFI in October 2018 are 1) admiring the gifts here and found a [chance to give back](https://forum.freecadweb.org/viewtopic.php?f=8&t=30959&start=10#p263141), 2) get used to FC's documentation and 3) learn the style of conduct with interactive with developers (yes, it's you, thank you, sliptonic :). Now what I got is more valuable for myself.
 
--   I realize that a translation need a personal meaning. For me, if I cannot understand both the texts and intension and make the translated version more comfortable to read, I should better not to start it.
--   I notice that I am mostly inspired by people's reaction. Although I stopped at [Manual:Traditional_2D_drafting/zh-cn](https://www.freecadweb.org/wiki/Manual:Traditional_2D_drafting/zh-cn), but after noticing @wconly [acclaimed](https://forum.freecadweb.org/viewtopic.php?f=40&t=37167#p315958) at that work, I am thinking about finishing the manual translation work.
--   I acknowledge that open-source development has its own economy. I read [*The Cathedral and the Bazaar*](http://www.catb.org/esr/writings/cathedral-bazaar/), and take steps (personal blog site, etc.) forward according to the FAQ on [How To Become A Hacker](http://www.catb.org/~esr/faqs/hacker-howto.html).
+-   I realize that a translation needs a personal meaning. For me, if I cannot understand both the texts and intension and make the conversion more comfortable to read, I should better not to start it.
+-   I notice that I am mostly inspired by people's reactions. Although I stopped at [Manual:Traditional_2D_drafting/zh-cn](https://www.freecadweb.org/wiki/Manual:Traditional_2D_drafting/zh-cn), but after noticing @wconly [acclaimed](https://forum.freecadweb.org/viewtopic.php?f=40&t=37167#p315958) at that, I am thinking about finishing the manual translation work.
+-   I acknowledge that open-source development has its own economy. I read [The Cathedral and the Bazaar](http://www.catb.org/esr/writings/cathedral-bazaar/), and take steps (personal blog site, etc.) according to the FAQ on [How To Become A Hacker](http://www.catb.org/~esr/faqs/hacker-howto.html).
 
 I have gotten what I want, you might have gotten yours. 
 
-I thought you have forgot FFI, leaving its repo uncommited for over a year. So I ask you with the above mail and see if I need to give it some time to update and editing in our traditional spring festival in China. Now I think I should put more effort on my own cam profile scripts, and see if someday I can write the process of developing an add-on of cam into an online book.
+I thought you have forgotten FFI, leaving its repo uncommitted for over a year. So I mail you to ask and see if I need to spend some time on updating and editing in our traditional spring festival in China. Now I think I should put more effort into my own cam profile scripts, and see if someday I can write my book.
 
-Thank you anyway for replying me with rich explanation. I love all the PM discussions and mails you sent to me. They gave me the feeling of doing something bigger than myself's study.
+Thank you anyway for replying to me with a rich explanation. I love all the PM and mail discussions you sent to me. They gave me the feeling of doing something bigger than myself's study.
 
 Best regards
 
-Your sincerely
+Yours sincerely
 
 John Qu
 
