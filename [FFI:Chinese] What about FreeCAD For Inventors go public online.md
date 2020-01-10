@@ -159,3 +159,45 @@ Yours sincerely
 John Qu
 
 2020-01-09
+
+---
+
+John, 
+
+This is a wonderful response! I don't agree with everything but your reasoning and explanation are very helpful. Thank you.
+
+Also, I have made a mistake that I need to fix
+
+First, there is no version 0.19 of the software. That's how we refer to the  development version but it has not been released and may never be  released under that number. There's talk that the next version may be  1.0. We will have to wait and see.
+
+The current stable version of the software is 0.18. There were very few changes to the software that affected the book and I consider the book to be fully applicable to 0.18. My mistake was that I thought we had already  re-branded the book for 0.18 and revised the cover. Apparently we have  not. 
+
+So my suggestion was not that the free  and paid version be 0.17 and 0.19 but rather 0.18 and 0.19/1.0. That's  confusing but I think you understand. The goal would be to release a  new paid version of the book as soon as possible after the stable  software releases and make the previous version free.
+
+
+***I admire your belief that money can lead to opportunities. I can't say  how much, but your work does make some money. However, I believe cash  both in my left and right pocket is mine, which is a kind of resource I  can use to achieve my desires. It seems the amount you pay @yorik for  the work of Path core code is equal to what you got with the first book  for Packt publishing. I guess there surely will be a Path workbench if  you didn't earn any money from that bookselling. Could @yorik help for  free, couldn't he?***
+ 
+
+Actually,  no. Someone else might have written a CAM workbench but it would have  been and add-on and not integrated into the core of FreeCAD. That  happened because Yorik is a core developer and consulted with Juergen  Riegel, the founder of FreeCAD, on the design.  When this happened  Brazil was having a very bad economic time. Yorik needed extra (paid)  work because his architecture business wasn't bringing in enough. When  he's able to work on FreeCAD for free, he prefers to work on Arch  workbench. We were able to pay him to work on FreeCAD, just in a  different area. He has not contributed to Path since then. It was good for everyone but would not have happened without the royalty money and  he would have had to do some non-FreeCAD work. 
+
+I also believe that the money in my pocket is mine to achieve my  desires. Part of my desire is to further FreeCAD and sometimes that  ONLY happens with money.  At the end of the month, I will get to go to  Brussels to the FOSDEM conference and meet yorik for the first time. We are doing a presentation together with another FreeCAD developer. This trip is possible because of the book and also because the FreeCAD  project has received some donation money. 
+
+
+
+***I acknowledge that open-source development has its own economy. I read [The Cathedral and the Bazaar](http://www.catb.org/esr/writings/cathedral-bazaar/), and take steps (personal blog site, etc.) according to the FAQ on [How To Become A Hacker](http://www.catb.org/~esr/faqs/hacker-howto.html).***
+
+
+
+CatB is an amazing book that heavily inspired me, but it is now more than  twenty years old and the open-source economy is still evolving. Github  has acknowledged that we need more ways for open source contributors to  make money. This video has gotten some discussion as well. The  'Heartbleed virus issue' was a wake-up call.
+
+[ The Rise of Open-Source Software](https://youtu.be/SpeDK1TPbew)
+
+I believe very strongly in open-source software but there's a saying "Do  not muzzle an ox while it is treading out the grain".  I think this  means we need to strive to find a balance between taking value and  giving it.
+
+With that said, I don't feel so  strongly to say, 'no'. If you want to release your translated version  for free, I support it. But we should release a paid version on Kobo at the same time. 
+
+This is what Downey did with his Python books so, why not? 
+
+-Brad
+
+---
