@@ -200,17 +200,17 @@ Hi Brad,
 
 I am glad to hear your kind reply. 
 
-I watched the video of CNBC, but I cann't catch up with its speed even with screen scripts. I'm afraid I don't understand much about the software world, not to mention the economy of open-source movement. Sorry, I am not to teach you something, and I want to report you what has taught me.
+I watched the video of CNBC, but I can't catch up with its speed even with screen scripts. I'm afraid I don't understand much about the software world, not to mention the economy of the open-source movement. Sorry, I am not to teach you something, and I want to report to you what has taught me.
 
-As for the relationship between you and @yorik, thank you for telling me more about the details of your collaboration experience. You did something in a field, and earned an amount of money. You need something, and paid that money back into the field. The former affair seems triggered the latter one. If I haven't mistaken you too much, money is a kind of fire. Its growing means people need it. Its being inspired you to do more for the community. In this consideration, money in this project is a must for you.
+As for the relationship between you and @yorik, thank you for telling me more about the details of your collaboration experience. You did something in a field and earned an amount of money. When you need something you paid that money back. The former affair seemed to trigger the latter. If I haven't mistaken you too much, money is a kind of fire. Its growth means people need it. Its burning inspired you to do more for the community. In this consideration, money in this project is a must for you.
 
-I made my proposal on your post about FFI. I found it seems to be an easy (actually not too easy) chance to make my contribution, because you were welcome to 's typo PM. I am (and may be too) eager to affect people. I want to recieve reactions, no matter plus or minus. It is these feedback that push me do more. In this consideration, show off in this project seems a must for me.
+I found it seems to be an easy (actually not too easy) chance to make my contribution because [you were welcome to @shiftee's typo PM](https://forum.freecadweb.org/viewtopic.php?f=8&t=30959&start=10#p259153). I am (maybe extremely) eager to affect people. I want to receive reactions, no matter plus or minus. It is this feedback that pushes me to do more. In this consideration, show off in this project seems a must for me.
 
-I would like to keep up with your plan to release a new paid version when FC 1.0 is on board. Before that, I insist to make a free-to-read version online. From one hand, I would proofread the texts myself. With fresh eyes one year latter, I think I can do it. From another hand, someone on Chinese forum might found some error and make an issue for me. In the same time, I will regenerate the screenshots with FreeCAD-0.19-18775 which I downloaded at 2019-11-26. You might ask why not use 0.18, if I plan to publish it online? I noticed that 0.18.x is not recommended for Mac OS. I think that won't conflict with our new release version, if the latter will incorporate a good amount of updated texts(I am sure it does :).
+I want to keep up with your plan to release a new paid version when FC 1.0 is on board. Before that, I insist on making a free-to-read version online. From one hand, I would proofread the texts myself. With fresh eyes one-year latter, I think I can do it. From another hand, someone on the Chinese forum might found some error and make an issue for me. At the same time, I will regenerate the screenshots with FreeCAD-0.19-18775, which I downloaded at 2019-11-26. You might ask why not use 0.18 if I plan to publish it online? I noticed that 0.18.x is not recommended for Mac OS. I think that won't conflict with our new release version if the latter will incorporate a lot of updated texts(I am sure it does :).
 
-Tomorrow (11, Jan.) I will go to my wife's home village in Wuhan, and go back to shanghai in February 1st (You are in Brussels at that time). I am not sure my net condition can support frequent PR and email, but I will try to keep in touch with you and report any progress and actions of mine. My new plan is that by 2nd Feb, I will pull to your repo a complete edition of edited Chinese translation. That can be the base material to publish on kobo then. 
+Tomorrow (11, Jan.) I will go to my wife's home village in Wuhan and go back to shanghai on February 1st (You are in Brussels at that time). I am not sure my net condition can support many PR and email, but I will try to keep in touch with you and report any progress and actions of mine. I think at least by 2nd Feb, I will pull to your repo a completely edited Chinese translation. That can be the base material to publish on kobo then. 
 
-I hope your FOSDEM conference report success, and the offline meetup with other developers turns to be a happy story. I think I should do more and learn more in FC community, in order to have something to say, if oneday I meet with you guys. 
+I hope your FOSDEM conference report success and the offline meetup with other developers turn to be a happy story. I think I should do more and learn more in the FC community, in order to have something to say, in case that one day I meet with you guys. 
 
 Best regards
 
@@ -219,4 +219,3 @@ Yours sincerely
 John Qu
 
 2020-01-10
-
