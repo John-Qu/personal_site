@@ -1,5 +1,5 @@
 ---
-title: [Live]敏捷专案管理-xDite老师全栈营
+title: 敏捷专案管理xDite老师全栈营
 author: 曲政
 date: '2017-04-24'
 slug: 
@@ -9,7 +9,6 @@ categories:
 - 
 typora-root-url: ../../static
 ---
-
 ## 概要
 
 >   何时，在哪个平台，谁讲了什么主题？

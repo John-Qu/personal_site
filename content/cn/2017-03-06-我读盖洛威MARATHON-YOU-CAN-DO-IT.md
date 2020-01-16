@@ -1,5 +1,5 @@
 ---
-title: 我读盖洛威MARATHON: YOU CAN DO IT
+title: 我读盖洛威 MARATHON
 author: 曲政
 date: '2017-03-06'
 slug: you-can-do-it

@@ -1,5 +1,5 @@
 ---
-title: [Plan]全栈营Job-listing大赛
+title: 全栈营Job-listing大赛
 author: 曲政
 date: '2017-04-24'
 slug: job-listing
