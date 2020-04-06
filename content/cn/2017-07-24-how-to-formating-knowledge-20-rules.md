@@ -1,8 +1,13 @@
 ---
-layout: log
-title:  "怎样优雅地啃玉米，更有效地消化知识"
-date:   2017-07-24 11:08 +0800
-categories: method
+title: 怎样优雅地啃玉米，更有效地消化知识
+author: 曲政
+date: '2017-07-24'
+slug: 
+tags:
+- 
+categories:
+- 
+typora-root-url: ../../static
 ---
 
 学习速度快慢与如何格式化材料相关，有决定性作用。我相信这个吗？你相信吗？没有论证，不用论证。且看下文20个条目分解——按重要性排序，排在前面的最常被人违背，或遵守了获益最大。假设你认同[间隔重复理论](http://super-memory.com/articles/theory.htm)，并使用相应工具——比如开山鼻祖Supermemo，或后来居上的Anki。

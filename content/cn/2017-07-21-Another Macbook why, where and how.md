@@ -1,8 +1,13 @@
 ---
-layout: post
-title:  "MacBook_为什么、哪里买和怎么用（补2分钟干货）"
-date:   2017-07-21 18:51 +0800
-categories: tools
+title: MacBook_为什么、哪里买和怎么用（补2分钟干货）
+author: 曲政
+date: '2017-07-21'
+slug: 
+tags:
+- 
+categories:
+- 
+typora-root-url: ../../static
 ---
 
 老婆问我：“你想要的15寸MacBook还想要不？要不给你买一台，你手上的这台给我用。”我面色平静，心潮澎湃——她不问我为什么要买，只问我买哪个。我表决心说：我一定用好它。她脸一沉：“你不要被工具奴役了。”去年我们一起用上了iphone手机，今年我们一起用Macbook。这条路上我先行了四个月，不腆鄙陋，姑且做一下导游，回答三个设问：

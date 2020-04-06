@@ -1,11 +1,16 @@
 ---
-layout: post
-title:  "怎样拥有一年成为python高手的能力(像科研一样严肃对待这个笑话)"
-date: 2017-07-17 09:59 +0800
-categories: roadmap
+title: 怎样拥有一年成为python高手的能力(像科研一样严肃对待这个笑话)
+author: 曲政
+date: '2017-07-17'
+slug: 
+tags:
+- 
+categories:
+- 
+typora-root-url: ../../static
 ---
 
-Python先天具有喜剧基因，但我不能把它当成一个笑话。陈斌学长写了一篇《[一年成为 Emacs 高手 (像神一样使用编辑器)](https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/guide-zh.org)》。文章侧重从方法论的高度讲怎么做。我读了以后很受启发。参考陈的指点，落实到自己身上，我想梳理一下我的想法——怎样在凸轮廓线设计这个项目中，拥有一年[成为python高手](http://200ok.ch/posts/how-to-become-a-proficient-python-programmer.html)的能力。
+Python 先天具有喜剧基因，但我不能把它当成一个笑话。陈斌学长写了一篇《[一年成为 Emacs 高手 (像神一样使用编辑器)](https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/guide-zh.org)》。文章侧重从方法论的高度讲怎么做。我读了以后很受启发。参考陈的指点，落实到自己身上，我想梳理一下我的想法——怎样在凸轮廓线设计这个项目中，拥有一年[成为python高手](http://200ok.ch/posts/how-to-become-a-proficient-python-programmer.html)的能力。
 
 强调一下，我不是要一年成为python高手，而是拥有这种能力。从小白，到新手、熟手、专家，最后被称为大师，这不是短期可以走完的路，也不是自己努力就可以的。但是，我想，我可以参考前人的指点，做好三方面准备：1. 确立目标；2. 掌握方法；3. 积累知识。这样，当因缘际会来临时，我也可以在一年内成为python高手。
 
