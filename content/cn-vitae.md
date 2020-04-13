@@ -136,7 +136,7 @@ Email：johnqu1982@gmail.com；主页：<https://johnqu.site>；现居住于中�
 -   画画二四
 -   缘遇记
 -   儿子周岁十二幅素描
--   [上海市公务员考试之日五律一首报妈妈](./cn/2011/03/gongwuyuan)
+-   [上海市公务员考试之日五律一首报妈妈](/cn/2011/03/gongwuyuan)
 
 ## 跑步比赛
 
