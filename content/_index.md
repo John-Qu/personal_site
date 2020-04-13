@@ -4,7 +4,6 @@ date: '2020-01-06'
 disable_mathjax: true
 disable_highlight: true
 ---
-
 [<img src="https://simpleicons.org/icons/github.svg" style="max-width:15%;min-width:40px;float:right;" alt="Github repo" />](https://github.com/john-qu/johnqu_site)
 
 This is mainly my personal thought and feeling in transition.
