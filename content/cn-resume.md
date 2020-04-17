@@ -4,10 +4,10 @@ slug: "cn/resume"
 disable_comments: true
 ---
 
-## 曲政
+## 曲 政
 
 1982 年生于辽宁省铁岒市，现居住于上海市浦东新区，至世纪大道站步行七分钟。<br>
-```Email: JohnQuicker@163.com```    	    ```Blog: johnqu.site```
+```Email: JohnQuicker@163.com```，  ```Blog: johnqu.site```
 
 ## 工作经历
 
