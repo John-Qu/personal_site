@@ -1,14 +1,21 @@
 ---
-layout: post
-title:  "敢问坑在何方"
-date: 2018-09-05 19:18:10 +0800
-categories: article
-description: 《奔跑吧，程序员》（英文书名：Hello Startup《你好，创业公司》）读后推荐文
+title: 敢问坑在何方
+subtitle: 《奔跑吧，程序员》（英文书名：Hello Startup《你好，创业公司》）读后推荐文
+author: 曲政
+date: '2018-09-05'
+slug: hello-startup
+tags:
+- 读书
+- 技术
+- 豆瓣
+- 好不好
+- 微信
+categories:
+- 推荐广告
+typora-root-url: ../../static
 ---
 
-# 敢问坑在何方
-
-——《[奔跑吧，程序员](http://www.ituring.com.cn/book/1776)》（英文书名：[Hello Startup](https://www.hello-startup.net/)《你好，创业公司》）的读后推荐文，首发于[豆瓣读书](https://book.douban.com/subject/30271075/)。
+《[奔跑吧，程序员](http://www.ituring.com.cn/book/1776)》（英文书名：[Hello Startup](https://www.hello-startup.net/)《你好，创业公司》）的读后推荐文，首发于[豆瓣读书](https://book.douban.com/subject/30271075/)。
 
 ![](https://ws1.sinaimg.cn/large/006tNbRwgy1fuzke98fjkj30jg0rjdim.jpg)
 
@@ -24,13 +31,13 @@ description: 《奔跑吧，程序员》（英文书名：Hello Startup《你好
 
 你肯定要问，我读了这本书，有什么收获？我只能说我发现它是一本好书。我的经验在传统行业，最近刚刚学了点编程和算法，正在朝创业的方向摸索。以这个程度来读这本书，我也许并不能很好地理解和应用。但是我知道了什么是好公司，什么是好做法，也知道了自己还差多少、差多远。有目标，知敬畏，这就是它对我的帮助。
 
-说一点剧透吧，其实也不算剧透。这是程序员的常识，但与常人的常识有点相反。编程是什么？就是写代码让机器执行来完成任务吗？计算机科学之父高德纳说：“Programming is the art of telling another human what one wants the computer to do.”（这句里的词都是大白话，我就不翻译了）。让我们看看程序员的时间都花在哪里了。书中综合了Electric Cloud在LinkedIn上的千人调查数据，给出了一张图。如果每天工作八小时，幸运的话，你会有5分钟在写新的代码。更多的时候，是在读代码。因此，程序员写出整洁可读的代码的能力，非常重要。
+说一点剧透吧，其实也不算剧透。这是程序员的常识，但与常人的常识有点相反。编程是什么？就是写代码让机器执行来完成任务吗？计算机科学之父高德纳说：“Programming is the art of telling another human what one wants the computer to do.”（这句里的词都是大白话，我就不翻译了）。让我们看看程序员的时间都花在哪里了。书中综合了 Electric Cloud 在 LinkedIn 上的千人调查数据，给出了一张图。如果每天工作八小时，幸运的话，你会有 5 分钟在写新的代码。更多的时候，是在读代码。因此，程序员写出整洁可读的代码的能力，非常重要。
 
 ![](https://ws1.sinaimg.cn/large/006tNbRwgy1fuyqrniptzj30qo0n8myu.jpg)
 
 注意，这里是说能写出整洁可读的代码，是能力。有时候，创业初期做的产品，主要用来验证市场假设，很多不需要可持续发展，那么不妨先拼凑出来，毕竟速度制胜。你看，此书就是这样接地气。所以，这本书不是拿来读的，是要拿来体会的。它就像一本菜谱，告诉你这样那样的做法，简单解释几句或者干脆不解释。你需要在灶台上体会，用品尝来印证。
 
-我在Github上开了一个项目，叫做[Hello Chinese Startup](https://github.com/John-Qu/Hello-Chinese-Startup)，专门用来搜集中国黑客创业者的采访记录，欢迎大家push投稿。未来半年，我会在上海交大徐汇校区办一个读书会，每个周末，几个人围坐在咖啡馆，讲各自的体会和故事。
+我在Github上开了一个项目，叫做 [Hello Chinese Startup](https://github.com/John-Qu/Hello-Chinese-Startup)，专门用来搜集中国黑客创业者的采访记录，欢迎大家push投稿。未来半年，我会在上海交大徐汇校区办一个读书会，每个周末，几个人围坐在咖啡馆，讲各自的体会和故事。
 
 这里是我的个人网络痕迹，[Github](https://github.com/John-Qu)，[LinkedIn](https://www.linkedin.com/in/%E6%94%BF-%E6%9B%B2-1b20b5147/)，微信“bbQuickor”和公众号“贝拉图”，敬请人肉，欢迎搭讪。
 
