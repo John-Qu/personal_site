@@ -7,7 +7,7 @@ disable_comments: true
 ## 曲 政
 
 1982 年生于辽宁省铁岒市，现居住于上海市浦东新区，至世纪大道站步行七分钟。<br>
-```Email: JohnQuicker@163.com```，  ```Blog: johnqu.site```
+```Email: JohnQuicker@163.com```，  ```Blog: johnqu.site```，```WeChat: bbQuickor```。
 
 ## 工作经历
 
@@ -55,5 +55,6 @@ disable_comments: true
 
 拍摄长跑训练比赛专题，作品发表在“饮水思源” BBS；在公众号“贝拉图”，近一年日更三四百字心得。
 
-![cn-resume](../../static/images/cn-resume/cn-resume-6853727.png)
 
+
+![cn-resume](../../static/images/cn-resume/cn-resume-7905607.png)
