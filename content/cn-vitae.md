@@ -130,12 +130,12 @@ Email：johnqu1982@gmail.com；主页：<https://johnqu.site>；现居住于中�
 -   压包器：师父带我做的第一个完整作品，简单到一个动作
 -   利乐经典机型终端新排包机构：细化实现前辈的原理设想，实验证明不可靠
 -   利乐柔性机横封机构：寻找蛛丝马迹，参照零件手册，边建模边学习
--   《请 Inventor 用 FreeCAD》：买了书，翻译完，两番润色，终于上架
+-   《请 Inventor 用 FreeCAD》：12 美元买了书，一个月翻译完，校对三番润色五次，终于在 [bookdown.org](https://bookdown.org/johnqu1982/FFI/) 上架了
 
 ## 文艺作品
 
 -   十二幅素描《画画二四》
--   向老家婚礼上的亲友作汇报的视频《[缘遇记](http://mp.weixin.qq.com/mp/video?__biz=MzAwNzgwNjI3MA==&mid=100002937&sn=8b8ae206b1f418f9a721831ae6735391&vid=wxv_1296086509317259266&idx=1&vidsn=0ae0525aa2084d4346486971ed5f3028&fromid=1&scene=20&xtrack=1&sessionid=1586857129&subscene=91&clicktime=1586857151#wechat_redirect)》
+-   婚礼上向老家亲友作汇报的短视频《[缘遇记](http://mp.weixin.qq.com/mp/video?__biz=MzAwNzgwNjI3MA==&mid=100002937&sn=8b8ae206b1f418f9a721831ae6735391&vid=wxv_1296086509317259266&idx=1&vidsn=0ae0525aa2084d4346486971ed5f3028&fromid=1&scene=20&xtrack=1&sessionid=1586857129&subscene=91&clicktime=1586857151#wechat_redirect)》
 -   儿子周岁十二幅素描
 -   小诗《[不容自己 vs 不是自己](/cn/2011/02/not-to-be-me)》
 -   五言律诗《[上海市公务员考试之日五律一首报妈妈](/cn/2011/03/gongwuyuan)》
