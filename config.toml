@@ -84,7 +84,7 @@ rssLimit = 100
 
 [params]
     description = "Reflection in Transition"
-    footer = "&copy; [John Qu](https://johnqu.site) 2019 | [Github](https://github.com/john-qu)"
+    footer = "&copy; [John Qu](https://johnqu.site) 2020 | [Github](https://github.com/john-qu)"
     customJS = [
     "js/fix-toc.js",
     "js/center-img.js",
@@ -108,13 +108,13 @@ rssLimit = 100
   # Valine.
   # You can get your appid and appkey from https://leancloud.cn
   # more info please open https://valine.js.org
-  [params.valine]
-    enable = true
-    appId = 'LYMjmvh50b67fqV7WExrvI4A-9Nh9j0Va'
-    appKey = 'g4Gawn6OK5puA91rQxXYLspW'
-    notify = false  # mail notifier , https://github.com/xCss/Valine/wiki
-    verify = false # Verification code
-    avatar = 'mm' 
-    placeholder = '既然你都来了，给我留句话吧。'
-    visitor = true
+[params.valine]
+  enable = true
+  appId = 'AmxF4njTuN8SqLiIcMpN0UAN-MdYXbMMI'
+  appKey = 'OdEwQhq4NpYKfrOsDeoo0ivQ'
+  notify = false  # mail notifier , https://github.com/xCss/Valine/wiki
+  verify = false # Verification code
+  avatar = 'mm' 
+  placeholder = '既然你都来了，给我留句话吧。'
+  visitor = false
 

@@ -2,7 +2,6 @@
   {{ partial "foot_custom.html" . }}
   {{ partial "footer_highlightjs" . }}
   {{ with .Site.Params.footer }}
-  {{ partial "comment.html" . }}
   <hr>
   <div class="copyright">{{ . | markdownify }}</div>
   {{ end }}
