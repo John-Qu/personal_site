@@ -113,6 +113,6 @@ rssLimit = 100
   appId = 'AmxF4njTuN8SqLiIcMpN0UAN-MdYXbMMI'
   appKey = 'OdEwQhq4NpYKfrOsDeoo0ivQ'
   avatar = 'mp' 
-  placeholder = '既然你都来了，给我留句话吧。'
+  placeholder = '你留言，我就会收到邮件提醒。你留邮箱，也会收到我的回复提醒。'
   visitor = false
 
