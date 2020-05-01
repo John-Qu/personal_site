@@ -98,6 +98,7 @@ rssLimit = 100
     ]
     githubContentURL = "https://github.com/john-qu/johnqu.site/edit/master/content/"
     twitterImage = "/images/logo.png"
+    show_toc = true
     
   highlightjsVersion = "9.12.0"
   highlightjsCDN = "//cdn.bootcss.com"

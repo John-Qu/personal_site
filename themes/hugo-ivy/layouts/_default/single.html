@@ -1,6 +1,7 @@
 {{ partial "header.html" . }}
 
 {{ if .Params.show_toc }} {{ .TableOfContents }} {{ end }}
+{{ partial "smart_toc.html" . }}
 {{ .Content }}
 
 {{ partial "footer.html" . }}

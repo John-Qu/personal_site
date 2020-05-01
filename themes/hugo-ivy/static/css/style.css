@@ -459,3 +459,40 @@ thead, tfoot, tr:nth-child(even) {
   }
 
 }
+
+/* toc part */
+.article-toc {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 110px;
+  font-size: 0.9em;
+  width: 260px;
+  margin-left: 400px;
+  padding-left: 20px;
+  overflow-y: auto;
+  line-height: 1.4em;
+  max-height: 85%;
+}
+.article-toc h3 {
+  font-weight: bold;
+  margin-left: 20px;
+}
+.article-toc li {
+  list-style: none;
+  margin-left: 20px;
+  margin-top: 2px;
+}
+.article-toc li a {
+  color: #000;
+  text-decoration: none;
+}
+.article-toc li a.active {
+  font-weight: bold;
+}
+@media screen and (min-width: 1400px) {
+  .article-toc {
+    display: block;
+  }
+}
+
