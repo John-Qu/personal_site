@@ -3,5 +3,9 @@
 {{ if .Params.show_toc }} {{ .TableOfContents }} {{ end }}
 {{ partial "smart_toc.html" . }}
 {{ .Content }}
-
+<div class="post-comment">
+    <!-- 加入评论功能 -->
+    {{ partial "comments.html" . }}
+</div>
+{{ partial "comment.html" . }}
 {{ partial "footer.html" . }}
