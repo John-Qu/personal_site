@@ -112,9 +112,7 @@ rssLimit = 100
   enable = true
   appId = 'AmxF4njTuN8SqLiIcMpN0UAN-MdYXbMMI'
   appKey = 'OdEwQhq4NpYKfrOsDeoo0ivQ'
-  notify = false  # mail notifier , https://github.com/xCss/Valine/wiki
-  verify = false # Verification code
-  avatar = 'mm' 
+  avatar = 'mp' 
   placeholder = '既然你都来了，给我留句话吧。'
   visitor = false
 
