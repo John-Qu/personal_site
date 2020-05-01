@@ -105,4 +105,16 @@ rssLimit = 100
   highlightjsLang = ["r", "yaml", "tex"]
   highlightjsTheme = "github"
 
+  # Valine.
+  # You can get your appid and appkey from https://leancloud.cn
+  # more info please open https://valine.js.org
+  [params.valine]
+    enable = true
+    appId = 'LYMjmvh50b67fqV7WExrvI4A-9Nh9j0Va'
+    appKey = 'g4Gawn6OK5puA91rQxXYLspW'
+    notify = false  # mail notifier , https://github.com/xCss/Valine/wiki
+    verify = false # Verification code
+    avatar = 'mm' 
+    placeholder = '既然你都来了，给我留句话吧。'
+    visitor = true
 
