@@ -113,6 +113,6 @@ rssLimit = 100
   appId = 'AmxF4njTuN8SqLiIcMpN0UAN-MdYXbMMI'
   appKey = 'OdEwQhq4NpYKfrOsDeoo0ivQ'
   avatar = 'mp' 
-  placeholder = '你留言，我就会收到邮件提醒。你留邮箱，也会收到我的回复提醒。'
+  placeholder = '你留言，我就会收到邮件提醒。你留邮箱，也会收到我的回复提醒。你可以用 markdown 语法排版，按 Ctrl + Enter 组合键发送。'
   visitor = false
 
