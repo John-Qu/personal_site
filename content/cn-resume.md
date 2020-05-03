@@ -2,6 +2,7 @@
 title: "简历"
 slug: "cn/resume"
 disable_comments: true
+typora-root-url: ../static
 ---
 
 ## 曲 政
@@ -55,6 +56,4 @@ disable_comments: true
 
 拍摄长跑训练比赛专题，作品发表在“饮水思源” BBS；在公众号“贝拉图”，近一年日更三四百字心得。
 
-
-
-![cn-resume](../../static/images/cn-resume/cn-resume-7905607.png)
+![cn-resume](/images/cn-resume/cn-resume-7905607.png)
