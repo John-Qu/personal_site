@@ -13,6 +13,7 @@ rssLimit = 100
 [permalinks]
     cn = "/cn/:year/:month/:slug/"
     en = "/en/:year/:month/:slug/"
+    note = "/note/:year/:month/:slug/"
 
 [[menu.main]]
     name = "About"
@@ -27,7 +28,7 @@ rssLimit = 100
     url = "/cn/about/"
     weight = 3
 [[menu.main]]
-    name = "日志"
+    name = "文章"
     url = "/cn/"
     weight = 4
 [[menu.en]]
@@ -51,7 +52,7 @@ rssLimit = 100
     url = "/tags/"
     weight = 5
 [[menu.en]]
-    name = "中文"
+    name = "中文文章"
     url = "/cn/"
     weight = 6
 #[[menu.main]]
@@ -66,21 +67,25 @@ rssLimit = 100
     url = "/cn/about/"
     weight = 2
 [[menu.cn]]
-    name = "日志"
+    name = "文章"
     url = "/cn/"
     weight = 3
 [[menu.cn]]
+    name = "笔记"
+    url = "/note/"
+    weight = 4
+[[menu.cn]]
     name = "分类"
     url = "/categories/"
-    weight = 4
+    weight = 5
 [[menu.cn]]
     name = "标签"
     url = "/tags/"
-    weight = 5
+    weight = 6
 [[menu.cn]]
     name = "English"
     url = "/en/"
-    weight = 6
+    weight = 7
 
 [params]
     description = "Reflection in Transition"
