@@ -32,6 +32,7 @@ rssLimit = 100
     name = "文章"
     url = "/cn/"
     weight = 4
+    
 [[menu.en]]
     name = "Home"
     url = "/"
@@ -56,6 +57,7 @@ rssLimit = 100
     name = "中文文章"
     url = "/cn/"
     weight = 6
+    
 [[menu.cn]]
     name = "首页"
     url = "/"
@@ -65,25 +67,47 @@ rssLimit = 100
     url = "/cn/about/"
     weight = 2
 [[menu.cn]]
-    name = "文章"
-    url = "/cn/"
-    weight = 3
-[[menu.cn]]
     name = "笔记"
-    url = "/note/"
-    weight = 4
+    url = "/cn-note/"
+    weight = 3
 [[menu.cn]]
     name = "分类"
     url = "/categories/"
-    weight = 5
+    weight = 4
 [[menu.cn]]
     name = "标签"
     url = "/tags/"
-    weight = 6
+    weight = 5
 [[menu.cn]]
     name = "English"
     url = "/en/"
-    weight = 7
+    weight = 6
+    
+[[menu.cn-note]]
+    name = "首页"
+    url = "/"
+    weight = 1
+[[menu.cn-note]]
+    name = "关于"
+    url = "/cn/about/"
+    weight = 2
+[[menu.cn-note]]
+    name = "文章"
+    url = "/cn/"
+    weight = 3
+[[menu.cn-note]]
+    name = "分类"
+    url = "/categories/"
+    weight = 4
+[[menu.cn-note]]
+    name = "标签"
+    url = "/tags/"
+    weight = 5
+[[menu.cn-note]]
+    name = "English"
+    url = "/en/"
+    weight = 6
+
 
 [params]
     description = "Reflection in Transition"
