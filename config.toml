@@ -14,7 +14,7 @@ rssLimit = 100
 [permalinks]
     cn = "/cn/:year/:month/:slug/"
     en = "/en/:year/:month/:slug/"
-    note = "/note/:year/:month/:slug/"
+    cn-note = "/cn-note/:year/:month/:slug/"
 
 [[menu.main]]
     name = "About"
