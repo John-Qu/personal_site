@@ -32,6 +32,10 @@ rssLimit = 100
     name = "文章"
     url = "/cn/"
     weight = 4
+[[menu.main]]
+    name = "笔记"
+    url = "/cn-note/"
+    weight = 5
     
 [[menu.en]]
     name = "Home"
@@ -67,21 +71,25 @@ rssLimit = 100
     url = "/cn/about/"
     weight = 2
 [[menu.cn]]
-    name = "笔记"
+    name = "文章"
     url = "/cn-note/"
     weight = 3
 [[menu.cn]]
+    name = "笔记"
+    url = "/cn-note/"
+    weight = 4
+[[menu.cn]]
     name = "分类"
     url = "/categories/"
-    weight = 4
+    weight = 5
 [[menu.cn]]
     name = "标签"
     url = "/tags/"
-    weight = 5
+    weight = 6
 [[menu.cn]]
     name = "English"
     url = "/en/"
-    weight = 6
+    weight = 7
     
 [[menu.cn-note]]
     name = "首页"
@@ -95,18 +103,22 @@ rssLimit = 100
     name = "文章"
     url = "/cn/"
     weight = 3
+[[menu.cn]]
+    name = "笔记"
+    url = "/cn-note/"
+    weight = 4
 [[menu.cn-note]]
     name = "分类"
     url = "/categories/"
-    weight = 4
+    weight = 5
 [[menu.cn-note]]
     name = "标签"
     url = "/tags/"
-    weight = 5
+    weight = 6
 [[menu.cn-note]]
     name = "English"
     url = "/en/"
-    weight = 6
+    weight = 7
 
 
 [params]
