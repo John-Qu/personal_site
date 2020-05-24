@@ -1,0 +1,209 @@
+---
+title: 第 3 章　一些简单的数值程序
+subtitle: SOME SIMPLE NUMERICAL PROGRAMS
+author: 曲政
+date: 2018-04-10
+slug: some-simple-numerical-programs
+tags:
+- 
+categories:
+- 
+typora-root-url: ../../static
+show_toc: no
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+
+
+<div id="some-simple-numerical-programs" class="section level1">
+<h1>3 SOME SIMPLE NUMERICAL PROGRAMS</h1>
+<div id="exhaustive-enumeration" class="section level2">
+<h2>3.1 Exhaustive Enumeration</h2>
+<div id="用-while-的时候必须想好什么" class="section level3">
+<h3>用 <code>while</code> 的时候必须想好什么？</h3>
+<p>decrement function，什么时候停下来。</p>
+</div>
+<div id="decrementing-function-有哪四个属性" class="section level3">
+<h3>decrementing function 有哪四个属性？</h3>
+<p>从问题中提取一组变量，把它映射到一个变量；
+这个变量的初始值非负；
+每次运算这个变量都会变小；
+小于等于零，就停止循环。</p>
+</div>
+<div id="可以使用猜试法的问题有什么特征" class="section level3">
+<h3>可以使用猜试法的问题，有什么特征？</h3>
+<p>猜试系：猜一个结果，试一下对不对，不对就再猜。</p>
+<p>前提</p>
+<ul>
+<li>试起来很容易。</li>
+<li>错了没惩罚。</li>
+<li>以可以接受的成本，有望得到答案。</li>
+</ul>
+</div>
+<div id="猜试法中有一种什么有效的-笨-办法" class="section level3">
+<h3>猜试法中有一种什么有效的 “笨” 办法？</h3>
+<p>穷举法 —— 把答案空间中的所有可能都试一下，要么找到答案，要么证明没有。</p>
+<p>为什么有效呢？</p>
+<ul>
+<li>方法简单粗暴，相对于手工推演等算法，实现更容易。</li>
+<li>节省了想算法的时间。</li>
+<li>计算机的速度很快。</li>
+</ul>
+</div>
+</div>
+<div id="for-loops" class="section level2">
+<h2>3.2 For Loops</h2>
+<div id="range-start-stop-step-的三个参数怎么理解输出什么结果" class="section level3">
+<h3><code>range (start, stop, step)</code> 的三个参数怎么理解，输出什么结果？</h3>
+<p>start 是砖，肯定能踩准；stop 是墙，以 step 来走，永远不会触碰。</p>
+</div>
+<div id="在-python3-里range-100000-会占用很多空间吗" class="section level3">
+<h3>在 python3 里，<code>range (100000)</code> 会占用很多空间吗？</h3>
+<p>不会。</p>
+<blockquote>
+<p>be generated on an “as needed” basis.</p>
+</blockquote>
+<p>这个功能在 Python2 中需要使用 <code>xrange ()</code>。</p>
+</div>
+<div id="用计算机解平方根与手工解法一样吗" class="section level3">
+<h3>用计算机解平方根，与手工解法一样吗？</h3>
+<p>手工一步步试商；计算机小步走，乘方后检验是否足够接近。</p>
+<p>计算机的解题方法经常与手工不一样。</p>
+</div>
+<div id="什么样就算是一个好答案" class="section level3">
+<h3>什么样就算是一个好答案？</h3>
+<p>按照问题定义的程度，足够接近，就是好答案。</p>
+<p>更接近，或者完全吻合，并不会更好 * no better than*。</p>
+</div>
+</div>
+<div id="approximate-solutions-and-bisection-search" class="section level2">
+<h2>3.3 Approximate Solutions and Bisection Search</h2>
+<div id="二分查找与齐步走查找本质区别在哪里" class="section level3">
+<h3>二分查找与齐步走查找本质区别在哪里？</h3>
+<p>步长不同。</p>
+<ul>
+<li>齐步走每次迈一小步，保证不漏过真正的正确值。</li>
+<li>二分法每次排除一半的空间，越来越接近正确值。</li>
+</ul>
+<p>这就带来几个不同的表现。</p>
+<ul>
+<li>齐步走可能漏过；二分法不会漏过。</li>
+<li>齐步走的计算量可以估计，二分法变动比较大。</li>
+</ul>
+<p>二分法有个前提：可能空间和比较空间都是有序的。</p>
+</div>
+<div id="二分查找法仅仅限于解平方根吗它属于哪个系列" class="section level3">
+<h3>二分查找法仅仅限于解平方根吗？它属于哪个系列？</h3>
+<p>不限于解平方根，也可以解立方根，只要结果空间的大小比较，可以用来指导选择可能空间的哪一半，就可以使用。也就是说，“大了，就往小里找”，或者相反。</p>
+<p>它属于猜试法。</p>
+</div>
+</div>
+<div id="a-few-words-about-using-floats" class="section level2">
+<h2>3.4 A Few Words About Using Floats</h2>
+<div id="重构的我不是我-的代码结果" class="section level3">
+<h3>“重构的我不是我” 的代码结果</h3>
+<pre class="python"><code>x = 0.0
+for i in range (10):
+    x = x + 0.1
+if x == 1.0:
+    print (x, &#39;= 1.0&#39;)
+else:
+    print (x, &#39;is not 1.0&#39;)
+    print (x)</code></pre>
+<pre><code>## 0.9999999999999999 is not 1.0
+## 0.9999999999999999</code></pre>
+<p>在 Python2.7 中的运行结果</p>
+<p><code>terminal (0.9999999999999999, 'is not 1.0') 1.0 </code></p>
+<p>在 Python3.6 中的运行结果</p>
+<pre class="terminal"><code>0.9999999999999999 is not 1.0
+0.9999999999999999</code></pre>
+<p>因为</p>
+<ol style="list-style-type: decimal">
+<li>Python2.7 中，<code>print</code> 是 statement，而不是 function；</li>
+<li>Python2.7 中，<code>print</code> 会自动圆整。</li>
+<li><code>0.1</code> 这样的数在计算机中存储时，一定有截断。</li>
+</ol>
+</div>
+<div id="什么是浮点数计算机里的浮点数什么样" class="section level3">
+<h3>什么是浮点数？计算机里的浮点数什么样？</h3>
+<blockquote>
+<p>We would represent a number with a pair of integers</p>
+<ul>
+<li>the significant digits</li>
+<li>an exponent</li>
+</ul>
+</blockquote>
+<p>十进制浮点数</p>
+<p><code>1.949 =  (1949, -3) = 1949*10**(-3)</code>二进制浮点数<code>0.625 = 5/8 = (101, -11) = 5*2**(-3)</code>计算机中的<code>0.1```` 0.1 = 1/10 (0011, -101) = 3/32 = 0.09375 (11001, -1000) = 25/256 = 0.0976525 ```不存在这样的</code>sig<code>和</code>exp<code>，使得</code>sig*2**(-exp) == 0.1`。</p>
+<p>在 Python 系统里，这个 significant digits 是 53 位。</p>
+</div>
+<div id="舍入误差对程序有影响吗" class="section level3">
+<h3>舍入误差对程序有影响吗？</h3>
+<p>注意避免直接比较两个实数是否 <code>==</code>，而用 “差值足够小” 来表达。</p>
+<p><code>x == y</code> v.s. <code>abs (x - y) &lt; 0.0001</code></p>
+<p>在某些设计不良的程序里，也会发生误差向一个方向积累的情况。</p>
+</div>
+</div>
+<div id="newton-raphson" class="section level2">
+<h2>3.5 Newton-Raphson</h2>
+<div id="最常用的近似算法叫什么" class="section level3">
+<h3>最常用的近似算法叫什么？</h3>
+<p>通常归功与 Issac Newton，但是 Raphson 几乎同时也发表了这个算法。</p>
+<p>也叫 “切线法”，基本思想是以直代曲，每一步近似为线性方程来求解。</p>
+<p>任意函数，做 Taylor 一阶展开，解出 x 作为新的近似跟。</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1fq5202w15nj31kw23vnpd.jpg" /></p>
+</div>
+<div id="在多项式函数里有哪些术语" class="section level3">
+<h3>在多项式函数里，有哪些术语？</h3>
+<p>注意：N-R 法不只用来解一元多项式方程，还可以解多元方程、非线性方程。它只有局部收敛性，没有全局收敛性。</p>
+<ul>
+<li>polinomial of one varialbe</li>
+<li>term</li>
+<li>coefficient</li>
+<li>nonnegative integer exponent</li>
+<li>degree of term</li>
+<li>degree of polynomial</li>
+<li>value of polynomial</li>
+<li>root of the polynomial</li>
+</ul>
+</div>
+<div id="同样的精度bisecton-search-与-newton-raphson-方法各自的收敛速度怎么样" class="section level3">
+<h3>同样的精度，Bisecton Search 与 Newton-Raphson 方法各自的收敛速度怎么样？</h3>
+<p>快三倍？</p>
+<pre class="python"><code>y = 54.0
+epsilon = 0.01
+
+numGuesses = 0
+low = 0.0
+high = y
+ans = (high + low)/2.0
+
+while abs (ans**2 - y) &gt;= epsilon:
+    print (&#39;low = &#39; + str (low) + &#39; high = &#39; + str (high) + &#39; ans = &#39; + str (ans))
+    numGuesses += 1
+    if ans**2 &lt; y:
+        low = ans
+    else:
+        high = ans
+    ans = (high + low)/2.0
+print (&#39;Bisection search numGuesses = &#39; + str (numGuesses))
+print (str (ans) + &#39; is close to square root of &#39; + str (y))
+
+guess = y/2.0
+numGuesses = 0
+
+while abs (guess*guess - y) &gt;= epsilon:
+    numGuesses += 1
+    guess = guess - (((guess**2) - y)/(2*guess))
+print (&#39;Newton-Raphson numGuesses = &#39; + str (numGuesses))
+print (&#39;Square root of &#39; + str (y) + &#39; is about &#39; + str (guess))
+```输出结果：``` term
+Bisection search numGuesses = 14
+7.34820556641 is close to square root of 54.0
+Newton-Raphson numGuesses = 5
+Square root of 54.0 is about 7.34846948355</code></pre>
+</div>
+</div>
+</div>

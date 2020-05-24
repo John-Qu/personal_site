@@ -1,4 +1,164 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6 (Guttag)" project-jdk-type="Python SDK" />
+  <component name="RMarkdownSettings">
+    <option name="renderProfiles">
+      <map>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-04-10-第-3-章-一些简单的数值程序.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-04-14-第-4-章-函数、作用域与抽象.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-04-16-第-5-章-结构化类型、可变性与高阶函数.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-04-20-第-6-章-测试与调试.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-04-22-第-7-章-异常与断言.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-04-22-第-9-章-算法复杂度简介.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-04-24-第-8-章-类与面向对象编程.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-04-28-第-10-章-一些简单算法和数据结构.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-04-29-第-11-章-绘图以及类的进一步扩展.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-04-30-第-12-章-背包与图的最优化问题.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-04-31-第-13-章-动态规划.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-05-02-第-14-章-随机游走与数据可视化.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-05-04-第-15-章-随机程序、概率与分布.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-05-09-第-16-章-蒙特卡罗模拟.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-05-11-第-17-章-抽样与置信区间.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-05-14-第-18-章-理解实验数据.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-05-16-第-19-章-随机试验与假设检验.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-05-17-第-20-章-条件概率与贝叶斯统计.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-05-22-第-21-章-谎言、该死的谎言与统计学.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-05-22-第-22-章-机器学习简介.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-05-22-第-23-章-聚类.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-05-25-第-24-章-分类方法.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
 </project>
