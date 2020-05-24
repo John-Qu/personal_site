@@ -72,7 +72,7 @@ output: html_notebook
 
 算法的实际运行时间不仅依赖于输入规模，还依赖于具体的输入值。
 
-```{python}
+```python
 def linearSearch (L, x):
    for e in L:
       if e == x:
@@ -189,7 +189,7 @@ O (log2 (x)) = O (log2 (10)*log10 (x))
 
 ### 下面 intToStr 为什么是对数复杂度？
 
-```{python}
+```python
 def intToStr (i):
    """ 假设 i 是非负整数
       返回一个表示 i 的十进制字符串 """
@@ -248,7 +248,7 @@ t in O (log10 (x))
 是的。
 
 两层循环嵌套的例子
-```{python}
+```python
 def isSubset (L1, L2):     # O (len (L1))*O (len (L2))
    """ 假设 L1 和 L2 是列表。
       如果 L1 中的每个元素也在 L2 中出现，则返回 True
@@ -266,7 +266,7 @@ def isSubset (L1, L2):     # O (len (L1))*O (len (L2))
 
 注意在数组中查找也是循环。
 
-```{python}
+```python
 def intersect (L1, L2):
    """ 假设 L1 和 L2 是列表
       返回一个不重复的列表，为 L1 和 L2 的交集 """
@@ -298,7 +298,7 @@ O (len (tmp))*O (len (result)) <O (len (L1))*O (len (L2))
 
 ### 一个指数复杂度的例子？
 
-```{python}
+```python
 def getBinaryRep (n, numDigits): # O (log2 (n))
    """ 假设 n 和 numDigits 为非负整数
       返回一个长度为 numDigits 的字符串，为 n 的二进制表示 """

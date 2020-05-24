@@ -47,7 +47,7 @@ Inferential statistics involves making inference about a population of examples 
 
 ### 一个简单的随机抽样，看图形、均值与方差，得到什么启示？
 
-```{python}
+```python
 import random, pylab, numpy
 from em_15_3_flip import stdDev
 
@@ -114,7 +114,7 @@ Estimating the width of the confidence interval required to achieve a desired co
 
 ### 写一个程序，表达总体方差对估计均值时的置信区间的影响？
 
-```{python}
+```python
 def testSamples (numTrials, sampleSize, tightSD=1, wideSD=100):
     tightMeans, wideMeans = [], []
     for t in range (numTrials):
@@ -190,7 +190,7 @@ Central Limit Theorem (CLT to its friends)
 
 ### 中心极限定理的一个例子 —— 均匀分布的连续骰子平均值的竟然也是正态分布？
 
-```{python}
+```python
 import random, pylab
 
 from em_15_3_flip import variance
@@ -259,7 +259,7 @@ Mean of rolling 100 dice = 2.4967 Variance = 0.0201
 
 ### 用带有误差条的图形表示随着样本大小的增加，误差（95% 置信水平之下的置信区间）的变化？
 
-```{python}
+```python
 def mean_std_of_means (population, sample_sizes = range (50, 2000, 200), num_sample = 20):
     """
     以不同样本大小从总体中随机提取 20 个样本，计算样本均值的均值和标注差
@@ -344,7 +344,7 @@ $${\rm SE}=\frac {\sigma}{\sqrt {n}}$$
 
 ### 绘图说明 "多个样本均值的标准差 收敛于 样本的标准误差"
 
-```{python}
+```python
 def standard_error (population, sample_sizes = range (50, 2000, 200), num_sample = 20):
     """
     绘制总体中提取不同大小样本的误差条。
@@ -376,7 +376,7 @@ standard_error (population, range (50, 2000, 200), 20)
 
 ### 用数据说明，可以用足够大的单个样本标注差代替整体标准差。
 
-```{python}
+```python
 def sd_of_sample_vs_population (population, sample_sizes = range (50, 2000, 200), num_sample = 20):
     """绘图说明" 样本标注差与整体标准差的差值随着样本大小增加而变小 ", 
     可以用足够大的样本的标准差代替整体标注差。
@@ -425,7 +425,7 @@ sd_of_sample_vs_population (population, range (2, 200, 2), 100)
 - 使用该样本的标准差估计标准误差；
 - 使用估计出的标准误差生成样本均值的置信区间。
 
-```{python}
+```python
 def check_sampling_error (population, sampleSize):
     """
     验证用样本标准差估计标准误差的可靠性，看看是否能够达到期望的置信水平。

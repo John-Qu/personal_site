@@ -101,7 +101,7 @@ Rao 认为很明显陈述 S1 才是对的，因为模型实际上本来就是存
 
 比如：
 
-```{python}
+```python
     model = pylab.polyfit (xVals, yVals, 3) = (a, b, c)
 ```
 
@@ -110,7 +110,7 @@ Rao 认为很明显陈述 S1 才是对的，因为模型实际上本来就是存
 
 ### 用一阶多项式线拟合弹簧数据？
 
-```{python}
+```python
 def getData (fileName):
     """
     从有两列数据的文件中提取数据
@@ -166,7 +166,7 @@ fitData ('springData.txt')
 
 拟合得挺漂亮，但是远距离预测很不靠谱。
 
-```{python}
+```python
 def fitData3 (fileName):
     xVals, yVals = getData (fileName)
     xVals = pylab.array (xVals)
@@ -201,7 +201,7 @@ fitData3 ('springData.txt')
 
 在这里，我们丢弃了最右侧的点是合理的，因为根据胡克的理论，弹簧是具有弹性极限的。但我们不能凭借这种理由丢弃数据中其他的点。
 
-```{python}
+```python
     xVals = pylab.array (xVals [:-6])
     yVals = pylab.array (yVals [:-6])
 ```
@@ -214,7 +214,7 @@ fitData3 ('springData.txt')
 
 ### 从四组实验数据里提取一条弹丸轨迹。
 
-```{python}
+```python
 import pylab
 
 
@@ -295,7 +295,7 @@ $$ R^2=1-\frac {\sum_i (y_i-p_i)^2}{\sum_i (y_i-\mu)^2} $$
 
 评价线性回归模型时，R2 的值总是位于 0 和 1 之间。如果 R2=1，模型就是对数据的完美拟合；如果 R2=0，那么模型预测值就与均值周围数据的分布方式没有任何联系。
 
-```{python}
+```python
 def rSquared (measured, predicted):
     """ 计算线性回归模型的 R2 可决系数。
     假设 measured 为表示测量值的一维数组
@@ -325,7 +325,7 @@ RSquare of quadratic fit = 0.985765369287
 
 比如求得弹丸落地时的水平速度。
 
-```{python}
+```python
 def getHorizontalSpeed (quadFit, minX, maxX):
     """ 计算弹丸落地时的水平速度，打印输出。
     假设 quadFit 是二次多项式的系数
@@ -363,7 +363,7 @@ Finally, we used some theory and analysis to desigh a simple computation to deri
 
 使用 polyfit 找出数据模型的方法有个适用范围，即数据之间的联系可以使用形式为 y=base^(ax+b) 这样的公式来描述。
 
-```{python}
+```python
 def fitExpData (xVals, yVals):
     """ 假设 xVals 和 yVals 是两个数值型数组，满足 yVals [i]=f (xVals (i))，这里的 f 是指数函数。
        返回 a、b、base，使得 log (f (x), base)==ax+b"""

@@ -264,7 +264,7 @@ p=1 的闵可夫斯基距离，是曼哈顿距离 Manhattan distance。
 
 ### 对爬行动物之间的相似性代码？
 
-```{python}
+```python
 import pylab
 
 def minkowskiDist (v1, v2, p):

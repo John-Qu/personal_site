@@ -97,7 +97,7 @@ start 是砖，肯定能踩准；stop 是墙，以 step 来走，永远不会触
 
 ### "重构的我不是我" 的代码结果
 
-```{python}
+```python
 x = 0.0
 for i in range (10):
     x = x + 0.1
@@ -194,7 +194,7 @@ else:
 
 快三倍？
 
-```{python}
+```python
 y = 54.0
 epsilon = 0.01
 

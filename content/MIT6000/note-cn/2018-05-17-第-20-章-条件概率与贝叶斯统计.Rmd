@@ -157,7 +157,7 @@ P (not bad | badmush)
 
 其中：
 
-```{python}
+```python
 import random
 def calcBayes (priorA, probBifA, probB):
     """priorA：A 独立于 B 时的初始概率估计值

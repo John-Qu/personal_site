@@ -69,7 +69,7 @@ fib (120) 是 8 670 007 398 507 948 658 051 921，8.67x10^24.
 
 备忘录法
 
-```{python}
+```python
 def fastFib (n, memo = {}):
     """ 假设
         n 是非负整数，
@@ -142,7 +142,7 @@ a rooted binary tree = a graph, an acyclic directed graph
 
 ### O/1 背包问题的二叉树结构代码？
 
-```{python}
+```python
 def maxVal (toConsider, avail):
     """ 假设 toConsider 是一个物品列表 list，avail 表示背包还能再装的重量值。
        返回一个元组表示 0/1 背包问题的解，包括物品总价值和带走的物品元组。"""
@@ -197,7 +197,7 @@ def maxVal (toConsider, avail):
 
 ### 带备忘录的 0/1 背包问题代码怎么写？为什么可以用剩余物品列表的长度作为备忘录字典的关键值？
 
-```{python}
+```python
 def fastMaxVal (toConsider, avail, memo = {}):
     """ 假设 toConsider 是物品列表，avail 表示重量
          memo 进行递归调用

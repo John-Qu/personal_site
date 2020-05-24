@@ -98,7 +98,7 @@ All models are wrong, but some are useful.
 
 在这个问题中，很明显的三个类是：位置、醉汉、和场地。场地把醉汉和位置联系起来。
 
-```{python}
+```python
 
 class Location (object):
     def __init__(self, x, y):
@@ -127,7 +127,7 @@ class Location (object):
         return '<' + str (self.x) + ', ' + str (self.y) + '>'
 ```
 
-```{python}
+```python
 
 import random, pylab
 
@@ -145,7 +145,7 @@ class Drunk (object):
         return 'Anonymous'
 ```
 
-```{python}
+```python
 
 class Field (object):
     """ 场地的本质是关系：谁在哪里，怎么活动。
@@ -189,7 +189,7 @@ class Field (object):
 
 下面三个 Drunk 的子类，限制了醉汉的游走方式。
 
-```{python}
+```python
 class UsualDrunk (Drunk):
     """drunk 者的特征是步态，就是定义如何 takeStep。
     正常的 drunk 向各个方向迈一步的概率一致，步长相同。
@@ -260,7 +260,7 @@ UsualDrunk random walk of 1 steps
 打印输出是能看到一点趋势，但是不如图表来得全面直观。
 
 打印版
-```{python}
+```python
 def simAll (drunkKinds, walkLengths, numTrials):
     """ 把各种醉鬼 drunkKinds 的情况都模拟出来，请他们各自通过 drunkTest 打印输出平均距离和最大最小距离.
     要求：
@@ -300,7 +300,7 @@ EWDrunk random walk of 1000 steps
 能看出 codeDrunk 走得更远，而差多少量级，就不好说了。
 
 绘图版：
-```{python}
+```python
 class styleIterator (object):
     """为打印样式不重样，专门建了一个类。"""
     def __init__(self, styles):
@@ -384,7 +384,7 @@ def simAll1 (drunkKinds, walkLengths, numTrials):
 
 绘制对于某个特定的步数，各个醉汉的最终位置分布。
 
-```{python}
+```python
 def getFinalLocs (numSteps, numTrials, dClass):
     """ 模拟某类醉鬼从原点出发多次游走的停止位置。
     要求：
@@ -457,7 +457,7 @@ plotLocs ((UsualDrunk, ColdDrunk, EWDrunk), 100, 200)
 
 要搞清这个问题，恐怕不能从多次游走的终点入手，而应该看一下单次游走经过的路径。
 
-```{python}
+```python
 # 单次游走经过的路径
 
 def traceWalk (drunkKinds, numSteps):
@@ -527,7 +527,7 @@ traceWalk ((UsualDrunk, ColdDrunk, EWDrunk), 100)
 
 ### 在有虫洞的田地里，醉汉可能走成什么模样？
 
-```{python}
+```python
 class oddField (Field):
     """这是一个特别场地，它有虫洞。"""
     def __init__(self, numHoles, xRange, yRange):

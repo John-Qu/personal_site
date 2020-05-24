@@ -1,0 +1,584 @@
+---
+title: 第 8 章　类与面向对象编程
+subtitle: 8 CLASS AND OBJECT ORIENTED PROGRAMMING
+author: 曲政
+date: 2018-04-22
+slug: class-and-object-oriented-programming
+tags:
+- 
+categories:
+- mit60001
+typora-root-url: ../../static
+show_toc: yes
+output: html_notebook
+---
+
+
+
+<div id="在-python-里用-class-做什么" class="section level3">
+<h3>在 Python 里，用 class 做什么？</h3>
+<blockquote>
+<p>to organize programs around modules and data abstraction.</p>
+</blockquote>
+<ul>
+<li>在 modules 和 data 层次。</li>
+<li>是组织程序的一种方式。</li>
+<li>abstraction 的是 data。</li>
+</ul>
+</div>
+<div id="class-只有一种用法吗" class="section level3">
+<h3>class 只有一种用法吗？</h3>
+<p>很多种用法，其他是什么？</p>
+<p>主要是 “面向对象编程”。object-oriented programming.</p>
+</div>
+<div id="oop-有多久历史" class="section level3">
+<h3>OOP 有多久历史？</h3>
+<p>1970 年代，提出这个思想，有 Xerox PARC 和 CLU 语言上支持。</p>
+<p>当 C++ 和 Java 出现后，才真正实用。</p>
+</div>
+<div id="modulization-的方法之一是-functioning另一种是什么" class="section level3">
+<h3>modulization 的方法之一是 functioning，另一种是什么？</h3>
+<p>另一种是用 class 定义 type。</p>
+</div>
+<div id="什么是-objects" class="section level3">
+<h3>什么是 Objects？</h3>
+<blockquote>
+<p>Objects are the core things that Python programs manipulate. Every object has a type that defines the kinds of things that programs can do with that object.</p>
+</blockquote>
+</div>
+<div id="abstract-data-types-and-classes" class="section level2">
+<h2>8.1 Abstract Data Types and Classes</h2>
+<div id="什么是-abstract-data-type" class="section level3">
+<h3>什么是 abstract data type?</h3>
+<blockquote>
+<p>An abstract data type is a set of objects and the operations on those objects.</p>
+</blockquote>
+<ul>
+<li>是一些对象，是复数的对象。</li>
+<li>不只是对象，还有操作。</li>
+<li>写成 class、实现 abstract data type 的过程也称为：type abstraction, data abstraction 或简称 abstraction。</li>
+</ul>
+</div>
+<div id="在-class-里-method-的-specification-是什么作用" class="section level3">
+<h3>在 class 里 method 的 specification 是什么作用？</h3>
+<blockquote>
+<p>The specifications of those operations define an <strong>interface</strong> between the abstract data type and the rest of the program.
+The interface defines the behavior of the operations—what they do, but not how they do it.
+The interface thus provides an <strong>abstraction barrier</strong> that isolates the rest of the program from the data structures, algorithms, and code involved in providing a realization of the type abstraction.</p>
+</blockquote>
+<ul>
+<li>是 operation 的 specification，而不是 class 的，也不是 class attributes 的。</li>
+<li>谁和谁的接口？abstract data type 与调用它的程序。</li>
+<li>函数的 specification 是一个合同，这里的也一样。</li>
+<li>interface 设计得好的话，应该形成一道屏障，让使用者不必关心实现方式，只要看 specification 就够了。</li>
+</ul>
+</div>
+<div id="abstraction-在编程中处于什么地位-有什么价值" class="section level3">
+<h3>abstraction 在编程中处于什么地位 / 有什么价值？</h3>
+<blockquote>
+<p>Programming is about managing complexity in a way that facilitates change. There are two powerful mechanisms available for accomplishing this: decomposition and abstraction. Decomposition creates structure in a program, and abstraction suppresses detail.</p>
+</blockquote>
+<ul>
+<li>编程就是管理复杂。</li>
+<li>管理手段要让变化造成的困难尽可能少，因为必然有变化。</li>
+<li>decomposition 和 abstraction 就是两个有力的手段。</li>
+<li>decomposition 让程序有了结构。</li>
+<li>abstraction 抑制掉不必要的细节。</li>
+</ul>
+</div>
+<div id="抑制细节的关键是什么" class="section level3">
+<h3>抑制细节的关键是什么？</h3>
+<p>合适 appropriate</p>
+<p>这正是 data abstracion 的存在价值。</p>
+<blockquote>
+<p>One can create domain-specific types that provide a convenient abstraction. Ideally, these types capture concepts that will be relevant over the lifetime of a program. If one starts the programming process by devising types that will be relevant months and even decades later, one has a great leg up in maintaining that software.</p>
+</blockquote>
+<ul>
+<li>特定领域内的具体类型。</li>
+<li>抽象的目的是方便。</li>
+<li>理想是抓住概念的本质，软件整个生命周期都相关，都有所使用。</li>
+<li>构建的 type 生命越长，编程者的责任越长。</li>
+</ul>
+</div>
+<div id="class-定义的对象对内对外都是什么类型" class="section level3">
+<h3>class 定义的对象，对内对外都是什么类型？</h3>
+<pre class="python"><code>s = IntSet ()
+print (type (IntSet), type (IntSet.insert))
+print (type (s), type (s.insert))</code></pre>
+<p>在 Python2 里返回</p>
+<pre class="commandline"><code>(&lt;type &#39;type&#39;&gt;, &lt;type &#39;instancemethod&#39;&gt;)
+(&lt;class &#39;__main__.IntSet&#39;&gt;, &lt;type &#39;instancemethod&#39;&gt;)</code></pre>
+<p>在 Python3 里返回</p>
+<pre class="commandline"><code>&lt;class &#39;type&#39;&gt; &lt;class &#39;function&#39;&gt;
+&lt;class &#39;__main__.IntSet&#39;&gt; &lt;class &#39;method&#39;&gt;</code></pre>
+<p>从 Python3 这里看出</p>
+<ul>
+<li>class 对象的类型是 type，名称是 IntSet。</li>
+<li>s = IntSet () 后，s 的类型才是 IntSet。</li>
+<li>method 的类型，对 IntSet 来说是 function，对 s 来说才是 (instance) method。</li>
+</ul>
+</div>
+<div id="class-下面的-docstring-写什么comments-写什么" class="section level3">
+<h3>class 下面的 docstring 写什么？#comments 写什么？</h3>
+<p>docstring 描述了 class 提供的 abstraction，不含怎么实现。</p>
+<p>comments 才讲如何实现，给通过它建立 subclass 的人看。</p>
+</div>
+<div id="class-的-attributes-有哪几种" class="section level3">
+<h3>class 的 attributes 有哪几种？</h3>
+<ol style="list-style-type: decimal">
+<li>method attributes</li>
+</ol>
+<ul>
+<li>例如 <code>IntSet.member</code>，是这个 class 的 attribute。</li>
+<li>只有 <code>s = IntSet ()</code> 后，<strong>instance attributes</strong><code>s.member</code> 才被创建。</li>
+<li>二者是不同对像。甚至可以替换掉原功能 <code>s.member = IntSet.insert</code>(不应该)</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>data attributes</li>
+</ol>
+<ul>
+<li>class 内部专用的 data attributes 叫做 class variables.</li>
+<li>instance 的 data attribute 称为 instance variables.</li>
+<li>每个 instance 都有一个独立的这个 data attribute，各个不同.</li>
+</ul>
+</div>
+<div id="给-class-variable-举个例子" class="section level3">
+<h3>给 class variable 举个例子？</h3>
+<p>注意 class 的 data attributes 的写法。nextIdNum.</p>
+<pre class="python"><code>class MITPerson (Person):
+    
+    nextIdNum = 0 # identification number
+    
+    def __init__(self, name): 
+        Person.__init__(self, name) 
+        self.idNum = MITPerson.nextIdNum # 使用 class variable
+        MITPerson.nextIdNum += 1 # 并及时更新。</code></pre>
+</div>
+<div id="class-支持哪两种操作" class="section level3">
+<h3>class 支持哪两种操作？</h3>
+<ol style="list-style-type: decimal">
+<li>Instantiation
+<ul>
+<li>s = IntSet ()</li>
+</ul></li>
+<li>Attribute references
+<ul>
+<li>s.member</li>
+</ul></li>
+</ol>
+</div>
+<div id="method-的第一个形式参数一定写成-self-吗" class="section level3">
+<h3>method 的第一个形式参数一定写成 self 吗？</h3>
+<p>不一定。但全宇宙都约定了这么写。</p>
+</div>
+<div id="为什么说-data-abstraction-获得了-representation-independence" class="section level3">
+<h3>为什么说 data abstraction 获得了 representation-independence?</h3>
+<p>实现一个 abstract type，包含三部分：</p>
+<ol style="list-style-type: decimal">
+<li>实现应用于这个 type 的方法。</li>
+<li>data structure，包含这个 type 的 values。</li>
+<li>一些规定，限制了在 1 的 method 如何使用 2 的 data structure。</li>
+</ol>
+</div>
+<div id="什么是-representaion-independence" class="section level3">
+<h3>什么是 representaion-independence？</h3>
+<p>外部调用它，只能看到它的 interface。里买怎么实现不用管，将来有更好的方式实现，改成效率更高的实现方式发，也不会影响外部调用的方式。</p>
+<p>这里有一篇印第安纳大学的 <a href="https://www.cs.indiana.edu/usr/local/www/classes/c311/a3/ri_interpreter.pdf">讲座笔记</a></p>
+</div>
+<div id="实现-abstract-date-时关键的规定是什么" class="section level3">
+<h3>实现 abstract date 时，关键的规定是什么？</h3>
+<p>representation invariant</p>
+<ul>
+<li>表现不变量？</li>
+<li>表达形式中的前后一致共同守则。</li>
+<li>到底是 “量”？还是 “规则”？在 video 中再听一听。</li>
+</ul>
+<p>在 IntSet 例子中</p>
+<p>The representation invariant defines which values of the data attributes correspond to valid representations of class instances.</p>
+<p>The representation invariant for IntSet is that vals contains no duplicates. The implementation of <strong>init</strong> is responsible for establishing the invariant (which holds on the empty list), and the other methods are responsible for maintaining that invariant. That is why insert appends e only if it is not already in self.vals.</p>
+<p>The implementation of remove exploits the assumption that the representation invariant is satisfied when remove is entered. It calls list.remove only once, since the representation invariant guarantees that there is at most one occurrence of e in self.vals.</p>
+</div>
+<div id="在-class-定义中的__str__方法怎么调用" class="section level3">
+<h3>在 class 定义中的__str__方法怎么调用？</h3>
+<p>str 是构建了一个 str，传递这个 class 的信息。</p>
+<p>四种调用方式 s = IntSet ()</p>
+<ul>
+<li>print (s)</li>
+<li>print (s.__str__())</li>
+<li>print (IntSet.__str__(s))</li>
+<li>print (str (s))</li>
+</ul>
+</div>
+<div id="abstraction-是我们组织对世界的知识的方式吗对组织程序有什么启发" class="section level3">
+<h3>Abstraction 是我们组织对世界的知识的方式吗？对组织程序有什么启发？</h3>
+<p>Abstract data types are a big deal. They lead to a different way of thinking about organizing large programs.</p>
+<p>When we think about the world, we rely on abstractions. In the world of finance people talk about stocks and bonds. In the world of biology people talk about proteins and residues. When trying to understand these concepts, we mentally gather together some of the relevant data and features of these kinds of objects into one intellectual package. For example, we think of bonds as having an interest rate and a maturity date as data attributes. We also think of bonds as having operations such as “set price” and “calculate yield to maturity.”</p>
+<p>Abstract data types allow us to incorporate this kind of organization into the design of programs.</p>
+<p>把对世界的观察结果提炼成了一些概念。一旦提起这些概念，脑中就会浮现出它背后的对象和数据，还有针对这些概念可能做的动作。</p>
+</div>
+<div id="abstraction-与-function-谁是核心" class="section level3">
+<h3>abstraction 与 function 谁是核心？</h3>
+<blockquote>
+<p>Data abstraction encourages program designers to focus on the centrality of data objects rather than functions.</p>
+</blockquote>
+<p>centrality 中心地位</p>
+<p>设计者以数据对象为中心，而不是函数。</p>
+</div>
+<div id="data-abstraction-和-function谁的-functionality-更强" class="section level3">
+<h3>data abstraction 和 function，谁的 functionality 更强？</h3>
+<blockquote>
+<p>Thinking about a program more as a collection of types than as a collection of functions leads to a profoundly different organizing principle. Among other things, it encourages one to think about programming as a process of combining relatively large chunks, since data abstractions typically encompass more functionality than do individual functions.</p>
+</blockquote>
+<p>functionality 机能性，实现一个完整功能</p>
+<p>function 只是一个动作，而不是一项功能。</p>
+</div>
+<div id="程序设计者怎么看编程核心是什么" class="section level3">
+<h3>程序设计者怎么看编程？核心是什么？</h3>
+<blockquote>
+<p>This, in turn, leads us to think of the essence of programming as a process not of writing individual lines of code, but of composing abstractions.</p>
+</blockquote>
+<p>编程的核心不是写一行行代码，而是把抽象对象综合起来。像作曲，把一个个乐思前后衔接成全曲。</p>
+</div>
+<div id="可以重用的-abstraction-给程序累积带来哪两个好处" class="section level3">
+<h3>可以重用的 abstraction 给程序累积带来哪两个好处？</h3>
+<blockquote>
+<p>The availability of reusable abstractions not only reduces development time, but also usually leads to more reliable programs, because mature software is usually more reliable than new software. For many years, the only program libraries in common use were statistical or scientific. Today, however, there is a great range of available program libraries (especially for Python), often based on a rich set of data abstractions, as we shall see later in this book.</p>
+</blockquote>
+<ol style="list-style-type: decimal">
+<li>当然是避免重复开发的时间。</li>
+<li>久经考验的代码更可靠。</li>
+</ol>
+</div>
+<div id="怎样才是获得-instance-attribute-的合适姿态" class="section level3">
+<h3>怎样才是获得 instance attribute 的合适姿态？</h3>
+<p>有两种。</p>
+<ol style="list-style-type: decimal">
+<li>写一个方法，给这个 attribute 套上一层外衣。
+him.getLastName () v.s. him.lastname.</li>
+<li>写一个方法，从这个 attribute 中推导出其他信息。
+print him.getName (), ‘is’, him.getAge (), ‘days old’</li>
+</ol>
+</div>
+<div id="overload-掉__lt__还有什么好处" class="section level3">
+<h3>overload 掉__lt__还有什么好处？</h3>
+<p>好处之一很明显，可以直接写 &lt; 号了。</p>
+<p>另一个好处是用到 &lt;的地方，也更新了算法。&gt; this overloading provides automatic access to any polymorphic method defined using <strong>lt</strong>. The built-in method sort is one such method.</p>
+</div>
+</div>
+<div id="inheritance" class="section level2">
+<h2>8.2 Inheritance</h2>
+<div id="继承-给程序带来什么好处" class="section level3">
+<h3>“继承” 给程序带来什么好处？</h3>
+<blockquote>
+<p><strong>Inheritance</strong> provides a convenient mechanism for building groups of related abstractions. It allows programmers to create a type hierarchy in which each type inherits attributes from the types above it in the hierarchy.</p>
+</blockquote>
+<p>这是模拟了真实世界的概念层次关系。</p>
+<p>在真实世界中，留意这种属性继承，方法光大的概念层次结构。</p>
+</div>
+<div id="子类的-init-要怎么初始化超类的数据属性" class="section level3">
+<h3>子类的 init 要怎么初始化超类的数据属性？</h3>
+<pre class="python"><code>class MITPerson (Person):
+
+    def __init__(self, name):
+        Person.__init__(self, name)</code></pre>
+<p>要知道这个 init 做的什么，必须去 Person 看？</p>
+</div>
+<div id="子类除了继承它的超类的属性还能做什么" class="section level3">
+<h3>子类除了继承它的超类的属性，还能做什么？</h3>
+<ul>
+<li>添加新的属性（包括类变量，实例变量和实例方法）。</li>
+<li>覆盖超类中的属性。</li>
+</ul>
+</div>
+<div id="类变量与实例变量有什么区别" class="section level3">
+<h3>类变量与实例变量有什么区别？</h3>
+<p>类变量是属于这个类，而不是属于类的某一个实例，它是创建类的时候被初始化，可以在每次执行类中的某一个方法时被更新。</p>
+<p>实例变量是在创建类的实例时产生，只在这个实例中存在。</p>
+<p>看写法：</p>
+<pre class="python"><code>class MITPerson (Person):
+
+    nextIdNum = 0 #在方法外面初始化，类似全局变量。
+
+    def __init__(self, name):
+        Person.__init__(self, name)
+        self.idNum = MITPerson.nextIdNum #注意类变量的写法，与全局变量不同。
+        MITPerson.nextIdNum += 1 #更新类变量，保证 id 不重复。</code></pre>
+</div>
+<div id="在两种不同类型对象之间比较会调用哪个方法" class="section level3">
+<h3>在两种不同类型对象之间比较，会调用哪个方法？</h3>
+<p>p1 = MITPerson (‘Mark Guttag’)
+p4 = Person (‘Billy Bob Beaver’)</p>
+<p>print (‘p4 &lt; p1 =’, p4 &lt; p1)</p>
+<p>输出
+p4 &lt; p1 = True</p>
+<p>因为 p4 是 Person 类型，其中</p>
+<pre><code>def __lt__(self, other):
+    if self.lastName == other.lastName:
+        return self.name &lt; other.name
+    return self.lastName &lt; other.lastName</code></pre>
+<p>Print (‘p1 &lt; p4 =’, p1 &lt; p4)</p>
+<p>输出
+AttributeError: ‘Person’ object has no attribute ‘idNum’</p>
+<p>因为 p1 是 MITPerson 类型，其中</p>
+<pre><code>def __lt__(self, other):
+    return self.idNum &lt; other.idNum</code></pre>
+</div>
+<div id="如何创建没有新属性的类形成多重继承" class="section level3">
+<h3>如何创建没有新属性的类，形成多重继承？</h3>
+<pre class="python"><code>class Student (MITPerson):
+    pass
+
+class UG (Student):
+    def __init__(self, name, classYear):
+        MITPerson.__init__(self, name)
+        self.year = classYear
+    def getClass (self):
+        return self.year
+
+class Grad (Student):
+    pass</code></pre>
+<p><img src="http://www.ituring.com.cn/figures/2017/PythonIntroduction/11.d08z.001.png" /></p>
+</div>
+<div id="为什么要创建没有新属性的类形成多重继承" class="section level3">
+<h3>为什么要创建没有新属性的类，形成多重继承？</h3>
+<p>以下图为例，有两种情况。</p>
+<p><img src="http://www.ituring.com.cn/figures/2017/PythonIntroduction/11.d08z.001.png" /></p>
+<ul>
+<li>Grad, 做同层区分。</li>
+<li>Student, 形成总括方便归类。</li>
+</ul>
+</div>
+<div id="判断是否是学生直接写-type-学生类-1-学生类-2-不是就可以了吗" class="section level3">
+<h3>判断是否是学生，直接写 type == 学生类 1 / 学生类 2 不是就可以了吗？</h3>
+<p>如果将来增加 “学生类 3”，就要回头去改代码。</p>
+<pre class="python"><code>p6 = UG (&#39;Billy Beaver&#39;, 1984)</code></pre>
+<p>有 Student 类，可以这样写，增加学生类 3 之后不需要改。：</p>
+<pre class="python"><code>def isStudent (self):
+    return isinstance (self, Student)</code></pre>
+<p>没有 Student 类，只能这样写，而增加学生类 3 之后需要回头改。</p>
+<pre class="python"><code>def isStudent (self):
+     return type (self) == Grad or type (self) == UG</code></pre>
+<p>注意区分</p>
+<p>isinstance (p6, Student) 返回 True
+type (p6) == Student 返回 False</p>
+<blockquote>
+<p>It is not unusual during the creation and later maintenance of a program to go back and add new classes or new attributes to old classes. Good programmers design their programs so as to minimize the amount of code that might need to be changed when that is done.</p>
+</blockquote>
+<ul>
+<li>追加东西是常态。</li>
+<li>为常态的不确定性预先铺摊子。</li>
+</ul>
+</div>
+<div id="爸爸能干的事儿子必须也能干" class="section level3">
+<h3>爸爸能干的事，儿子必须也能干？</h3>
+<p>儿子可以继承并发扬爸爸的本领，也就是用不同的方法来做事情。但是爸爸能干的活，儿子必须也能干。</p>
+<p>相反，儿子可以做的事，不能要求爸爸也能做到。</p>
+<p>这不是天经地义吗？</p>
+<p>称为 substitution principle.</p>
+</div>
+</div>
+<div id="encapsulation-and-information-hiding" class="section level2">
+<h2>8.3 Encapsulation and Information Hiding</h2>
+<div id="什么是封装举例说明" class="section level3">
+<h3>什么是封装？举例说明。</h3>
+<p>有了类型定义：</p>
+<pre class="python"><code>class MITPerson (Person):
+
+    nextIdNum = 0 #identification number
+
+    def __init__(self, name):
+        Person.__init__(self, name)
+        self.idNum = MITPerson.nextIdNum
+        MITPerson.nextIdNum += 1
+
+    def getIdNum (self):
+        return self.idNum</code></pre>
+<p>就可以写一行代码，把一个人的名字、学号这样的数据，以及读名字，读学号这样针对数据的方法，打包在一个实例名里，通过 dot 形式来调用。</p>
+<pre class="python"><code>Rafael = MITPerson (&#39;Rafael Reif&#39;)
+print (Rafael.getName ())
+print (Rafael.getIdNum ())</code></pre>
+<p>这就是封装。</p>
+</div>
+<div id="什么是信息隐藏-information-hiding正面说法如何" class="section level3">
+<h3>什么是信息隐藏 information hiding？正面说法如何？</h3>
+<p>它是模块化的关键。</p>
+<p>类的使用者不需要知道类是如何实现的，使用者也不能够破坏类的实现方式以及类的结构和数据。</p>
+<p>这样类的实现者就可以随便修改类的实现方式，而不用担心因为实现方式的更新，而影响了使用者。</p>
+<p>前提是类的使用者和实现者达成共识，遵守合同 specification 约定。</p>
+</div>
+<div id="python-如何实现和保证类的内部信息不被外部更改" class="section level3">
+<h3>Python 如何实现和保证类的内部信息不被外部更改？</h3>
+<p>Python 做得不好。</p>
+<p>Java 和 C 都有强制隐藏信息的机制，程序员可以使类的属性成为私有，这样类的客户代码只能通过对象方法访问数据。。</p>
+<div id="python-使用命名惯例隐藏属性和方法但是在子类中也无法继承" class="section level4">
+<h4>Python 使用命名惯例隐藏属性和方法，但是在子类中也无法继承。</h4>
+<pre class="python"><code>class subClass (infoHiding):
+   def __init__(self):
+        print (&#39;from subclass&#39;, self.__invisible)
+
+testSub = subClass ()</code></pre>
+<p>会输出：</p>
+<p>Error: ‘subClass’ object has no attribute ’_subClass__invisible’</p>
+<p>这是 AttributeError 异常。</p>
+</div>
+<div id="python-可以在类定义之外通过实例来增加类属性" class="section level4">
+<h4>Python 可以在类定义之外，通过实例来增加类属性。</h4>
+<pre class="python"><code>me.age = Rafael.getIdNum ()</code></pre>
+<p>python 竟然不会报错。</p>
+<p>怎么办？</p>
+<ul>
+<li>不用__命名方法来隐藏属性，而是约束自己。</li>
+<li>不在客户代码中直接访问类的数据属性。</li>
+</ul>
+</div>
+</div>
+<div id="为什么要在-getstudents-中返回实例变量数据属性的一个副本而不是直接返回数据属性本身" class="section level3">
+<h3>为什么要在 getStudents 中返回实例变量数据属性的一个副本，而不是直接返回数据属性本身？</h3>
+<p>self.students 是 list，可能引发副作用。虽然复制一个有点麻烦，但是有必要。</p>
+<pre class="python"><code>allStudents = course1.getStudents ()
+allStudents.extend (course2.getStudents ())</code></pre>
+<p>如果 getStudents 返回 self.students，那么第二行代码就可能产生一个（意料之外的）副作用，修改 course1 中的学生集合。</p>
+</div>
+<div id="怎样克服隐藏信息造成的复制数据的效率损失" class="section level3">
+<h3>怎样克服隐藏信息造成的复制数据的效率损失？</h3>
+<p>不直接复制，而是用 yield 把函数做成一个生成器 generator。</p>
+<p>一次返回一个值，次与次之间，迭代器会往下走。</p>
+<p>for 语句配合着使用。</p>
+<pre class="python"><code>def getStudents (self):
+    for s in self.students:
+        yield s
+        
+for s in course.getStudents ():
+    print (s)</code></pre>
+</div>
+</div>
+<div id="mortgages-an-extended-example" class="section level2">
+<h2>8.4 Mortgages, an Extended Example</h2>
+<div id="网上查来的公式要确认一下什么" class="section level3">
+<h3>网上查来的公式，要确认一下什么？</h3>
+<ul>
+<li>公式来源值得信赖。对比多个来源，公式是否等价。</li>
+<li>充分理解公式中每个变量的含义。</li>
+<li>用其他可信来源的数据测试自己的代码。</li>
+</ul>
+</div>
+<div id="每月固定金额还款的计算公式推导过程" class="section level3">
+<h3>每月固定金额还款的计算公式推导过程？</h3>
+<p>x：当月还款额，定额还款的话，每个月都是 x。
+loan：贷款额。
+r：月利率，只要把年利率除以 12 即可。
+m：第几个月。</p>
+<p>推导思想是 —— 钱的时间价值</p>
+<ul>
+<li>第 m 个月还的钱 x，折算到借款发生时，只考虑利率的话，其价值是 x/(1+r)**m。</li>
+<li>它形成一个等比数列，初始值是 x/(1+r)，公比是 1/(1+r)。</li>
+<li>各期还款折算到当下借款时的价值，求和后应该等于借款总额，否则有一方就可以套利了。</li>
+</ul>
+<p>loan = x/(1+r) * (1 - (1/(1+r))**m) / (1 - 1/(1+r))</p>
+<p>x = loan<em>((r</em>(1+r)<strong>m)/((1+r)</strong>m - 1))</p>
+</div>
+<div id="为什么称-mortgage-为-base-class" class="section level3">
+<h3>为什么称 Mortgage 为 base class？</h3>
+<p>它的属性和方法可以供每个子类使用，但是没有实例通过它直接初始化。也就是说，不会建立任何 Mortgage 类型的对象。</p>
+</div>
+<div id="有没有读懂-mortgage-这个例子的代码" class="section level3">
+<h3>有没有读懂 Mortgage 这个例子的代码？</h3>
+<pre class="python"><code>def findPayment (loan, r, m):
+    &quot;&quot;&quot; 假设 loan 和 r 是浮点数，m 是整数
+       返回一个总额为 loan，月利率为 r，期限为 m 个月的抵押贷款的每月还款额 &quot;&quot;&quot;
+    return loan * ((r * (1 + r) ** m) / ((1 + r) ** m - 1))
+
+
+class Mortgage (object):
+    &quot;&quot;&quot;用来建立不同种类抵押贷款的抽象类&quot;&quot;&quot;
+
+    def __init__(self, loan, annRate, months):
+        &quot;&quot;&quot; 假设 loan 和 annRate 为浮点数，month 为整数
+        创建一个总额为 loan，期限为 months，年利率为 annRate 的新抵押贷款 &quot;&quot;&quot;
+        self.loan = loan
+        self.rate = annRate / 12 #简单分成 12 份就可以了，不用想复利。
+        self.months = months
+        # 以上的属性定义了条件，每次计算时基本不变
+
+        self.paid = [0.0] # 第一个月不用付，以后追加。
+        self.outstanding = [loan] # 第 m 个月残余的本金额，第一个月是贷款额
+        self.payment = findPayment (loan, self.rate, months) # 算出第 m 个月的还款额，按照等额还款的定义，基本是不变的值。
+        # 以上是计算的值
+
+        self.legend = None  # 某种类型按揭贷款的说明
+
+    def makePayment (self):
+        &quot;&quot;&quot;支付每月还款额&quot;&quot;&quot;
+        # 正常计算当月还款额，并更新两个数组：月底还款，月底残留本金。
+        self.paid.append (self.payment) # 当月还款额，追加到数组里。
+        reduction = self.payment - self.outstanding [-1] * self.rate # 当月偿还本金的数量
+        self.outstanding.append (self.outstanding [-1] - reduction) # 当月残留本金的值，追加到残余数组里。
+
+    def getTotalPaid (self):
+        &quot;&quot;&quot;返回至今为止的支付总额&quot;&quot;&quot;
+        return sum (self.paid)
+
+    def __str__(self):
+        return self.legend
+
+
+class Fixed (Mortgage):
+    def __init__(self, loan, r, months):
+        Mortgage.__init__(self, loan, r, months)
+        self.legend = &#39;Fixed, &#39; + str (round (r*100, 2)) + &#39;%&#39;
+
+class FixedWithPts (Mortgage):
+    def __init__(self, loan, r, months, pts):
+        Mortgage.__init__(self, loan, r, months)
+        self.pts = pts
+        self.paid = [loan*(pts/100)] # 替换 Mortgage 类里的 0.0，初识时要付一笔手续费，并且不能抵扣本金。
+        self.legend = &#39;Fixed, &#39; + str (round (r*100, 2)) + &#39;%, &#39;\
+                      + str (pts) + &#39; points&#39;
+
+class TwoRate (Mortgage):
+    def __init__(self, loan, r, months, teaserRate, teaserMonths):
+        Mortgage.__init__(self, loan, teaserRate, months) # 注意是用引诱利率初始化的 Mortgage，但是用的总月份数初始化 self.months。也就是说，用便宜的利率算到底，然后在中间重新核算。
+        self.teaserMonths = teaserMonths
+        self.teaserRate = teaserRate
+        self.nextRate = r/12
+        self.legend = str (teaserRate*100)\
+                     + &#39;% for &#39; + str (self.teaserMonths)\
+                     + &#39; months, then &#39; + str (round (r*100, 2)) + &#39;%&#39;
+    def makePayment (self):
+        if len (self.paid) == self.teaserMonths + 1:
+           self.rate = self.nextRate
+           self.payment = findPayment (self.outstanding [-1],
+                                   self.rate,
+                                   self.months - self.teaserMonths)
+        # 以上这段判断，是在 teaser 到期时，更新 Mortgage 的条件值：更新了利率，也按照那个时点的残留本金，重新计算了每月定额还款额。
+        Mortgage.makePayment (self) # 正常计算当月还款额，并更新两个数组：月底还款，月底残留本金。
+
+
+def compareMortgages (amt, years, fixedRate, pts, ptsRate,
+                     varRate1, varRate2, varMonths):
+    totMonths = years*12
+    fixed1 = Fixed (amt, fixedRate, totMonths)
+    fixed2 = FixedWithPts (amt, ptsRate, totMonths, pts)
+    twoRate = TwoRate (amt, varRate2, totMonths, varRate1, varMonths)
+    morts = [fixed1, fixed2, twoRate]
+    for m in range (totMonths):# 逐月
+        for mort in morts: # 核算每种还款方式的
+            mort.makePayment () # 还款额 残余本金，添加入数组
+    for m in morts: # 打印每种还款方式的
+        print (m) # 还款方式
+        print (&#39; Total payments = $&#39; + str (int (m.getTotalPaid ()))) # 最终加总还款额
+
+compareMortgages (amt=200000, years=30, fixedRate=0.07,
+                 pts = 3.25, ptsRate=0.05, varRate1=0.045,
+                 varRate2=0.095, varMonths=48)
+</code></pre>
+<p>运算输出</p>
+<pre class="commandline"><code>Fixed, 7.0%
+ Total payments = $479017
+Fixed, 5.0%, 3.25 points
+ Total payments = $393011
+4.5% for 48 months, then 9.5%
+ Total payments = $551444</code></pre>
+<p>以上，2018-04-19。</p>
+</div>
+</div>

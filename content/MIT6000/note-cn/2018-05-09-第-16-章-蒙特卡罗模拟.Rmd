@@ -44,7 +44,7 @@ output: html_notebook
 
 不懂概率分析，可以用代码来模拟出结果：
 
-```{python}
+```python
 import random
 
 
@@ -156,7 +156,7 @@ Don't pass: Mean ROI = -9.5186% Std Dev = 0.1226%
 
 按照我过去的理解，多做实验，在更多的数据中取得平均值和标准差，标准差会更小。这里或许有特殊。
 
-```{python}
+```python
 def crapsSim (handsPerGame, numGames):
     """ 假设 handsPerGame 和 numGames 是正整数
        玩 numGames 次游戏，每次 handsPerGame 手；输出结果。"""
@@ -199,7 +199,7 @@ numGames 影响的是 games 列表的长度，用来算取平均数和标准差�
 
 ### 双骰子游戏，过线和不过线投注的模拟，代码怎么写？
 
-```{python}
+```python
 import random, pylab
 
 # 引用 stdDev 就够了。stdDev 引用的 variance 不用单独提出来。
@@ -342,7 +342,7 @@ def crapsSim (handsPerGame, numGames):
 
 ### 怎样模拟灌了铅的骰子？
 
-```{python}
+```python
 def rollDie ():
     """
     正常的单骰子，随机得到 1～6 之间的一个正整数。
@@ -373,7 +373,7 @@ playHand 的结果与循环执行的次数没有关系，只与跳出循环的�
 
 上面那句也可以理解成：把 [0, 1) 区间均匀分成了 11 份。生成一个 [0,1) 间的随机数，如果它落在左边 5 份，则认为是 8 点，如果它落在了右边 6 份，则认为是 7 点。
 
-```{python}
+```python
     if random.random () <= pointsDict [throw]:  # 在掷出 7 之前掷出点数
 ```
 
@@ -389,7 +389,7 @@ Buffon 和 Laplace 用随机扔针来估算 pi 值。
 
 ![](http://www.ituring.com.cn/figures/2017/PythonIntroduction/19.d16z.004.png)
 
-```{python}
+```python
 import random
 
 

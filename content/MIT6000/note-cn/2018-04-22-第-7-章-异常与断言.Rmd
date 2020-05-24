@@ -48,7 +48,7 @@ python 里：not rare, everywhere.
 
 ### 一个检验输入数据是否合理的函数？
 
-```{python}
+```python
 def read_val (val_type, request_msg, error_msg):
     while True:
         val = input (request_msg + " ")
@@ -98,7 +98,7 @@ test_read_val ()
 
 比如：
 
-```{python}
+```python
 def get_ratios (vect1, vect2):
     """Assumes : vect1 and vect2 are equal lenght lists of numbers.
        Returns: s list containing the meaningful values of vect1 [1]/vect2 [2]."""
@@ -135,7 +135,7 @@ get_ratios called with bad arguments
 
 可以用 `float ("nan")` 把它作为浮点数使用，包含它的 expression 值也是 nan。
 
-```{python}
+```python
 ratios.append (float ('nan'))
 ```
 
@@ -147,7 +147,7 @@ ratios.append (float ('nan'))
 
 检验一下又不会增加多少计算成本，而防范一下，defensive programming and checking，是个好习惯。
 
-```{python}
+```python
 except:
     raise ValueError ('get_ratios called with bad arguments')
 ```

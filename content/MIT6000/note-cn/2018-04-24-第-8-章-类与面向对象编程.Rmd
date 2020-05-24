@@ -1,9 +1,9 @@
 ---
 title: 第 8 章　类与面向对象编程
-subtitle: 8 CLASS AND OBJECT ORIENTED PROGRAMMING
+suttitle: 8 CLASS AND OBJECT ORIENTED PROGRAMMING
 author: 曲政
-date: 2018-04-22
-slug: class-and-object-oriented-programming
+date: 2018-04-24
+slug: CLASS-AND-OBJECT-ORIENTED-PROGRAMMING
 tags:
 - 
 categories:
@@ -12,6 +12,8 @@ typora-root-url: ../../static
 show_toc: yes
 output: html_notebook
 ---
+# 8 CLASSES AND OBJECT-ORIENTED PROGRAMMING
+
 
 ### 在 Python 里，用 class 做什么？
 
@@ -103,18 +105,10 @@ The interface thus provides an **abstraction barrier** that isolates the rest of
 s = IntSet ()
 print (type (IntSet), type (IntSet.insert))
 print (type (s), type (s.insert))
-```
-
-在 Python2 里返回
-
-```commandline
+```在 Python2 里返回```commandline
 (<type 'type'>, <type 'instancemethod'>)
 (<class '__main__.IntSet'>, <type 'instancemethod'>)
-```
-
-在 Python3 里返回
-
-```commandline
+```在 Python3 里返回```commandline
 <class 'type'> <class 'function'>
 <class '__main__.IntSet'> <class 'method'>
 ```
@@ -395,18 +389,10 @@ class Grad (Student):
 
 ```python
 p6 = UG ('Billy Beaver', 1984)
-```
-
-有 Student 类，可以这样写，增加学生类 3 之后不需要改。：
-
-```python
+```有 Student 类，可以这样写，增加学生类 3 之后不需要改。：```python
 def isStudent (self):
     return isinstance (self, Student)
-```
-
-没有 Student 类，只能这样写，而增加学生类 3 之后需要回头改。
-
-```python
+```没有 Student 类，只能这样写，而增加学生类 3 之后需要回头改。```python
 def isStudent (self):
      return type (self) == Grad or type (self) == UG
 ```
@@ -440,7 +426,6 @@ type (p6) == Student 返回 False
 ### 什么是封装？举例说明。
 
 有了类型定义：
-
 ```python
 class MITPerson (Person):
 
@@ -453,16 +438,11 @@ class MITPerson (Person):
 
     def getIdNum (self):
         return self.idNum
-```
-
-就可以写一行代码，把一个人的名字、学号这样的数据，以及读名字，读学号这样针对数据的方法，打包在一个实例名里，通过 dot 形式来调用。
-
-```python
+```就可以写一行代码，把一个人的名字、学号这样的数据，以及读名字，读学号这样针对数据的方法，打包在一个实例名里，通过 dot 形式来调用。```python
 Rafael = MITPerson ('Rafael Reif')
 print (Rafael.getName ())
 print (Rafael.getIdNum ())
 ```
-
 
 这就是封装。
 
@@ -669,11 +649,7 @@ compareMortgages (amt=200000, years=30, fixedRate=0.07,
                  pts = 3.25, ptsRate=0.05, varRate1=0.045,
                  varRate2=0.095, varMonths=48)
 
-```
-
-运算输出
-
-```commandline
+```运算输出```commandline
 Fixed, 7.0%
  Total payments = $479017
 Fixed, 5.0%, 3.25 points

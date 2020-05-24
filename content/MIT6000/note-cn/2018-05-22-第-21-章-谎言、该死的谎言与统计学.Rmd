@@ -188,7 +188,7 @@ Extrapolation should be done only when one has a sound theoretical justification
 
 ### 446 位厌食症女性中有 48 人出生在六月份，说明初夏出生的女性更容易患厌食症吗？
 
-```{python}
+```python
 import random
 
 

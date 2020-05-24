@@ -66,7 +66,7 @@ whenever, the same input, the same output.
 
 在 specification 里就要求具有不确定性：
 
-```{python}
+```python
 def rollDie ():
     """返回一个 1~6 的整数"""
     #可能只返回某一个确定的整数。
@@ -138,7 +138,7 @@ def rollN (n):
 
 用多个实验次数做实验，看实验次数越来越大时，概率收敛于哪里。
 
-```{python}
+```python
 import random, pylab
 
 
@@ -202,7 +202,7 @@ Success in most endeavors requires a combination of skill and luck. The skill co
 
 ### 表现均值回归的代码？
 
-```{python}
+```python
 def regressToMean (numFlips, numTrials):
     """"""
     #获取每次实验（抛掷 numFlips 次硬币）中正面向上的比例
@@ -240,7 +240,7 @@ regressToMean (15, 40)
 
 ### 在硬币模型里看大数定律？
 
-```{python}
+```python
 def flipPlot (minExp, maxExp):
     """ 通过绘图，看大数定律的作用。
     假设：
@@ -313,7 +313,7 @@ $variance (X) = \frac {\sum\nolimits_{x\in X}(x-\mu)^2}{\left|{X}\right|}$
 
 ### 正反面比例的均值与标准差绘图？
 
-```{python}
+```python
 def variance (X):
     """ 求得数值型列表的方差。
     假设 X 是一个数值型列表。
@@ -434,7 +434,7 @@ pylab.show ()
 
 但是如果均值接近于 0，微小变化都会导致变异系数非常大的变化。
 
-```{python}
+```python
 def CV (X):
     """求 X 数值序列的变异系数"""
     mean = sum (X)/len (X)
@@ -463,7 +463,7 @@ def CV (X):
 
 也许没有排序，只是建立了字典。
 
-```{python}
+```python
 import random, pylab
 vals = []
 for i in range (10000):
@@ -483,7 +483,7 @@ pylab.show ()
 
 每个值都有 1/6 概率，两个骰子的和，7 的组合情况最多。
 
-```{python}
+```python
 import random, pylab
 vals = []
 for i in range (10000):
@@ -518,7 +518,7 @@ pylab.show ()
 每次抛得越多，标准差越小。
 
 
-```{python}
+```python
 import pylab, random
 # from em_15_3_flip import stdDev
 
@@ -638,7 +638,7 @@ $$P (x)=\frac {1}{\sigma\sqrt {2\pi}}*{\rm e}^{-\frac {(x-\mu)^2}{2\sigma^2}}$$
 
 大约 68.27% 的数据都位于距均值 1 个标准差的范围内，大约 95.45% 的数据位于距均值 2 个标准差的范围内，大约 99.73% 的数据位于距均值 3 个标准差的范围内。人们有时将这种情况称为 68-95-99.7 法则，但更多时候将其称为经验法则 empirical rule。
 
-```{python}
+```python
 import scipy.integrate, random, pylab
 
 
@@ -698,7 +698,7 @@ errorbar 与正常的 xy 绘图类似，只是在 y 的方向上加了线条，�
 
 pylab.errorbar (xVals, means, yerr=1.96*pylab.array (sds))
     
-```{python}
+```python
 def showErrorBars (minExp, maxExp, numTrials):
     """ 假设 minExp 和 maxExp 是正整数；minExp<maxExp
          numTrials 是一个正整数
@@ -771,7 +771,7 @@ n 选 k 数量 * k 次成功概率 * n-k 次不成功概率
 
 ### 实际练习：实现一个函数，计算扔 k 次骰子时正好扔出两个 3 的概率，并绘制出 k 从 2~100 时的概率变化。
 
-```{python}
+```python
 import pylab
 
 
@@ -807,7 +807,7 @@ https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-262-di
 
 ### 药物的指数衰减图形什么样？
 
-```{python}
+```python
 import pylab
 
 
@@ -854,7 +854,7 @@ pylab.show ()
 
 > 举例来说，假设你有一辆很旧的汽车，当你转动钥匙（或按下启动按钮）时，它只有 50% 的概率能够启动。几何分布就可以用来描述在成功之前尝试启动汽车的次数。
 
-```{python}
+```python
 import random, pylab
 
 def successfulStarts (successProb, numTrials):
@@ -938,7 +938,7 @@ pylab.show ()
 实际上走入决赛的两支队伍的单场获胜概率分别是 58.6% 和 55.5%. 对应的最终获胜概率只有 60% 左右。
 
 
-```{python}
+```python
 import random, pylab
 
 

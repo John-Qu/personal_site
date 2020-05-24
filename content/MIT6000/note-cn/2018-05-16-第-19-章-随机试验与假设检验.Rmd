@@ -228,7 +228,7 @@ The problem of sample size is an intrinsic attribute of what is called the frequ
 
 用 scipy 内置函数写
 
-```{python}
+```python
 # 已知条件只有两个
 numGames = 1273
 lyndsayWins = 666
@@ -246,7 +246,7 @@ print ('The p-value from a one-sample test is',
 
 没有学过统计学，用蒙特卡洛模拟。注意是单尾的，假设了 Linda 玩得更好，只计入了 LWin 比观测值还要极端的概率。
 
-```{python}
+```python
 numGames = 1273
 lyndsayWins = 666
 numTrials = 10000
@@ -264,7 +264,7 @@ print ('Probability of result at least this',
 
 逻辑正确的写法
 
-```{python}
+```python
 numGames = 1273
 lyndsayWins = 666
 numTrials = 10000
@@ -315,7 +315,7 @@ Probability of result at least this extreme by accident = 0.0986
 
 是的。5% 的本意就是如此。
 
-```{python}
+```python
 import random, scipy
 from scipy import stats # 不加这一句，python3 报 scipy 没有 stats 属性。
 numHyps = 20

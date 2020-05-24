@@ -59,7 +59,7 @@ output: html_notebook
 
 ### 表达贪婪算法的程序？
 
-```{python}
+```python
 class Item (object):
     """将财物建立抽象概念，初始化它的三个属性，可以分别提取；同时定义打印输出的框架"""
 
@@ -213,7 +213,7 @@ $$ \sum^{n-1}_{i=0}{\rm V}[i]*{\rm I}[i].{\rm weight}\leqslant w $$
 
 (3) 在余下的物品组合中，选出任意一个价值最大的组合。
 
-```{python}
+```python
 from em_9_3_6_gempowerset import genPowerset, getBinaryRep
 
 from em_12_1_greedy import *
@@ -320,7 +320,7 @@ adjacency list
 
 ### 建立图的类型的代码？为什么要建 Node 类？为什么把 Graph 类作为 Digraph 的子类？
 
-```{python}
+```python
 class Node (object):
     def __init__(self, name):
         """假设 name 是字符串"""
@@ -439,7 +439,7 @@ Facebook 朋友链。
 
 ### 深度优先搜索 DFS 的逻辑？
 
-```{python}
+```python
 def DFS (graph, start, end, path, shortest, toPrint = False):
     """ 假设 graph 是无向图；start 和 end 是节点；
           path 和 shortest 是节点列表
@@ -513,7 +513,7 @@ Shortest path is 0->2->3->5
 
 ### 广度优先搜索 BFS 的逻辑？
 
-```{python}
+```python
 def BFS (graph, start, end, toPrint = False):
     """ 假设 graph 是无向图；start 和 end 是节点
        返回 graph 中从 start 到 end 的最短路径。"""

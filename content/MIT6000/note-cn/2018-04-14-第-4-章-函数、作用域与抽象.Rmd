@@ -22,7 +22,7 @@ output: html_notebook
 
 为什么？以二分法求平方根为例。
 
-```{python}
+```python
 x = 25
 epsilon = 0.01
 numGuesses = 0
@@ -98,7 +98,7 @@ Programming 里的 function 比数学中的定义更广。
 
 ### 给一个 stack frame 分析的例子？
 
-```{python}
+```python
 def f (x):
     def g ():
         x = 'abc'
@@ -179,7 +179,7 @@ Abstraction 的核心，是保留特定语境中的相关信息，而隐去不�
 
 举个例子：
 
-```{python}
+```python
 def findRoot (x, power, epsilon):
     """Assumes x and epsilon int or float, power an int,
             epsilon > 0 & power >= 1
@@ -220,7 +220,7 @@ classic inductive definition:
 - 1! = 1
 - (n+1)! = (n+1)*n!
 
-​```{python}
+​```python
 def factIteration (n):
    """Assumes n an int > 0
       Returns n!"""
@@ -231,7 +231,7 @@ def factIteration (n):
    return result
 ```
 
-```{python}
+```python
 def factRecursion (n):
    """Assumes n an int > 0
       Returns n!"""
