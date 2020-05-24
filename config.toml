@@ -103,7 +103,7 @@ rssLimit = 100
     name = "文章"
     url = "/cn/"
     weight = 3
-[[menu.cn]]
+[[menu.cn-note]]
     name = "笔记"
     url = "/cn-note/"
     weight = 4
@@ -116,9 +116,30 @@ rssLimit = 100
     url = "/tags/"
     weight = 6
 [[menu.cn-note]]
-    name = "English"
-    url = "/en/"
+    name = "MIT 6000"
+    url = "/MIT6000/"
     weight = 7
+
+[[menu.MIT6000]]
+    name = "Home"
+    url = "/MIT6000/"
+    weight = 1
+[[menu.MIT6000]]
+    name = "中文笔记"
+    url = "/MIT6000/note-cn/"
+    weight = 2
+[[menu.MIT6000]]
+    name = "English Notes"
+    url = "/MIT6000/note-en/"
+    weight = 3
+[[menu.MIT6000]]
+    name = "Problem Sets"
+    url = "/MIT6000/psets/"
+    weight = 4
+[[menu.MIT6000]]
+    name = "John Qu"
+    url = "/"
+    weight = 5
 
 
 [params]
