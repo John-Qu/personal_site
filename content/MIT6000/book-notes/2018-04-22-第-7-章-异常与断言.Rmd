@@ -2,7 +2,7 @@
 title: 第 7 章　异常与断言
 subtitle: 7 EXCEPTIONS AND ASSERTIONS
 author: 曲政
-date: 2018-04-22
+date: 2018-04-21
 slug: exceptions-and-assertions
 tags:
 - 

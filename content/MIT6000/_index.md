@@ -1,4 +1,8 @@
-# MITx - 6.00系列课程学习笔记
+---
+title: MIT 6.0001 and 6.0002 Courses
+subtitle: Introduction to Computation and Programming Using Python - With Application to Understanding Data
+date: '2018-04-07'
+---
 
 ## 仓库内容
 

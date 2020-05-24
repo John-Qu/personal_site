@@ -2,7 +2,7 @@
 title: 第 13 章　动态规划
 subtitle: 13 DYNAMIC PROGRAMMING
 author: 曲政
-date: 2018-04-31
+date: 2018-05-01
 slug: dynamic-programming
 tags:
 - 

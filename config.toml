@@ -15,6 +15,7 @@ rssLimit = 100
     cn = "/cn/:year/:month/:slug/"
     en = "/en/:year/:month/:slug/"
     cn-note = "/cn-note/:year/:month/:slug/"
+    mit6000 = "/mit6000/:year/:month/:slug/"
 
 [[menu.main]]
     name = "About"
@@ -125,21 +126,17 @@ rssLimit = 100
     url = "/MIT6000/"
     weight = 1
 [[menu.MIT6000]]
-    name = "中文笔记"
-    url = "/MIT6000/note-cn/"
+    name = "Readings"
+    url = "/MIT6000/book-notes/"
     weight = 2
-[[menu.MIT6000]]
-    name = "English Notes"
-    url = "/MIT6000/note-en/"
-    weight = 3
 [[menu.MIT6000]]
     name = "Problem Sets"
     url = "/MIT6000/psets/"
-    weight = 4
+    weight = 3
 [[menu.MIT6000]]
     name = "John Qu"
     url = "/"
-    weight = 5
+    weight = 4
 
 
 [params]
@@ -157,14 +154,14 @@ rssLimit = 100
     "js/header-link.js"
     ]
     githubContentURL = "https://github.com/john-qu/johnqu.site/edit/master/content/"
-    twitterImage = "/images/logo.png"
     show_toc = true
     
-  highlightjsVersion = "9.12.0"
-  highlightjsCDN = "//cdn.bootcss.com"
-  highlightjsLang = ["r", "yaml", "tex"]
-  highlightjsTheme = "github"
-
+    # options for highlight.js (version, additional languages, and theme)
+    highlightjsVersion = "9.12.0"
+    highlightjsCDN = "//cdn.bootcss.com"
+    highlightjsLang = ["r", "yaml", "tex"]
+    highlightjsTheme = "github"
+    
   # Valine.
   # You can get your appid and appkey from https://leancloud.cn
   # more info please open https://valine.js.org
