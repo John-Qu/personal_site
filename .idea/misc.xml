@@ -39,6 +39,13 @@
             </RMarkdownRenderProfile>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-04-22-第-8-章-类与面向对象编程.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/content/MIT6000/note-cn/2018-04-22-第-9-章-算法复杂度简介.Rmd">
           <value>
             <RMarkdownRenderProfile>

@@ -21,7 +21,7 @@ output: html_notebook
 
 例如下图
 
-![](http://www.ituring.com.cn/figures/2017/PythonIntroduction/26.d23z.001.png)
+![](/images/2018-05-22-%E7%AC%AC-23-%E7%AB%A0-%E8%81%9A%E7%B1%BB/26.d23z.001.png)
 
 - 身高可以分成高矮，水平一条直点线。dotted
 - 体重可以分成重轻，竖直一条直实线。solid
@@ -56,8 +56,6 @@ provide a measure of the coherence of the cluster
 
 单个簇 c 中实例彼此之间的差异程度：
 
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1frj4w9wu8yj30nu02iweu.jpg)
-
 $$ {\rm variability}(c)=\sum_{e\in {c}}{\rm distance}({\rm mean}(c),e)^2 $$
 
 这里的 mean (c) 是簇中所有实例的特征变量的均值。
@@ -75,8 +73,6 @@ define a dissimilarity metric for a set of clusters, C
 - 同样差异程度的两个集合，大集合对整体 dissimilarity 的贡献更大。要的就是这种效果 (This is by design.)
 
 一个簇集合 C 的相异度：
-
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1frj4wkrq5xj30li02q74l.jpg)
 
 $$ {\rm dissimilarity}(C)=\sum_{e\in {C}}{\rm variability}(c) $$
 
@@ -472,8 +468,6 @@ Final result
  A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, B1, B2
 ```
 
-![](https://ws3.sinaimg.cn/large/006tNc79gy1frk2ihsnyrj30ac070aa3.jpg)
-
 
 ### 多次尝试的话，会改善收敛后的结果吗？
 
@@ -504,8 +498,6 @@ Final result with dissimilarity 44.7251144328
  Cluster with centroid [6.07470389  5.67876712] contains:
  A8, B0, B1, B2, B3, B4, B6, B7, B8, B9
 ```
-
-![](https://ws3.sinaimg.cn/large/006tNc79gy1frk4bxgpgfj30ac070jrf.jpg)
 
 - 多次尝试，dissimilarity 当然有改善。
 - A 与 B 来自两个不同的分布，还是会混在一起。not unreasonable
@@ -755,7 +747,7 @@ def main ():
     testTeeth (3, 40, iScaleFeatures)
 ```
 
-```commandline
+​```commandline
 Clustering without scaling
 
 Moose 驼鹿

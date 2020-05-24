@@ -120,8 +120,6 @@ list 的元素可以被改变，有时是被某个操作所改变，这种性质
 
 同一个对象，有多个 varialbe 指向途径。
 
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1fq8l7v3bh5j30pk0niwje.jpg)
-
 ### 这个程序为什么有 semantic 错误？
 
 ```{python}

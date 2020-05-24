@@ -1,6 +1,6 @@
 ---
 title: 第 12 章　背包与图的最优化问题
-suttitle: 12 KNAPSACK AND GRAPH OPTIMIZATION PROBLEMS
+subtitle: 12 KNAPSACK AND GRAPH OPTIMIZATION PROBLEMS
 author: 曲政
 date: 2018-04-30
 slug: knapsack-and-graph-optimization-problems
@@ -196,12 +196,10 @@ Total value of items taken is 255.0
 
 $$ \sum^{n-1}_{i=0}{\rm V}[i]^*{\rm I}[i].{\rm value} $$
 
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1fqoyz6vskwj30bk02a74d.jpg)
 
 的值最大，并满足以下约束条件：
 
 $$ \sum^{n-1}_{i=0}{\rm V}[i]*{\rm I}[i].{\rm weight}\leqslant w $$
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1fqoyzoquftj30fc0260sw.jpg)
 
 
 

@@ -123,9 +123,6 @@ a1*a2 = [2 8 32]
         pylab.plot (self.paid [1:], style, label = self.legend) #第一个月是 0，不必画出来，y 轴不从 0 开始。
 ```
 
-![](https://ws1.sinaimg.cn/large/006tNc79gy1fqnwcoi5mtj30hs0dcdgj.jpg)
-
-
 ### 待还本金 怎么画，什么样？
 
 ```python
@@ -133,9 +130,6 @@ a1*a2 = [2 8 32]
     def plotBalance (self, style):
         pylab.plot (self.outstanding, style, label = self.legend)
 ```
-
-![](https://ws4.sinaimg.cn/large/006tNc79gy1fqnweom3dnj30hs0dcq43.jpg)
-
 
 ### 已付总额 怎么画，什么样？
 
@@ -149,11 +143,7 @@ a1*a2 = [2 8 32]
         pylab.plot (totPd, style, label = self.legend)
 ```
 
-![](https://ws2.sinaimg.cn/large/006tNc79gy1fqnwfixvtnj30hs0dcgml.jpg)
-
 初始五年放大看
-
-![](https://ws4.sinaimg.cn/large/006tNc79gy1fqnwj7c8ivj30zk0qo76u.jpg)
 
 
 ### 净成本 怎么画，什么样？
@@ -177,11 +167,8 @@ a1*a2 = [2 8 32]
         pylab.plot (net, style, label = self.legend)
 ```
 
-![](https://ws3.sinaimg.cn/large/006tNc79gy1fqnwk30c3bj30hs0dct9q.jpg)
 
 放大一点看消长变化
-
-![](https://ws3.sinaimg.cn/large/006tNc79gy1fqnwkrhgm2j30zk0qo0vh.jpg)
 
 
 ### 如何批量绘图，分别标注？

@@ -2,7 +2,7 @@
 title: 第 8 章　类与面向对象编程
 subtitle: 8 CLASS AND OBJECT ORIENTED PROGRAMMING
 author: 曲政
-date: 2018-04-24
+date: 2018-04-22
 slug: class-and-object-oriented-programming
 tags:
 - 

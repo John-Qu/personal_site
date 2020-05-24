@@ -60,7 +60,6 @@ fib (120) 是 8 670 007 398 507 948 658 051 921，8.67x10^24.
 
 ### 从佩波那契数的结构中看出什么特点？可以怎么利用它简化计算？
 
-![](https://ws4.sinaimg.cn/large/006tKfTcly1fqtd5m04ljj30rs0b1wgp.jpg)
 
 1. 它的递归公式 `fib (n) = fib (n-1) + fib (n-2)` 自然就是最优子结构：小范围的解可以合并出大范围的解。
 2. 图中 fib (3) 出现了 3 次，被计算了 3 次。一样的问题，可以不必重复计算，返回记住的结果就好了。这是典型的 "重复子问题"。
@@ -133,8 +132,6 @@ a rooted binary tree = a graph, an acyclic directed graph
 
 ### 从 0/1 背包问题的决策树里看出哪几个意思？
 
-![](https://ws3.sinaimg.cn/large/006tKfTcly1fqted9km4bj30rs0cvtcm.jpg)
-
 从上图中看出：
 
 - 叶子没有子节点，因为达到了两种境地：房间里没有东西可拿，或者，背包里没有空间可装。
@@ -189,8 +186,6 @@ def maxVal (toConsider, avail):
 
 ### O/1 背包问题的二叉树结构，是否具有优化子结构和重复子问题？
 
-![](https://ws3.sinaimg.cn/large/006tKfTcly1fqted9km4bj30rs0cvtcm.jpg)
-
 优化子结构
 
 母节点有两个子节点，母节点问题的答案，是在两个子节点答案中选更好的那个。这代表了局部优化后的答案，提供了整体优化的基础。或者说，局部的答案，可以通过一个简单的比大小的方式，就 merge 成了上层结构的答案。
@@ -236,8 +231,6 @@ def fastMaxVal (toConsider, avail, memo = {}):
     memo [(len (toConsider), avail)] = result
     return result
 ```
-
-![](https://ws3.sinaimg.cn/large/006tKfTcly1fqted9km4bj30rs0cvtcm.jpg)
 
 因为决策树上相同的层级有一样的待选列表，长度也一样，不同层级之间长度不同。
 

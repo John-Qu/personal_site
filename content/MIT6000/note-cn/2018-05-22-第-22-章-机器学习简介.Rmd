@@ -247,8 +247,6 @@ evaluate the similarity of two object
 
 ### 闵可夫斯基距离公式怎么写？
 
-![](https://ws1.sinaimg.cn/large/006tKfTcly1frg8swvieej30oo02kwev.jpg)
-
 $$ {\rm distance}(V,W,p)=(\sum^{{\rm len}}_{i=1}{\rm abs}(V_i-W_i)^p)^{1/p} $$
 
 这里的 len 是向量长度 (维度？)。
@@ -257,7 +255,7 @@ $$ {\rm distance}(V,W,p)=(\sum^{{\rm len}}_{i=1}{\rm abs}(V_i-W_i)^p)^{1/p} $$
 
 向量的长度为 2 时，p 的作用是最容易表示的，因为可以使用笛卡儿坐标系表示。
 
-![](http://www.ituring.com.cn/figures/2017/PythonIntroduction/25.d22z.001.png)
+![](/images/2018-05-22-%E7%AC%AC-22-%E7%AB%A0-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%80%E4%BB%8B/25.d22z.001.png)
 
 p=2 的闵可夫斯基距离，是欧氏距离 Euclidean distance。
 
@@ -348,10 +346,6 @@ animals = [cobra, rattlesnake, boa, alligator, dartFrog, salmon, python]
 compareAnimals (animals, 3)
 pylab.show ()
 ```
-
-![](https://ws4.sinaimg.cn/large/006tKfTcly1frga7b575oj30hs0dcdg9.jpg)
-
-![](https://ws4.sinaimg.cn/large/006tKfTcly1frga7lo2ktj31kw0wu0vg.jpg)
 
 有几个问题
 

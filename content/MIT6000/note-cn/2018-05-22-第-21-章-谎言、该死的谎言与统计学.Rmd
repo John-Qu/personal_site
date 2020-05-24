@@ -98,9 +98,6 @@ the cost of a false negative is high.
 
 男女学生平均分差距
 
-![](https://ws3.sinaimg.cn/large/006tNc79gy1free6ok3yqj31e212ijw3.jpg)
-
-![](https://ws1.sinaimg.cn/large/006tNc79gy1free74kcjoj31kw11f799.jpg)
 
 Moral: Look carefully at the axes labels and scales
 
@@ -136,7 +133,6 @@ Four groups each containing 11 x, y pairs
 
 ### 统计量完全相同的四组数据，其实真的相像吗？
 
-![](https://ws4.sinaimg.cn/large/006tNc79gy1free3ec1obj315g12uwvr.jpg)
 
 Summary statistics for groups identical ◦ Mean x = 9.0
 ◦ Mean y = 7.5
@@ -146,7 +142,6 @@ Summary statistics for groups identical ◦ Mean x = 9.0
 
 Are four data sets really similar?
 
-![](https://ws3.sinaimg.cn/large/006tNc79gy1free38x1hsj31by10g0xy.jpg)
 
 Moral: Statistics about the data is not the same as the data
 

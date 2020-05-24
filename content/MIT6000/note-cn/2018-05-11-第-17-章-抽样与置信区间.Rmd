@@ -89,9 +89,6 @@ makeHist (sample,
 
 ```  
 
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1fr68ic8fvcj30zk0qotax.jpg)
-
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1fr688gru62j30zk0qogn6.jpg)
 
 - 样本的分布与总体分布相去甚远。因为样本数量很少，所以也不用大惊小怪。
 - 更需注意的是，尽管样本数量很少（从 42 万的总体中抽取出了 40 个），但估算出的均值与总体均值的差别还不到 2%。
@@ -161,21 +158,9 @@ pylab.show ()
 
 样本大小 40 的话：
 
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1fr6baodlslj30zk0qoadl.jpg)
-
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1fr6bg75xcxj30zk0qowfi.jpg)
-
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1fr6bgh1vtnj30zk0qomy7.jpg)
-
 - 总体的标准差大，样本的均值分布也零散。
 
 样本大小 400 的话：
-
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1fr6bbqawm0j30zk0qowi2.jpg)
-
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1fr6bgqgfozj30zk0qoab2.jpg)
-
-![](https://ws3.sinaimg.cn/large/006tKfTcgy1fr6bgvb53uj30zk0qo0tq.jpg)
 
 - 增大样本大小，样本均值的分布就收窄了。
 - 增加样本数量只会让样本均值的分布更接近正态分布。
@@ -268,8 +253,6 @@ Mean of rolling 100 dice = 2.4967 Variance = 0.0201
 
 分布图
 
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1fr769t6d8nj31kw0xcn3a.jpg)
-
 - 如果样本大小为 1，样本均值的分布反映的就是总体的分布。在这里几乎是随机均匀分布。
 - 只要样本数量足够大，随机抽样样本的均值的分布就体现出正态分布。
 
@@ -317,8 +300,6 @@ def sampling_errobar (population, sample_sizes = range (50, 2000, 200), num_samp
 
 sampling_errobar (population, range (50, 2000, 200), 20)
 ```
-
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1fr77om2xxcj30zk0qo40r.jpg)
 
 - 所有样本均值都非常接近实际的总体均值。
 - 随着样本量的增加，样本均值的误差并不是单调递减的.
@@ -388,13 +369,9 @@ standard_error (population, range (50, 2000, 200), 20)
 
 ``` 
 
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1fr79cr14tsj30zk0qo412.jpg)
-
 - 二者趋势一致，都是随着样本数量增加，以 n 的根号速度减小。
 - 由于样本数量只有 20 个，二者并不一致。
 - 用 200 组样本，二者就很接近了，如下图。
-
-![](https://ws3.sinaimg.cn/large/006tKfTcgy1fr79htfisij30zk0qodia.jpg)
 
 
 ### 用数据说明，可以用足够大的单个样本标注差代替整体标准差。
@@ -425,8 +402,6 @@ sd_of_sample_vs_population (population, range (2, 200, 2), 100)
 
 ```
 
-![](https://ws3.sinaimg.cn/large/006tKfTcgy1fr79x8z7lqj31kw10w0yx.jpg)
- 
 - 可见样本大小达到 30～40 左右以后，标注差差值的大小就变化不大了。
 - 因此一个样本有 30～40 个，就足够有代表性了。
 - 因此可以用一个样本，计算均值，估算标准误差。

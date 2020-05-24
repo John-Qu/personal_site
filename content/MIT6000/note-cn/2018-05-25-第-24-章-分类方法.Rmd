@@ -1,6 +1,6 @@
 ---
 title: 第 24 章　分类方法
-subtitle: 25 CLASSIFICATION METHODS
+subtitle: 24 CLASSIFICATION METHODS
 author: 曲政
 date: 2018-05-25
 slug: classification-methods
@@ -456,13 +456,6 @@ findK (training, 1, 21, 5, 'M')
 ### logistic regression 为什么叫这个名字？
 
 之所以称作 logistic 回归是因为，解决这种最优化问题时，目标函数是基于比值比（odds ratio）的对数的。这种函数称为 logit (分对数) 函数，它的反函数称为 logistic（对数的）函数。
-
-![](https://ws4.sinaimg.cn/large/006tNc79gy1frmgy30jsaj31kw0whdq1.jpg)
-![](https://ws3.sinaimg.cn/large/006tNc79gy1frmgxz8pytj31kw0eaad3.jpg)
-![](https://ws3.sinaimg.cn/large/006tNc79gy1frmgxw64a5j31kw0gfafx.jpg)
-![](https://ws2.sinaimg.cn/large/006tNc79gy1frmgxtq58dj31kw0chgp3.jpg)
-![](https://ws1.sinaimg.cn/large/006tNc79gy1frmgxrs90qj31kw0f9gph.jpg)
-![](https://ws4.sinaimg.cn/large/006tNc79gy1frmgxp856rj31kw07rmzo.jpg)
 
 
 参考：
@@ -961,8 +954,6 @@ being positive
 to a randomly chosen positive example than 
 to a randomly chosen negative example. 
 
-![](https://ws1.sinaimg.cn/large/006tNc79gy1frmlm98uunj30rs0l5jui.jpg)
-
 logistic regression 模型选取阈值 p = 0.578，得到
 
 ```commandline
@@ -1441,8 +1432,6 @@ trainingSet, testSet = split80_20 (examples)
 sensi_p_pairs = buildROC (trainingSet, testSet, "auroc", plot = True)[1]
 ```
 
-![](https://ws3.sinaimg.cn/large/006tNc79ly1frnvxtnwr3j30bj08zt92.jpg)
-
 看起来，sensitivity 超过 0.83 就比较平了，再通过提高 p 值来提高敏感度，会带来严重的假阳性，所以，在 sensi 和 p 阈值组成的队列里，找到相应的 p，约为 0.44.
 
 ```{python}
@@ -1525,7 +1514,6 @@ mean_ROC (examples, 20, "auroc", plot = True)
 ```
 
 平滑很多了
-![](https://ws3.sinaimg.cn/large/006tNc79ly1frnvwdy42vj30ms0hojso.jpg)
 
 ---
 以上，2018-05-25 16:57:16. 书本完结。

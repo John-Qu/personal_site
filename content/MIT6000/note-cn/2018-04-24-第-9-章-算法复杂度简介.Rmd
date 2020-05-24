@@ -2,7 +2,7 @@
 title: 第 9 章　算法复杂度简介
 subtitle: 9 A SIMPLISTIC INTRODUCTION TO ALGORITHMIC COMPLEXITY
 author: 曲政
-date: 2018-04-22
+date: 2018-04-24
 slug: a-simplistic-introduction-to-algorithmic-complexity
 tags:
 - 

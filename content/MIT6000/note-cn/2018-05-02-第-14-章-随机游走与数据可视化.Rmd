@@ -250,8 +250,6 @@ UsualDrunk random walk of 1 steps
 
 普通醉汉，经过 n 次单步游走的平均距离，与游走步数 n 的平方根几乎一致。
 
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1fqvvve9cgej30hs0dcjs1.jpg)
-
 可见这个规律，原理不知道。
 
 是不是跟横平竖直的勾股定理有关？
@@ -373,7 +371,6 @@ def simAll1 (drunkKinds, walkLengths, numTrials):
     pylab.savefig ("各种醉鬼各种步数的平均移动距离")
 ```
 
-![](https://ws4.sinaimg.cn/large/006tNc79gy1fqx2266j3cj30hs0dcq3o.jpg)
 各种醉鬼各种步数的平均移动距离，可以看出：
 - 怕冷的醉鬼跑得快，几乎快一个量级。
 - 四方游走与东西游走的出走距离差不多，增长速度基本是步数根号 2。
@@ -449,7 +446,6 @@ plotLocs ((UsualDrunk, ColdDrunk, EWDrunk), 100, 200)
 ```
 
 得到
-![](https://ws1.sinaimg.cn/large/006tNc79gy1fqx2grlyphj30hs0dc3zl.jpg)
 
 从图 各种醉鬼走相同步数后的多次最终位置 可见：
 - UsualDrunk 漫无目的四处游走；
@@ -508,7 +504,6 @@ traceWalk ((UsualDrunk, ColdDrunk, EWDrunk), 100)
 ```
 
 
-![](https://ws3.sinaimg.cn/large/006tNc79gy1fqx2nqi90oj30hs0dcaao.jpg)
 由图 "各种醉鬼一次漫步的轨迹" 可见：
 - UsualDrunk 和 ColdDrunk 经常重复自己走过的路。
 - ColdDrunk 很少重复自己走过的路。
@@ -569,7 +564,6 @@ class oddField (Field):
 traceWalk ((UsualDrunk, ColdDrunk, EWDrunk), 500)
 ```
 
-![](https://ws4.sinaimg.cn/large/006tNc79gy1fqx38p410sj30hs0dcgma.jpg)
 
 由图可见：
 - ColdDrunk 踩到虫洞的几率更大。

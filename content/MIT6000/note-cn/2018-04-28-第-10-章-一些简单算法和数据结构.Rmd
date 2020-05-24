@@ -325,9 +325,6 @@ def selSort (L):
 
 关键发现是：两个排好序的列表可以高效地合并为一个列表。
 
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1fqmn7h5lk8j315q0f0tbp.jpg)
-
-
 比较的次数是 O (len (L))，这里的 L 是两个列表中较长的那个。复制操作的次数是 O (len (L1) + len (L2))，因为每个元素都正好复制一次。
 
 

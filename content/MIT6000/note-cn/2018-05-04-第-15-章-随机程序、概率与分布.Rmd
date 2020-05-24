@@ -234,7 +234,6 @@ def regressToMean (numFlips, numTrials):
 regressToMean (15, 40)
 ```
 
-![](https://ws4.sinaimg.cn/large/006tNc79gy1fqy1glkl9nj30zk0qowfj.jpg)
 
 - 并不一定抵消，也不一定回归均值，可能同样方向，可能同样剧烈，甚至可能更极端。
 
@@ -292,9 +291,7 @@ random.seed (0)
 flipPlot (4, 20)
 ```
 
-![](https://ws4.sinaimg.cn/large/006tNc79gy1fqy1kotdyuj30zk0qodgq.jpg)
 
-![](https://ws2.sinaimg.cn/large/006tNc79gy1fqy1kwxv1sj30zk0qoaat.jpg)
 
 
 ### 需要使用多少样本才能得到令人信服的结果呢？这取决于什么？
@@ -303,7 +300,6 @@ flipPlot (4, 20)
 
 $variance (X) = \frac {\sum\nolimits_{x\in X}(x-\mu)^2}{\left|{X}\right|}$
 
-![](https://ws4.sinaimg.cn/large/006tNc79gy1fqy5b2rr77j30em03emxc.jpg)
 
 为什么取决于它？如何使用？
 
@@ -417,14 +413,12 @@ flipPlot1 (4, 20, 20)
 pylab.show ()
 ```
 
-![](https://ws1.sinaimg.cn/large/006tNc79gy1fqy5nt39d2j31kw0llaiv.jpg)
 
 上图是正反面比值的平均值和标准差
 - 平均值趋近于 1。
 - 在 10**6 次投掷情况下，标准差比平均值低三个数量级。
 
 
-![](https://ws1.sinaimg.cn/large/006tNc79gy1fqy5nt39d2j31kw0llaiv.jpg)
 
 上图是正反面差值的平均值和标准差
 - 平均值在增长，标准差也在变大。
@@ -450,7 +444,6 @@ def CV (X):
         return float ('nan')
 ```
 
-![](https://ws2.sinaimg.cn/large/006tNc79gy1fqy6163vkrj31kw0lpadm.jpg)
 
 上图是变异系数与抛掷次数的关系图。
 - 随着抛掷次数增多，正反比例的变异系数变小。
@@ -482,7 +475,6 @@ pylab.ylabel ("Number of Occurences")
 pylab.show ()
 ```
 
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1fqzdr4k2llj30yq0q6q5b.jpg)
 
 
 ### 扔 2 个骰子时，为什么最容易扔出 7？
@@ -519,14 +511,12 @@ pylab.show ()
            7 8 9 10 11 12
 ```
 
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1fqze5ihlqdj30yq0q0acy.jpg)
 
 
 ### 标准差与抛掷硬币的次数有关？
 
 每次抛得越多，标准差越小。
 
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1fqzeii8c4sj31kw0ledli.jpg)
 
 ```{python}
 import pylab, random
@@ -636,7 +626,6 @@ pylab.show ()
 
 $$P (x)=\frac {1}{\sigma\sqrt {2\pi}}*{\rm e}^{-\frac {(x-\mu)^2}{2\sigma^2}}$$
 
-![](https://ws3.sinaimg.cn/large/006tKfTcly1fr0gchpkzsj30co040dfy.jpg)
 
 这里的 μ 表示均值，σ 表示标准差，e 是欧拉数（大约为 2.718）。
 
@@ -734,7 +723,6 @@ showErrorBars (3, 10, 100)
 pylab.show ()
 ```
 
-![](https://ws4.sinaimg.cn/large/006tKfTcly1fr0mn268w7j30zk0qojsj.jpg)
 
 
 ### 什么是均匀分布？分为哪两种？
@@ -745,13 +733,11 @@ pylab.show ()
 
 我们可以使用一个参数完全描述出连续型均匀分布的特性，即它的范围（也就是最小值和最大值）。如果可能取值的范围是 min~max，那么一个值落入 x~y 的概率可以由以下公式给出：
 
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1fr3tfkh0gsj30rs064dgl.jpg)
 
 调用 random.uniform (min, max) 可以生成一个连续型均匀分布的值，它会返回在 min 和 max 之间随机选择的一个浮点数。
 
 离散型均匀分布描述的是，结果不是连续的而且每个结果发生的概率完全相同的情况。离散型均匀分布：
 
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1fr3ti1b0z1j30rs0cq75a.jpg)
 
 这里的 S 是可能出现的结果的集合，|S | 是 S 中的元素数量。
 
@@ -766,13 +752,11 @@ pylab.show ()
 
 如果分类变量只可能有两个值（如成功或失败），那么这时的概率分布就称为二项式分布。可以将二项式分布理解为 n 次独立实验中正好成功 k 次的概率。如果单次实验成功的概率为 p，那么 n 次独立实验中正好成功 k 次的概率可以由以下公式给出：
 
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1fr3tproml0j30rs0akt9n.jpg)
 
 n 选 k 数量 * k 次成功概率 * n-k 次不成功概率 
 
 这里的
 
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1fr3tsjzkoej30rs0beq40.jpg)
 
 公式称为二项式系数，它的一种读法是 “n 选 k”，因为它等价于从大小为 n 的集合中选择出的大小为 k 的子集数量。
 
@@ -808,7 +792,6 @@ two3 ()
 pylab.show ()
 ```
 
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1fr3xfq5pe7j30zk0qojt6.jpg)
 
 
 ### 指数分布用来描述什么情况？
@@ -846,7 +829,6 @@ clear (1000, 0.01, 1000)
 pylab.show ()
 ```
 
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1fr40i4g30nj30z40q8q4x.jpg)
 
 - 指数衰减 (exponetial decay) 经常用半衰期 (half-lift) 来描述，即初始值衰减到 50% 所需的时间。
 - 独立的项目也可以有半衰期。例如，一个药物分子的半衰期就是指它被清除的概率达到 0.5 所需的时间。
@@ -854,7 +836,6 @@ pylab.show ()
 - 对这种情况，不应该解释为总会有一些分子幸存下来，而应该这样解释：因为系统是概率性的，所以永远不能保证所有分子都被清除。
 
 
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1fr40l3drcjj30yw0qamz4.jpg)
 
 - 直线斜率是衰减率 (rate of decay)
 - 这个斜率就是 lambda。
@@ -902,7 +883,6 @@ pylab.title ('Probability of Starting Each Try = '\
 pylab.show ()
 ```
 
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1fr41749eczj30yo0q4di0.jpg)
 
 - 直方图，横轴是成功之前的失败次数，纵轴是这个次数在集合中出现的个数。
 
@@ -957,7 +937,6 @@ pylab.show ()
 有把握最终获胜，定义为 400 场模拟中，能胜 95% 的比率。对应的单场获胜概率需要在 0.75 左右。
 实际上走入决赛的两支队伍的单场获胜概率分别是 58.6% 和 55.5%. 对应的最终获胜概率只有 60% 左右。
 
-![](https://ws3.sinaimg.cn/large/006tNc79gy1fr4xqflibfj30yi0q4tax.jpg)
 
 ```{python}
 import random, pylab

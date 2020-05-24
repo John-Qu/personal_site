@@ -12,8 +12,6 @@ typora-root-url: ../../static
 show_toc: yes
 output: html_notebook
 ---
-# 18 UNDERSTANDING EXPERIMENTAL DATA
-
 
 ## 18.1 The Behavior of Springs
 
@@ -164,9 +162,6 @@ def fitData (fileName):
 fitData ('springData.txt')
 ```
 
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1fr7finztcej30zk0qoq5e.jpg)
-
-
 ### 用三次多项式拟合弹簧数据，预测性能怎么样？
 
 拟合得挺漂亮，但是远距离预测很不靠谱。
@@ -190,8 +185,6 @@ def fitData3 (fileName):
 fitData3 ('springData.txt')
 ```
 
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1fr7jmvo0hkj31kw0yrgsh.jpg)
-
 竟然出现了负的位移，重物升到天蓬上面去了。
 
 - 在技术文献中，我们经常会看到类似的图，其中既有原始数据，也有一条拟合数据的曲线。然而，作者往往会将拟合曲线当作对真实情况的描述，而将原始数据看作实验误差。这是非常危险的一种做法。
@@ -212,8 +205,6 @@ fitData3 ('springData.txt')
     xVals = pylab.array (xVals [:-6])
     yVals = pylab.array (yVals [:-6])
 ```
-
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1fr7jvov2czj31kw0y17bx.jpg)
 
 去掉 6 个点后，模型确实发生了变化：k 显著减小，而且线性拟合和三次拟合几乎没有区别。
 
@@ -282,9 +273,7 @@ def processTrajectories (fileName):
 
 processTrajectories ('launcherData.txt')
 pylab.show ()
-``` 
-
-![](https://ws2.sinaimg.cn/large/006tNc79gy1frakj75c1tj30zk0qo409.jpg)
+```
 
 - 二次曲线不够平滑没关系。
 - 二次曲线比一次要好，这很直观，但是好到什么程度？
@@ -301,8 +290,6 @@ pylab.show ()
 可以使用可决系数 coefficient of determination 计算一个拟合的绝对优度，可决系数通常写作 R2。令 yi 为第 i 个观测值，pi 为相应的模型预测值，μ 为观测值的均值，则：
 
 $$ R^2=1-\frac {\sum_i (y_i-p_i)^2}{\sum_i (y_i-\mu)^2} $$
-
-![](https://ws1.sinaimg.cn/large/006tNc79gy1frakzzlrlkj30as03q74e.jpg)
 
 通过比较估计误差 estimation errors（分子 the numerator）和原始数据本身的变异性 variability of the original values（分母 the denominator），R2 可以表示在一个数据集中，有多大比例的变异性 the proportion of variability (relative to the mean) 是由于统计模型 by the statisitic model 通过拟合 provided by the fit 造成的 accounted for。
 
@@ -409,7 +396,6 @@ def fitExpData (xVals, yVals):
 一种方法是将现有数据划分为训练集 training set 和保留集 holding set，保留集将来会作为测试集 test set 使用。
 
 另外一种检验模型的方法使用从原始数据中随机选择的多个子集来训练模型，然后检查这些模型彼此之间的相似程度，称为交叉验证 cross validation。
-
 
 ---
 以上，2018-05-14 11:23:58.
