@@ -1,0 +1,105 @@
+---
+title: 01 GETTING STARTED
+subtitle: Computation and Its Language
+author: 曲政
+date: 2020-05-25
+slug: getting-started
+tags:
+- 
+categories:
+- mit6000
+- ICPP
+typora-root-url: ../../static
+show_toc: yes
+output: html_notebook
+---
+
+### A computer does two things, and two things only:
+
+1. it performs calculations and 
+1. it remembers the results of those calculations.
+
+### What does it mean that knowing the history of human computation limitation?
+
+For most of human history, computation was limited by the speed of calculation of the human brain and the ability to record computational results with the human hand. This meant that only the smallest problems could be attacked computationally. Even with the speed of modern computers, there are still problems that are beyond modern computational models (e.g., understanding climate change), but more and more problems are proving amenable[^amenable] to computational solution. It is our hope that by the time you finish this book, you will feel comfortable bringing computational thinking to bear on[^bear on] solving many of the problems you encounter[^encounter] during your studies, work, and even everyday life.
+
+[^amenable]: [ә'mi:nәbl] (amenable to) (of a thing) capable of being acted upon in a particular way; susceptible to: *the patients had cardiac failure not amenable to medical treatment*.
+[^bear on]: To relate or refer; – with *on* or *upon*; as, how does this *bear* on the question?
+
+[^encounter]: To come against face to face; to meet; to confront, either by chance, suddenly, or deliberately; especially, to meet in opposition or with hostile intent; to engage in conflict with; to oppose; to struggle with; as, *to encounter a friend in traveling; two armies encounter each other; to encounter obstacles or difficulties, to encounter strong evidence of a truth.*
+
+### What do we mean by computational thinking?
+
+All knowledge can be thought of as either declarative or imperative. 
+
+- Declarative knowledge is composed of statements of fact. 
+- Imperative knowledge is “how to” knowledge, or recipes for deducing[^deduce] information.
+
+[^deduce]: To derive or draw; to derive by logical process; to obtain or arrive at as the result of reasoning; to gather, as a truth or opinion, from what precedes or from premises; to infer; – with *from* or *out of*.
+
+### How to describe Heron of Alexandria's process of computing the square root of a number?
+
+Heron of Alexandria was the first to document a way to compute the square root of a number.2 His method for finding the square root of a number, call it x, can be summarized as:
+
+1. Start with a guess, g.
+2. If g*g is close enough to x, stop and say that g is the answer.
+3. Otherwise create a new guess by averaging g and x/g, i.e., (g + x/g)/2.
+4. Using this new guess, which we again call g, repeat the process until g*g is close enough to x.
+
+Consider, for example, finding the square root of 25.
+
+1. Set g to some arbitrary value, e.g., 3.
+2. We decide that 3*3 = 9 is not close enough to 25.
+3. Set g to (3 + 25/3)/2 = 5.67.
+4. We decide that 5.67*5.67 = 32.15 is still not close enough to 25.
+5. Set g to (5.67 + 25/5.67)/2 = 5.04
+6. We decide that 5.04*5.04 = 25.4 is close enough, so we stop and declare 5.04 to be an adequate approximation to the square root of 25.
+
+### What is the charactor of an description being called an algorithm?
+
+Note that the description of the method is a sequence of simple steps, together with a flow of control that specifies when each step is to be executed. Such a description is called an algorithm. 
+
+This algorithm is an example of a guess-and-check algorithm. It is based on the fact that it is easy to check whether or not a guess is a good one.
+
+A bit more formally, an algorithm is a finite list of instructions that describe a computation that when executed on a set of inputs will proceed through a set of well-defined states and eventually produce an output.
+
+### What is Universal Turing Machine and Turing completemess?
+
+Universal Turing Machine. The machine had an unbounded memory in the form of “tape” on which one could write zeroes and ones, and some very simple primitive instructions for moving, reading, and writing to the tape. 
+
+The Church-Turing thesis leads directly to the notion of Turing completeness. A programming language is said to be Turing complete if it can be used to simulate a universal Turing Machine. 
+
+### What is Turing halting problem?
+
+The Church-Turing thesis states that if a function is computable, a Turing Machine can be programmed to compute it. The “if” in the Church-Turing thesis is important. Not all problems have computational solutions. Turing showed, for example, that it is impossible to write a program that given an arbitrary program, call it P, prints true if and only if P will run forever. This is known as the halting problem.
+
+### What is the the best thing and the worst thing about programming?
+
+The computer will do exactly what you tell it to do. This is a good thing because it means that you can make it do all sorts of fun and useful things. It is a bad thing because when it doesn’t do what you want it to do, you usually have nobody to blame but yourself.
+
+### What set of things does a programming language have?
+
+A set of primitive constructs, a syntax, a static semantics, and a semantics.
+
+In English language:
+
+1. the primitive constructs are words, 
+1. the syntax describes which strings of words constitute well-formed sentences, 
+1. the static semantics defines which sentences are 【correctly】meaningful, and 
+1. the semantics defines the meaning of those sentences.
+
+In Python:
+
+1. The primitive constructs in Python include literals (e.g., the number 3.2 and the string 'abc') and infix operators (e.g., + and /).
+1. the sequence of primitives 3.2 + 3.2 is syntactically well formed, but the sequence 3.2 3.2 is not.
+1. the sequence 3.2/'abc' is syntactically well formed (<literal> <operator> <literal>), but produces a static se- mantic error since it is not meaningful to divide a number by a string of characters.
+1. One doesn’t usually speak of a program as having a semantic error. If a program has no syntactic errors and no static semantic errors, it has a meaning, i.e., it has semantics. Of course, that isn’t to say that it has the semantics that its creator intended it to have.
+
+### What might happen if the program has an error, and behaves in an unintended way?
+
+- It might crash, i.e., stop running and produce some sort of obvious indication that it has done so. 
+- Or it might keep running, and running, and running, and never stop. If one has no idea of approximately how long the program is supposed to take to do its job, this situation can be hard to recognize.
+- Or it might run to completion and produce an answer that might, or might not, be correct.When a program appears to be doing the right thing but isn’t, bad things can follow: fortunes can be lost, patients can receive fatal doses of radiation therapy, airplanes can crash.
+
+Whenever possible, programs should be written in such a way that when they don’t work properly, it is self-evident. 
+

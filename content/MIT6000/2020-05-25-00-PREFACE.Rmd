@@ -1,0 +1,66 @@
+---
+title: 00 PREFACE and ACKNOWLEDGMENTS
+subtitle: 
+author: 曲政
+date: 2020-05-25
+slug: preface-and-acknowledgments
+tags:
+- 
+categories:
+- mit6000
+- ICPP
+typora-root-url: ../../static
+show_toc: yes
+output: html_notebook
+---
+
+### How long is the course using this book?
+
+The first edition of the book was based on a single one-semester course. 
+
+The current edition is suitable for a two-semester introductory computer science sequence.
+
+### What kind of students is this book written for?
+
+The book is aimed at students with little or no prior programming experience who have a desire to understand computational approaches to problem solving. For some of the students the material in this book will be a stepping stone to more advanced computer science courses. But for many of the students it will be their only formal exposure to computer science.
+
+### Why does this book cover so many topics?
+
+Because this will be the only formal exposure to computer science for many of the students, we emphasize breadth rather than depth. The goal is to provide students with a brief introduction to many topics, so that they will have an idea of what’s possible when the time comes to think about how to use computation to accomplish a goal.
+
+### What skill and knowledge should the student take away from this book?
+
+The main goal of this book is to help students become skillful at making productive use of computational techniques. They should learn to use computational modes of thoughts to frame problems and to guide the process of extracting information from data. The primary knowledge they will take away from this book is the art of computational problem solving.
+
+Computational problem solving is different from hand-with-pen solving. 
+
+### Why introduce features of Python and aspects of programming methods throughout the book?
+
+The idea is to help students learn Python and how to be a good programmer in the context of using computation to solve interesting problems.
+
+### What is the pervasive[^ pervasive] themes of the book?
+
+- systematic problem solving, 
+- the power of abstraction, and 
+- computation as a way of thinking about the world
+
+[^ pervasive]: Per-va′sive (pẽr-vā′sĭv) Tending to pervade, or having power to spread throughout; of a pervading quality.  “Civilization *pervasive* and general.” M. Arnold.
+
+### What should I have been able to act when finished reading this book?
+
+- Learned a language, Python, for expressing computations, 【not for showing off tricks and professional behaviors】
+- Learned a systematic approach to organizing, writing, and debugging medium-sized programs, 【I don't think I have gotten this, but when I writed out tetracamtion, I think I had got some of the systematic approach.】
+- Developed an informal understanding of computational complexity, 【The formal one is Knuth's?】
+- Developed some insight into the process of moving from an ambiguous problem statement to a computational formulation[^formulation] of a method for solving the problem, 【That's it. I spend a lot of time thinking in this process.】
+- Learned a useful set of algorithmic and problem reduction[^reduction] techniques,
+- Learned how to use randomness and simulations to shed light on problems that don’t easily succumb[^succumb] to closed-form solutions, and 【Not to say there is no closed-form solution, but saying that it is not easy to find one with limited time.】
+- Learned how to use computational tools (including simple statistical, visualization, and machine learning tools) to model and understand data. 【It is the time of big data. We must know how to dig out information and knowledge from data.】
+
+[^formulation]: formulation/ˌfɔːmjʊˈleɪʃn; ˌfɔrmjə`leʃən/ n (a) [U] action of formulating 格式化; 公式化; 确切的表达. (b) [C] result of this 公式; 确切的表达: choose another formulation 选择另一种表达方式.
+[^reduction]: the simplification of a subject or problem to a particular form in presentation or analysis: *the reduction of classical genetics to molecular biology*.
+
+[^succumb]: To yield; to submit; to give up unresistingly; as, to succumb under calamities; to succumb to disease.
+
+### How much difference an editor could make?
+
+I needed a collaborator who could read the book with the eyes of a student, and tell me what needed to be done, what should be done, and what could be done if I had the time and energy to do it. Julie buried me in “suggestions” that were too good to ignore. Her combined command of both the English language and programming is quite remarkable. 【Suggestions are good to be commands.】

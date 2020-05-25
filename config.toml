@@ -126,12 +126,12 @@ rssLimit = 100
     url = "/MIT6000/"
     weight = 1
 [[menu.MIT6000]]
-    name = "Readings"
-    url = "/MIT6000/book-notes/"
+    name = "分类"
+    url = "/categories/"
     weight = 2
 [[menu.MIT6000]]
-    name = "Problem Sets"
-    url = "/MIT6000/psets/"
+    name = "标签"
+    url = "/tags/"
     weight = 3
 [[menu.MIT6000]]
     name = "John Qu"

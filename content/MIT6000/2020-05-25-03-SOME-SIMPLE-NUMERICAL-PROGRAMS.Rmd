@@ -1,0 +1,98 @@
+---
+title: 03 SOME SIMPLE NUMERICAL PROGRAMS
+subtitle: 
+author: 曲政
+date: 2020-05-25
+slug: some-simple-numerical-programs
+tags:
+- 
+categories:
+- mit6000
+- ICPP
+typora-root-url: ../../static
+show_toc: yes
+output: html_notebook
+---
+
+## 3.1 Exhaustive Enumeration
+
+### What is decrementing function in a loop program block?
+
+The decrementing function in a loop has four properties:
+
+1. It maps a set of program variables into an integer.
+1. When the loop is entered, its value is nonnegative.
+1. When its value is `≤ 0`, the loop terminates. 
+1. Its value is decreased every time through the loop.
+
+### Can we look down the exhaustive enumeration algorithms?
+
+The algorithmic technique used in this program is a variant of guess and check called exhaustive enumeration. We enumerate all possibilities until we get to the right answer or exhaust the space of possibilities. At first blush[^ At first blush], this may seem like an incredibly stupid way to solve a problem. Surprisingly, however, exhaustive enumeration algorithms are often the most practical way to solve a problem. They are typically easy to implement and easy to understand. And, in many cases, they run fast enough for all practical purposes. 
+
+[^ At first blush]: **At first blush** , or **At the first blush** , at the first appearance or view.  “*At the first blush*, we thought they had been ships come from France.” Hakluyt. This phrase is used now more of ideas, opinions, etc., than of material things.
+
+## 3.2 For Loops
+
+### What is the relationship of `for` loop mechanism and `while` loop?
+
+The while loops we have used so far are highly stylized [^ stylized]. Each iterates over a sequence of integers. Python provides a language mechanism, the **for** loop, that can be used to simplify programs containing this kind of iteration.
+
+[^ stylized]: **stylized**: depicted or treated in a mannered and nonrealistic style.
+
+## 3.3 Approximate Solutions and Bisection Search
+
+### What is the exhaustive enumeration method for finding the square root?
+
+```{python}
+# x = 25
+x = 0.25
+epsilon = 0.01
+step = epsilon**2
+numGuesses = 0
+ans = 0.0
+# while abs(ans**2 - x) >= epsilon and ans <= x:
+while abs(ans**2 - x) >= epsilon and ans*ans <= x:
+    ans += step
+    numGuesses += 1 
+print('numGuesses =', numGuesses) 
+if abs(ans**2 - x) >= epsilon:
+    print('Failed on square root of', x) 
+else:
+    print(ans, 'is close to square root of', x)
+```
+
+Exhaustive enumeration method for finding the square root has nothing in common with the way of finding square roots using a pencil that you might have learned in middle school. It is often the case that the best way to solve a problem with a computer is quite different from how one would approach the problem by hand.
+
+### Should we be disappointed that the program didn’t figure out that 25 is a perfect square and print 5?
+
+No. The program did what it was intended to do. Though it would have been OK to print 5, doing so is no better than printing any value close enough to 5.
+
+### What is the option B when finding exhaustive enumeration algorithm not efficient in some case?
+
+We could try to speed it up by starting closer to the answer, but that presumes that we know the answer. The time has come to look for a different way to attack the problem. We need to choose a better algorithm rather than fine-tune the current one.
+
+## What is the bisection search method for finding the square root?
+
+```{python}
+x = 25
+epsilon = 0.01
+numGuesses = 0
+low = 0.0
+high = max(1.0, x)
+ans = (high + low)/2.0
+while abs(ans**2 - x) >= epsilon:
+    print('low =', low, 'high =', high, 'ans =', ans) 
+    numGuesses += 1
+    if ans**2 < x:
+        low = ans 
+    else:
+        high = ans
+    ans = (high + low)/2.0
+print('numGuesses =', numGuesses) 
+print(ans, 'is close to square root of', x)
+```
+
+More important, notice that at each iteration of the loop the size of the space to be searched is cut in half. Because it divides the search space in half at each step, it is called a bisection search. Bisection search is a huge improvement over our earlier algorithm, which reduced the search space by only a small amount at each iteration.
+
+## 3.4 A Few Words About Using Floats
+
