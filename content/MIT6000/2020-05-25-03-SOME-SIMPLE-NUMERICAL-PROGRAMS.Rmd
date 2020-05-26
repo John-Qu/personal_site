@@ -71,7 +71,7 @@ No. The program did what it was intended to do. Though it would have been OK to 
 
 We could try to speed it up by starting closer to the answer, but that presumes that we know the answer. The time has come to look for a different way to attack the problem. We need to choose a better algorithm rather than fine-tune the current one.
 
-## What is the bisection search method for finding the square root?
+### What is the bisection search method for finding the square root?
 
 ```{python}
 x = 25
@@ -95,4 +95,87 @@ print(ans, 'is close to square root of', x)
 More important, notice that at each iteration of the loop the size of the space to be searched is cut in half. Because it divides the search space in half at each step, it is called a bisection search. Bisection search is a huge improvement over our earlier algorithm, which reduced the search space by only a small amount at each iteration.
 
 ## 3.4 A Few Words About Using Floats
+
+### Why not call it real number in computer system?
+
+In almost modern programming languages non-integer numbers are implemented using a representation called **floating point**.
+
+### How to represent digital number in binary float point?
+
+Modern computers use binary, not decimal, representations. We represent the significant digits and exponents in binary rather than decimal and raise 2 rather than 10 to the exponent. For example, the number 0.625 (5/8) would be represented as the pair (101, -11); because 5/8 is 0.101 in binary and -11 is the binary representation of -3, the pair (101, -11) stands for 5*2-3 = 5/8 = 0.625.
+
+### What is the representation of 0.1 in Python floating point?
+
+What about the decimal fraction 1/10, which we write in Python as 0.1? The best we can do with four significant binary digits is (0011, -101). This is equivalent to 3/32, i.e., 0.09375. If we had five significant binary digits, we would represent 0.1 as (11001, -1000), which is equivalent to 25/256, i.e., 0.09765625. How many significant digits would we need to get an exact floating point representation of 0.1? An infinite number of digits! There do not exist integers `sig` and `exp` such that sig * 2^-exp^ equals 0.1.
+
+In most Python implementations, there are 53 bits of precision available for floating point numbers, so the significant digits stored for the decimal number 0.1 will be
+
+`11001100110011001100110011001100110011001100110011001`
+
+This is equivalent to the decimal number
+
+`0.1000000000000000055511151231257827021181583404541015625`
+
+### Does the difference between real and floating point numbers really matter?
+
+As we have seen, using ``==`` to compare two floating point values can produce a surprising result. It is almost always more appropriate to ask whether two floating point values are close enough to each other, not whether they are identical. So, for example, it is better to write `abs(x-y) < 0.0001` rather than `x == y`.
+
+## 3.5 Newton-Raphson
+
+### How to define finding the square root problem in the polynomial formulation?
+
+A polynomial with one variable (by convention, we will write the variable as x) is either 0 or the sum of a finite number of nonzero terms, e.g., 3x2 + 2x + 3. Each term, e.g., 3x2, consists of a constant (the coefficient of the term, 3 in this case) multiplied by the variable (x in this case) raised to a nonnegative integer exponent (2 in this case). The exponent on a variable in a term is called the degree of that term. The degree of a polynomial is the largest degree of any single term. Some examples are, 3 (degree 0), 2.5x + 12 (degree 1), and 3x2 (degree 2). In contrast, 2/x and x0.5 are not polynomials.
+
+If p is a polynomial and r a real number, we will write p(r) to stand for the value of the polynomial when x = r. A root of the polynomial p is a solution to the equation p = 0, i.e., an r such that p(r) = 0. So, for example, the problem of finding an approximation to the square root of 24 can be formulated as finding an x such that x2 – 24 ≈ 0.
+
+### What is successive approximation?
+
+Newton proved a theorem that implies that if a value, call it guess, is an ap- proximation to a root of a polynomial, then guess – p(guess)/p’(guess), where p’ is the first derivative of p, is a better approximation.20
+
+For any constant k and any coefficient c, the first derivative of the polynomial cx^2^ + k is 2cx. For example, the first derivative of x^2^ – k is 2x. Therefore, we know that we can improve on the current guess, call it y, by choosing as our next guess y - (y^2^ - k)/2y. This is called **successive approximation**.
+
+### What is Newton-Raphson method code for finding square root?
+
+```{python}
+#Newton-Raphson for square root
+#Find x such that x**2 - 24 is within epsilon of 0 epsilon = 0.01
+k = 24.0
+guess = k/2.0
+while abs(guess*guess - k) >= epsilon:
+	guess = guess - (((guess**2) - k)/(2*guess)) 
+print('Square root of', k, 'is about', guess)
+```
+
+### Compare the efficiency of Newton-Raphson and bisection search method?
+
+```{python}
+y = 54.0
+epsilon = 0.01
+
+numGuesses = 0
+low = 0.0
+high = y
+ans = (high + low)/2.0
+
+while abs (ans**2 - y) >= epsilon:
+    print ('low = ' + str (low) + ' high = ' + str (high) + ' ans = ' + str (ans))
+    numGuesses += 1
+    if ans**2 < y:
+        low = ans
+    else:
+        high = ans
+    ans = (high + low)/2.0
+print ('Bisection search numGuesses = ' + str (numGuesses))
+print (str (ans) + ' is close to square root of ' + str (y))
+
+guess = y/2.0
+numGuesses = 0
+
+while abs (guess*guess - y) >= epsilon:
+    numGuesses += 1
+    print("Guess is now at", guess)
+    guess = guess - (((guess**2) - y)/(2*guess))
+print ('Newton-Raphson numGuesses = ' + str (numGuesses))
+print ('Square root of ' + str (y) + ' is about ' + str (guess))
+```
 
