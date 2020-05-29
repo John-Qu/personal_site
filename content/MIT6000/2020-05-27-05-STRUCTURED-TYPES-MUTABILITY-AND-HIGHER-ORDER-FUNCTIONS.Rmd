@@ -1,0 +1,319 @@
+---
+title: 05 STRUCTURED TYPES, MUTABILITY, AND HIGHER-ORDER FUNCTIONS
+subtitle: 
+author: 曲政
+date: 2020-05-27
+slug: STRUCTURED-TYPES-MUTABILITY-AND-HIGHER-ORDER-FUNCTIONS
+tags:
+- 
+categories:
+- mit6000
+- ICPP booknotes
+typora-root-url: ../../static
+show_toc: yes
+output: html_notebook
+---
+
+## 5.1 Tuples
+
+### What is the similarity of tuple and string?
+
+Like strings, tuples are immutable ordered sequences of elements. The difference is that the elements of a tuple need not be characters. The individual elements can be of any type, and need not be of the same type as each other.
+
+### What is Python’s multiple assignment statement?
+
+If you know the length of a sequence (e.g., a tuple or a string), it can be convenient to use Python’s multiple assignment statement to extract the individual elements.
+
+```{python}
+a, b, c = 'xyz'
+print(a, b, c)
+```
+
+This mechanism is particularly convenient when used in conjunction with functions that return fixed-size sequences.
+
+```{python}
+def findExtremeDivisors(n1, n2):
+    """ Assumes that n1 and n2 are positive ints
+        Returns a tuple containing the smallest common divisor > 1 and
+            the largest common divisor of n1 and n2.
+            If no common divisor, returns (None, None)"""
+    minVal, maxVal = None, None
+    for i in range(2, min(n1, n2) + 1):
+        if n1%i == 0 and n2%i == 0:
+            if minVal == None:
+                minVal = i
+            maxVal = i
+    return (minVal, maxVal)
+
+minDivisor, maxDivisor = findExtremeDivisors(100, 200)
+print (minDivisor, maxDivisor)
+```
+
+## 5.2 Ranges
+
+### What is `range` type like?
+
+Like strings and tuples, ranges are immutable. The range function returns an object of type range.
+
+Unlike objects of type tuple, the amount of space occupied by an object of type range is not proportional to its length. Because a range is fully defined by its start, stop, and step values; it can be stored in a small amount of space.
+
+## 5.3 Lists and Mutability
+
+### Does the square brackets lead to visual confusion as using for literals of type `list`, indexing into lists, and slicing lists?
+
+For example, the expression `[1,2,3,4][1:3][1]`, which evaluates to 3, uses the square brackets in three different ways. This is rarely a problem in practice, because most of the time lists are built incrementally rather than written as literals.
+
+### What is object-equality?
+
+The distinction between mutating an object and assigning an object to a variable may, at first, appear subtle. However, if you keep repeating the mantra, “In Python a variable is merely a name, i.e., a label that can be attached to an object,” it will bring you clarity.
+
+```{python}
+Techs = ['MIT', 'Caltech']
+Ivys = ['Harvard', 'Yale', 'Brown']
+
+Univs = [Techs, Ivys]
+Univs1 = [['MIT', 'Caltech'], ['Harvard', 'Yale', 'Brown']]
+
+print('Univs =', Univs) 
+print('Univs1 =', Univs1) 
+print(Univs == Univs1)
+```
+
+![image-20200527105939070](/images/2020-05-27-05-STRUCTURED-TYPES-MUTABILITY-AND-HIGHER-ORDER-FUNCTIONS//image-20200527105939070.png)
+
+```{python}
+print(Univs == Univs1) #test value equality 
+print(id(Univs) == id(Univs1)) #test object equality 
+print('Id of Univs =', id(Univs))
+print('Id of Univs1 =', id(Univs1))
+```
+
+```{python}
+print('Ids of Univs[0] and Univs[1]', id(Univs[0]), id(Univs[1])) 
+print('Ids of Univs1[0] and Univs1[1]', id(Univs1[0]), id(Univs1[1]))
+```
+
+
+
+### What is aliasing?
+
+![image-20200527110717733](/images/2020-05-27-05-STRUCTURED-TYPES-MUTABILITY-AND-HIGHER-ORDER-FUNCTIONS//image-20200527110717733.png)
+
+What we have here is something called aliasing. There are two distinct paths to the same list object. One path is through the variable Techs and the other through the first element of the list object to which Univs is bound. One can mutate the object via either path, and the effect of the mutation will be visible through both paths. This can be convenient, but it can also be treacherous. Unintentional aliasing leads to programming errors that are often enormously hard to track down.
+
+Notice that the operator + does not have a side effect. It creates a new list and returns it. In contrast, extend and append each mutated L1.
+
+### Methods associated with lists
+
+- `L.append(e)` adds the object e to the end of L.
+- `L.count(e)` returns the number of times that e occurs in L.
+- `L.insert(i, e)` inserts the object e into L at index i.
+- `L.extend(L1)` adds the items in list L1 to the end of L.
+- `L.remove(e)` deletes the first occurrence of e from L.
+- `L.index(e)` returns the index of the first occurrence of e in L, raises an exception (see Chapter 7) if e is not in L.
+- `L.pop(i)` removes and returns the item at index i in L, raises an exception if L is empty. If i is omitted, it defaults to -1, to remove and return the last element of L.
+- `L.sort()` sorts the elements of L in ascending order. `L.reverse()` reverses the order of the elements in L.
+
+### How to avoid missing element when iterating a list?
+
+It is usually prudent[^prudent] to avoid mutating a list over which one is iterating.
+
+[^prudent]: **prudent**: Sagacious in adapting means to ends; circumspect in action, or in determining any line of conduct; practically wise; judicious; careful; discreet; sensible; – opposed to rash; as, a prudent man; dictated or directed by prudence or wise forethought; evincing prudence; as, prudent behavior.
+
+```{python}
+def removeDups(L1, L2):
+    """ Assumes that L1 and L2 are lists.
+        Removes any element from L1 that also occurs in L2
+    """
+    for e1 in L1:
+        if e1 in L2:
+            L1.remove(e1)
+
+L1 = [1,2,3,4]
+L2 = [1,2,5,6]
+removeDups(L1, L2)
+print('L1 =', L1)
+```
+
+One way to avoid this kind of problem is to use slicing to clone35 (i.e., make a copy of) the list and write for e1 in L1[:]. Notice that writing
+
+```python
+newL1 = L1
+for e1 in newL1:
+```
+
+would not solve the problem. It would not create a copy of `L1`, but would merely introduce a new name for the existing list.
+
+Slicing is not the only way to clone lists in Python. The expression `list(L)` returns a copy of the list `L`. If the list to be copied contains mutable objects that you want to copy as well, import the standard library module `copy` and use the function `copy.deepcopy`.
+
+### What is list comprehension used for?
+
+List comprehension provides a concise way to apply an operation to the values in a sequence. It creates a new list in which each element is the result of applying a given operation to a value from a sequence (e.g., the elements in another list). For example,
+
+```{python}
+L = [x**2 for x in range(1,7)] 
+print(L)
+```
+
+The `for` clause in a list comprehension can be followed by one or more `if` and `for` statements that are applied to the values produced by the `for` clause. These additional clauses modify the sequence of values generated by the first `for` clause and produce a new sequence of values, to which the operation associated with the comprehension is applied. For example, the code
+
+```{python}
+mixed = [1, 2, 'a', 3, 4.0]
+print([x**2 for x in mixed if type(x) == int])
+```
+
+squares the integers in mixed, and then prints `[1, 4, 9]`.
+
+### Why not use list comprehension too subtilely?
+
+Some Python programmers use list comprehensions in marvelous and subtle ways. That is not always a great idea. Remember that somebody else may need to read your code, and “subtle” is not usually a desirable property.
+
+## 5.4 Functions as Objects
+
+### What does it mean that functions are first-class objects?
+
+That means that they can be treated like objects of any other type, e.g., int or list. They have types, e.g., the expression type(abs) has the value <type 'built-in_function_or_method'>; they can appear in expressions, e.g., as the right-hand side of an assignment statement or as an argument to a function; they can be elements of lists; etc.
+
+### What is higher-order programming?
+
+Using functions as arguments allows a style of coding called higher-order programming. It can be particularly convenient in conjunction with lists, as shown in this code:
+
+```{python}
+ def applyToEach(L, f):
+    """ Assumes L is a list, f a function
+        Mutates L by replacing each element, e, of L by f(e)
+    """
+    for i in range(len(L)):
+        L[i] = f(L[i])
+
+L = [1, -2, 3.33]
+print('L =', L)
+
+print('Apply abs to each element of L.')
+applyToEach(L, abs)
+print('L =', L)
+
+print('Apply int to each element of', L)
+applyToEach(L, int)
+print('L =', L)
+
+print('Apply factorial to each element of', L)
+applyToEach(L, factR)
+print('L =', L)
+
+print('Apply Fibonnaci to each element of', L)
+applyToEach(L, fib)
+print('L =', L)
+```
+
+The function applyToEach is called higher-order because it has an argument that is itself a function.
+
+### How to use the built-in higher-order function `map`?
+
+Python has a built-in higher-order function, map, that is similar to, but more general than, the applyToEach function defined in Figure 5.5. it is designed to be used in conjunction with a for loop. In its simplest form the first argument to map is a unary function (i.e., a function that has only one parameter) and the second argument is any ordered collection of values suitable as arguments to the first argument.
+
+When used in a for loop, map behaves like the range function in that it returns one value for each iteration of the loop.36 These values are generated by applying the first argument to each element of the second argument. For example, the code
+
+```{python}
+for i in map(fib, [2, 6, 4]): 
+    print(i)
+```
+
+More generally, the first argument to map can be a function of n arguments, in which case it must be followed by n subsequent ordered collections (each of the same length). For example, the code
+
+```{python}
+L1 = [1, 28, 36]
+L2 = [2, 57, 9]
+for i in map(min, L1, L2):
+    print(i)
+```
+
+### Where is lambda expression frequently used?
+
+Python supports the creation of anonymous functions (i.e., functions that are not bound to a name), using the reserved word lambda. The general form of a lambda expression is
+
+```python
+lambda <sequence of variable names>: <expression>
+```
+
+For example, the lambda expression lambda x, y: x*y returns a function that returns the product of its two arguments. Lambda expressions are frequently used as arguments to higher-order functions. For example, the code
+
+```{python}
+L = []
+for i in map(lambda x, y: x**y, [1 ,2 ,3, 4], [3, 2, 1, 0]):
+    L.append(i) 
+print(L)
+```
+
+## 5.5 Strings, Tuples, Ranges, and Lists
+
+### Some methods on strings
+
+- `s.count(s1)` counts how many times the string s1 occurs in s.
+- `s.find(s1)` returns the index of the first occurrence of the substring s1 in s, and-1ifs1is not ins.
+- `s.rfind(s1)` same as find, but starts from the end of s (the “r” in rfind stands
+- for reverse).
+- `s.index(s1)` same as find, but raises an exception (Chapter 7) if s1 is not in s.
+- `s.rindex(s1)` same as index, but starts from the end of s.
+- `s.lower()` converts all uppercase letters in s to lowercase.
+- `s.replace(old, new)` replaces all occurrences of the string old in s with the string new.
+- `s.rstrip()` removes trailing white space from s.
+- `s.split(d)` Splits s using d as a delimiter. Returns a list of substrings of s. For example, the value of 'David Guttag plays basketball'.split(' ') is ['David', 'Guttag', 'plays', 'basketball']. If d is omitted, the substrings are separated by arbitrary strings of whitespace characters.
+
+Keep in mind that since strings are immutable these all return values and have no side effect.
+
+## 5.6 Dictionaries
+
+
+
+```{python}
+EtoF = {'bread':'pain', 'wine':'vin', 'with':'avec', 'I':'Je',
+  'eat':'mange', 'drink':'bois', 'John':'Jean',
+  'friends':'amis', 'and': 'et', 'of':'du','red':'rouge'}
+FtoE = {'pain':'bread', 'vin':'wine', 'avec':'with', 'Je':'I',
+  'mange':'eat', 'bois':'drink', 'Jean':'John',
+  'amis':'friends', 'et':'and', 'du':'of', 'rouge':'red'}
+dicts = {'English to French':EtoF, 'French to English':FtoE}
+
+def translateWord(word, dictionary):
+    if word in dictionary.keys():
+        return dictionary[word]
+    elif word != '':
+        return '"' + word + '"'
+    return word
+    
+def translate(phrase, dicts, direction): UCLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' LCLetters = 'abcdefghijklmnopqrstuvwxyz' letters = UCLetters + LCLetters dictionary = dicts[direction] translation = ''
+word = ''
+for c in phrase:
+if c in letters: word = word + c
+else:
+translation = translation\
++ translateWord(word, dictionary) + c return translation + ' ' + translateWord(word, dictionary)
+print(translate('I drink good red wine, and eat bread.', dicts,'English to French'))
+print(translate('Je bois du vin rouge.', dicts, 'French to English'))
+```
+
+### What is **view** object?
+
+The order in which the keys appear in the view is not defined. A view object is dynamic in that if the object with which it is associated changes, the change is visible through the view object.
+
+Objects of type dict_keys can be iterated over using for, and membership can be tested using in. An object of type dict_keys can easily be converted into a list, e.g., `list(months)`.
+
+### What is a hashable type?
+
+A type is hashable if it has
+
+- A `__hash__` method that maps an object of the type to an int, and for every ob- ject the value returned by __hash__ does not change during the lifetime of the object, and
+- An `__eq__` method that is used to compare objects for equality.
+
+### Some common operations on dicts
+
+- `len(d)` returns the number of items in `d`.
+- `d.keys()` returns a view of the keys in `d`.
+- `d.values()` returns a view of the values in `d`.
+- `k in d` returns True if key `k` is in `d`.
+- `d[k]` returns the item in `d` with key `k`.
+- `d.get(k, v)` returns `d[k]` if `k` is in `d`, and `v` otherwise.
+- `d[k] = v` associates the value `v` with the key `k` in `d`. If there is already a value associated with k, that value is replaced.
+- `del d[k]` removes the key `k` from `d`.
+- `for k in d` iterates over the keys in `d`.

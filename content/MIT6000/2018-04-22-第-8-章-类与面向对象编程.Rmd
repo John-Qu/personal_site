@@ -185,12 +185,12 @@ class MITPerson (Person):
 
 ### 什么是 representaion-independence？
 
-外部调用它，只能看到它的 interface。里买怎么实现不用管，将来有更好的方式实现，改成效率更高的实现方式发，也不会影响外部调用的方式。
+外部调用它，只能看到它的 interface。里面怎么实现不用管，将来有更好的方式实现，改成效率更高的实现方式发，也不会影响外部调用的方式。
 
 这里有一篇印第安纳大学的 [讲座笔记](https://www.cs.indiana.edu/usr/local/www/classes/c311/a3/ri_interpreter.pdf)
 
 
-### 实现 abstract date 时，关键的规定是什么？
+### 实现 abstract data 时，关键的规定是什么？
 
 representation invariant
 

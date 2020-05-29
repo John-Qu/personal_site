@@ -697,7 +697,9 @@ def iScaleFeatures (vals):
     return pylab.polyval (fit, vals)
 ```
 
-### 有了缩放的食性区分结果怎样？```python
+### 有了缩放的食性区分结果怎样？
+
+```python
 # -*- coding: utf-8 -*-
 def testTeeth (numClusters, numTrials, scale = lambda x: x):
     """
@@ -747,7 +749,7 @@ def main ():
     testTeeth (3, 40, iScaleFeatures)
 ```
 
-​```commandline
+```commandline
 Clustering without scaling
 
 Moose 驼鹿

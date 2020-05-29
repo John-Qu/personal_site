@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6 (Guttag)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.7 (pelican)" project-jdk-type="Python SDK" />
   <component name="RMarkdownSettings">
     <option name="renderProfiles">
       <map>
@@ -162,6 +162,34 @@
           <value>
             <RMarkdownRenderProfile>
               <option name="knitRootDirectory" value="$PROJECT_DIR$/content/MIT6000/note-cn" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/mit6000/2020-05-27-05-STRUCTURED-TYPES-MUTABILITY-AND-HIGHER-ORDER-FUNCTIONS.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/mit6000" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/mit6000/2020-05-27-06-TESTING-AND-DEBUGGING.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/mit6000" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/mit6000/2020-05-29-07-EXCEPTIONNS-AND-ASSERTIONS.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/mit6000" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/content/mit6000/2020-05-29-08-CLASSES-AND-OBJECT-ORIENTED-PROGRAMMING.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="knitRootDirectory" value="$PROJECT_DIR$/content/mit6000" />
             </RMarkdownRenderProfile>
           </value>
         </entry>

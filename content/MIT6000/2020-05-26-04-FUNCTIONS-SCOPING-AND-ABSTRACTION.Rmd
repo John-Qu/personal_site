@@ -321,15 +321,52 @@ It is with some trepidation[^trepidation] that we introduce the topic of global 
 [^locality]: **locality**:Limitation to a county, district, or place; as, *locality* of trial.
 [^context]: The part or parts of something written or printed, as of Scripture, which precede or follow a text or quoted sentence, or are so intimately associated with it as to throw light upon its meaning. *According to all the light that the contexts afford. - Sharp*.
 
+## 4.5 Modules
 
+### What is Python module?
 
+Python modules allow us to easily construct a program from code in multiple files. A module is a `.py` file containing Python definitions and statements.
 
+### How to use names in Module?
 
+Modules are typically stored in individual files. Each module has its own private symbol table.  Executing `import M` creates a binding for module `M `in the scope in which the `import` appears. Therefore, in the importing context we use dot notation to indicate that we are referring to a name defined in the imported module.[^relation_with_method_invocation]
 
+[^relation_with_method_invocation]: Superficially, this may seem unrelated to the use of dot notation in method invocation. However, as we will see in Chapter 8, there is a deep connection.
 
+### Why some Python programmers frown upon using the `from modele import *` form of import?
 
+Because it allows the importing program to omit the module name when accessing names defined inside the imported module. Executing the statement `from M import *` creates bindings in the current scope to all objects defined within `M`, but not to `M` itself. They believe that it makes code more difficult to read.
 
+### When is the module imported?
 
+As we have seen, a module can contain executable statements as well as function definitions. Typically, these statements are used to initialize the module. For this reason, the statements in a module are executed only the first time a module is imported into a program. Moreover, a module is imported only once per interpreter session. If you start up a shell, import a module, and then change the contents of that module, the interpreter will still be using the original version of the module. This can lead to puzzling behavior when debugging.
 
+## 4.6 Files
 
+### How does Python achieves operation-system independence?
 
+Accessing files through something called a file handle.
+
+### Why is it important to remember to close the file when the program is finished using it?
+
+There is a risk that some or all of the writes may not be saved.
+
+### Some of the common operations on files.
+
+ **open(fn, 'w')** fn is a string representing a file name. Creates a file for writing and returns a file handle.
+
+**open(fn, 'r')** fn is a string representing a file name. Opens an existing file for reading and returns a file handle.
+
+**open(fn, 'a')** fn is a string representing a file name. Opens an existing file for appending and returns a file handle.
+
+**fh.read()** returns a string containing the contents of the file associated with the file handle fh.
+
+**fh.readline()** returns the next line in the file associated with the file handle fh.
+
+**fh.readlines()** returns a list each element of which is one line of the file asso- ciated with the file handle fh.
+
+**fh.write(s)** writes the string s to the end of the file associated with the file handle fh.
+
+**fh.writeLines(S)** S is a sequence of strings. Writes each element of S as a sepa- rate line to the file associated with the file handle fh.
+
+**fh.close()** closes the file associated with the file handle fh.

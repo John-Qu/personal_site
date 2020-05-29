@@ -1,0 +1,108 @@
+---
+title: 08 CLASSES AND OBJECT-ORIENTED PROGRAMMING
+subtitle: 
+author: 曲政
+date: 2020-05-29
+slug: classes and object-oriented programming
+tags:
+- 
+categories:
+- mit6000
+- ICPP booknotes
+typora-root-url: ../../static
+show_toc: yes
+output: html_notebook
+---
+
+### What is the key to object-oriented programming?
+
+Think about objects as collections of both data and the meth- ods that operate on that data.
+
+## 8.1 Abstract Data Types and Classes
+
+### Why bound a set of objects and the operations on those objects together with an abstract data type?
+
+One can pass an object from one part of a program to another, and in doing so provide access not only to the data attributes of the object but also to operations that make it easy to manipulate that data.
+
+### What does a specification of a class's operations do?
+
+The specifications of those operations define an **interface** between the abstract data type and the rest of the program. The interface defines the behavior of the operations—what they do, but not how they do it. The interface thus provides an **abstraction barrier** that isolates the rest of the program from the data structures, algorithms, and code involved in providing a realization of the type abstraction.
+
+### What mechanisms are available for accomplishing the goal of managing complexity in a way that facilitates change?
+
+Decomposition creates structure in a program, and abstraction suppresses detail.
+
+### Why someone has a great leg up in maintaining a software for years?
+
+The key is to suppress the appropriate details. This is where data abstraction hits the mark. 
+
+One can create domain-specific types that provide a convenient abstraction. Ideally, these types capture concepts that will be relevant over the lifetime of a program. If one starts the programming process by devising types that will be relevant months and even decades later, one has a great leg up in maintaining that software.
+
+### What are the comments below the docstring of class and function?
+
+In contrast, the comments below the docstring contain information about the implementation. That information is aimed at programmers who might want to modify the implementation or build subclasses of the class, not at programmers who might want to use the abstraction.
+
+### What is the code of implementation an "intset"?
+
+```{python}
+class IntSet(object):
+    """An intSet is a set of integers"""
+    #Information about the implementation (not the abstraction)
+    #Value of the set is represented by a list of ints, self.vals.
+    #Each int in the set occurs in self.vals exactly once.
+    def __init__(self):
+        """Create an empty set of integers""" 
+        self.vals = []
+
+    def insert(self, e):
+        """Assumes e is an integer and inserts e into self"""
+        if e not in self.vals:
+            self.vals.append(e)
+
+    def member(self, e):
+        """Assumes e is an integer
+           Returns True if e is in self, and False otherwise"""
+        return e in self.vals
+
+    def remove(self, e):
+        """Assumes e is an integer and removes e from self
+           Raises ValueError if e is not in self"""
+        try:
+            self.vals.remove(e)
+        except:
+            raise ValueError(str(e) + ' not found')
+
+    def getMembers(self):
+        """Returns a list containing the elements of self.
+           Nothing can be assumed about the order of the elements"""
+        return self.vals[:]
+
+    def __str__(self):
+        """Returns a string representation of self"""
+        self.vals.sort()
+        result = ''
+        for e in self.vals:
+            result = result + str(e) + ','
+        return '{' + result[:-1] + '}' #-1 omits trailing comma
+```
+
+### What is a function inside a class called?
+
+a method that associated with the class
+
+method attributes of the class
+
+### What is the relationship of type, class, method and function?
+
+```{python}
+s = IntSet() 
+s.insert(3) 
+print("Whether '3' exists in 's':", s.member(3))
+print ("Type of 'IntSet' is " + str(type (IntSet)) + ".\n" + 
+       "Type of 'IntSet.insert' is " + str(type (IntSet.insert)) + ".")
+print ("Type of 's' is " + str(type (s)) + ".\n" + 
+       "Type of 's.insert' is " + str(type(s.insert)) + ".")
+```
+
+113
+
