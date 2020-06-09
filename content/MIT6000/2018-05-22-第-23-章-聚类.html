@@ -622,58 +622,56 @@ def iScaleFeatures (vals):
     # 返回输入数组对应的模型上的输出数据
     return pylab.polyval (fit, vals)</code></pre>
 </div>
-<div id="有了缩放的食性区分结果怎样python" class="section level3">
-<h3>有了缩放的食性区分结果怎样？```python</h3>
-</div>
-</div>
-<div id="coding-utf-8---" class="section level1">
-<h1>-<em>- coding: utf-8 -</em>-</h1>
-<p>def testTeeth (numClusters, numTrials, scale = lambda x: x):
-&quot;&quot;&quot;
-读数据，做运算
-:param numClusters: 分成几个簇
-:param numTrials: k-means 相似聚簇做几次尝试
-:param scale: 缩放函数，默认 identity function 不做处理
-:return: 打印结果
-&quot;&quot;&quot;
-# 提取信息
-features, labels, species =<br />
-readMammalData (‘dentalFormulas.txt’, scale)
-# 创建实例
-examples = buildMammalExamples (features, labels, species)
-# k-means 相似聚簇
-bestClustering = em_23_2_k_means_clustering.trykmeans (examples, numClusters, numTrials)
-# 打印输出结果
-for c in bestClustering:
-# 为每一个簇打印内部对象
-names = ’’
-for p in c.members ():
-names += p.getName () + ‘,’
-print (‘’ + names [:-2]) #除去末尾的逗号和空格
-# 检验同一个簇中的实例是否真的是同类
-herbivores, carnivores, omnivores = 0, 0, 0
-for p in c.members ():
-if p.getLabel () == ‘0’:
-herbivores += 1
-elif p.getLabel () == ‘1’:
-carnivores += 1
-else:
-omnivores += 1
-print (herbivores, ‘herbivores,’, carnivores, ‘carnivores,’,
-omnivores, ‘omnivores’)</p>
-<p>def main ():
-random.seed (0)
-print (‘Clustering without scaling’)
-testTeeth (3, 40)
-random.seed (0)
-print (‘with z-scaling’)
-testTeeth (3, 40, zScaleFeatures)
-random.seed (0)
-print (‘with i-scaling’)
-testTeeth (3, 40, iScaleFeatures)</p>
-<pre><code>
-​```commandline
-Clustering without scaling
+<div id="有了缩放的食性区分结果怎样" class="section level3">
+<h3>有了缩放的食性区分结果怎样？</h3>
+<pre class="python"><code># -*- coding: utf-8 -*-
+def testTeeth (numClusters, numTrials, scale = lambda x: x):
+    &quot;&quot;&quot;
+    读数据，做运算
+    :param numClusters: 分成几个簇
+    :param numTrials: k-means 相似聚簇做几次尝试
+    :param scale: 缩放函数，默认 identity function 不做处理
+    :return: 打印结果
+    &quot;&quot;&quot;
+    # 提取信息
+    features, labels, species =\
+              readMammalData (&#39;dentalFormulas.txt&#39;, scale)
+    # 创建实例
+    examples = buildMammalExamples (features, labels, species)
+    # k-means 相似聚簇
+    bestClustering = em_23_2_k_means_clustering.trykmeans (examples, numClusters, numTrials)
+    # 打印输出结果
+    for c in bestClustering:
+        # 为每一个簇打印内部对象
+        names = &#39;&#39;
+        for p in c.members ():
+            names += p.getName () + &#39;, &#39;
+        print (&#39;\n&#39; + names [:-2]) #除去末尾的逗号和空格
+        # 检验同一个簇中的实例是否真的是同类
+        herbivores, carnivores, omnivores = 0, 0, 0
+        for p in c.members ():
+            if p.getLabel () == &#39;0&#39;:
+                herbivores += 1
+            elif p.getLabel () == &#39;1&#39;:
+                carnivores += 1
+            else:
+                omnivores += 1
+        print (herbivores, &#39;herbivores,&#39;, carnivores, &#39;carnivores,&#39;,
+          omnivores, &#39;omnivores&#39;)
+
+
+
+def main ():
+    random.seed (0)
+    print (&#39;Clustering without scaling&#39;)
+    testTeeth (3, 40)
+    random.seed (0)
+    print (&#39;\nClustering with z-scaling&#39;)
+    testTeeth (3, 40, zScaleFeatures)
+    random.seed (0)
+    print (&#39;\nClustering with i-scaling&#39;)
+    testTeeth (3, 40, iScaleFeatures)</code></pre>
+<pre class="commandline"><code>Clustering without scaling
 
 Moose 驼鹿
 1 herbivores, 0 carnivores, 0 omnivores
@@ -714,4 +712,5 @@ Cow 牛，Deer 鹿，Elk 麋鹿，Moose 驼鹿
 </ul>
 <hr />
 <p>以上，2018-05-22 16:05:45</p>
+</div>
 </div>

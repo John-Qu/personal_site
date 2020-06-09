@@ -16,6 +16,7 @@ rssLimit = 100
     en = "/en/:year/:month/:slug/"
     cn-note = "/cn-note/:year/:month/:slug/"
     mit6000 = "/mit6000/:year/:month/:slug/"
+    ref = "/ref/:year/:month/:slug/"
 
 [[menu.main]]
     name = "About"
@@ -120,6 +121,10 @@ rssLimit = 100
     name = "MIT 6000"
     url = "/MIT6000/"
     weight = 7
+[[menu.cn-note]]
+    name = "Reference"
+    url = "/ref/"
+    weight = 8
 
 [[menu.MIT6000]]
     name = "Home"
@@ -134,6 +139,23 @@ rssLimit = 100
     url = "/tags/"
     weight = 3
 [[menu.MIT6000]]
+    name = "John Qu"
+    url = "/"
+    weight = 4
+    
+[[menu.Reference]]
+    name = "Home"
+    url = "/MIT6000/"
+    weight = 1
+[[menu.Reference]]
+    name = "分类"
+    url = "/categories/"
+    weight = 2
+[[menu.Reference]]
+    name = "标签"
+    url = "/tags/"
+    weight = 3
+[[menu.Reference]]
     name = "John Qu"
     url = "/"
     weight = 4

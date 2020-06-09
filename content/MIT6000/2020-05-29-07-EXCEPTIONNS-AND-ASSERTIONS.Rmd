@@ -24,14 +24,14 @@ If you know that a line of code might raise an exception when executed, you shou
 
 ### What is the function that has be generalized to ask for any type of input?
 
-```{python}
+```python
 def readVal(valType, requestMsg, errorMsg): 
     while True:
-		val = input(requestMsg + ' ') 
-    	try:
-			return(valType(val)) #convert str to valType before returning 
+        val = input(requestMsg + ' ')
+        try:
+            return(valType(val)) #convert str to valType before returning
         except ValueError:
-			print(val, errorMsg)
+            print(val, errorMsg)
             
 readVal(int, 'Enter an integer:', 'is not an integer')
 ```
@@ -50,49 +50,50 @@ In principle, the second except block should never be entered, because the code 
 
 ```{python}
 def getRatios(vect1, vect2):
-	""" Assumes: vect1 and vect2 are equal length lists of numbers
-		Returns: a list containing the meaningful values of vect1[i]/vect2[i]"""
-	ratios = []
-	for index in range(len(vect1)):
-		try:
-			ratios.append(vect1[index]/vect2[index])
-		except ZeroDivisionError:
-			ratios.append(float('nan')) #nan = Not a Number
-		except:
-			raise ValueError('getRatios called with bad arguments')
+    """ Assumes: vect1 and vect2 are equal length lists of numbers
+        Returns: a list containing the meaningful values of vect1[i]/vect2[i]"""
+    ratios = []
+    for index in range(len(vect1)):
+        try:
+            ratios.append(vect1[index]/vect2[index])
+        except ZeroDivisionError:
+            ratios.append(float('nan')) #nan = Not a Number
+        except:
+            raise ValueError('getRatios called with bad arguments')
     return ratios
 ```
 
 ```{python}
 try:
-	print(getRatios([1.0,2.0,7.0,6.0], [1.0,2.0,0.0,3.0])) print(getRatios([], []))
-	print(getRatios([1.0, 2.0], [3.0]))
+    print(getRatios([1.0,2.0,7.0,6.0], [1.0,2.0,0.0,3.0]))     
+    print(getRatios([], []))
+    print(getRatios([1.0, 2.0], [3.0]))
 except ValueError as msg: print(msg)
 ```
 
 ```{python}
 def getGrades(fname):
-	try:
-		gradesFile = open(fname, 'r') #open file for reading
-	except IOError:
-		raise ValueError('getGrades could not open ' + fname)
-	grades = []
-	for line in gradesFile:
-		try:
-			grades.append(float(line))
-		except:
-			raise ValueError('Unable to convert line to float')
-	return grades
+    try:
+        gradesFile = open(fname, 'r') #open file for reading
+    except IOError:
+        raise ValueError('getGrades could not open ' + fname)
+    grades = []
+    for line in gradesFile:
+        try:
+            grades.append(float(line))
+        except:
+            raise ValueError('Unable to convert line to float')
+    return grades
 ```
 
 ```{python}
 try:
-	grades = getGrades('quiz1grades.txt')
-	grades.sort()
-	median = grades[len(grades)//2]
-	print('Median grade is', median)
+    grades = getGrades('quiz1grades.txt')
+    grades.sort()
+    median = grades[len(grades)//2]
+    print('Median grade is', median)
 except ValueError as errorMsg:
-	print('Whoops.', errorMsg)
+    print('Whoops.', errorMsg)
 ```
 
 ## 7.3 Assertions

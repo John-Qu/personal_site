@@ -134,7 +134,7 @@ The **representation invariant** defines which values of the data attributes cor
 
 All instances of user-defined classes are hashable, and therefore can be used as dictionary keys. If no `__hash__` method is provided, the hash value of the object is derived from the function `id`.
 
-### Why abstract data types are a big deal[^a big deal]?
+### Why abstract data types are a big deal[^a-big-deal]?
 
 They lead to a different way of thinking about organizing large programs. 
 
@@ -150,7 +150,7 @@ Data abstraction encourages program designers to focus on the centrality of data
 
 The availability of reusable abstractions not only reduces development time, but also usually leads to more reliable programs, because mature software is usually more reliable than new software. For many years, the only program libraries in common use were statistical or scientific. Today, however, there is a great range of available program libraries (especially for Python), often based on a rich set of data abstractions.
 
-[^a big deal]: **a big deal**: *informal* *[usually with negative]* a thing considered important: *they don't make a big deal out of minor irritations*. • an important person: *Sam Kinison became a big deal*. • (big deal) used to express one's contempt for something regarded as impressive or important by another person: *“I'll give you an allowance,” he said. “Big deal,” she thought*.
+[^a-big-deal]: **a big deal**: *informal* *[usually with negative]* a thing considered important: *they don't make a big deal out of minor irritations*. • an important person: *Sam Kinison became a big deal*. • (big deal) used to express one's contempt for something regarded as impressive or important by another person: *“I'll give you an allowance,” he said. “Big deal,” she thought*.
 [^encompass]: **encompass**: To circumscribe or go round so as to surround closely; to encircle; to inclose; to environ; as, a ring *encompasses* the finger; an army *encompasses* a city; a voyage *encompassing* the world. - Shak. A question may be *encompassed* with difficulty. - C. J. Smith.
 [^compose]: **compose**: To construct by mental labor; to design and execute, or put together, in a manner involving the adaptation of forms of expression to ideas, or to the laws of harmony or proportion; as, to compose a sentence, a sermon, a symphony, or a picture.
 
@@ -492,16 +492,22 @@ class infoHiding(object):
 
 ```{python}
 test = infoHiding()
-print(test.visible)
-print(test.__alsoVisible__)
-print(test.__invisible)
+try:
+    print(test.visible)
+    print(test.__alsoVisible__)
+    print(test.__invisible)
+except:
+    pass
 ```
 
 ```{python}
 test = infoHiding()
-test.printInvisible()
-test.__printInvisible__()
-test.__printInvisible()
+try:
+    test.printInvisible()
+    test.__printInvisible__()
+    test.__printInvisible()
+except:
+    pass
 ```
 
 ```{python}
@@ -510,7 +516,10 @@ class subClass(infoHiding):
     def __init__(self):
         print('from subclass', self.__invisible)
 
-testSub = subClass()
+try:
+    testSub = subClass()
+except:
+    pass    
 ```
 
 
@@ -520,9 +529,7 @@ This is unfortunate because it allows the client code to rely upon something tha
 
 ### Is it legal in Python to access(read and write) instance and class variables from outside the class definition?
 
-Yes. While this relatively weak static semantic checking is a flaw in Python, it is
-
-not a fatal flaw.
+Yes. While this relatively weak static semantic checking is a flaw in Python, it is not a fatal flaw.
 
 ### Is there a better solution in the loss of efficiency when preventing client programs from directly accessing critical data structures?
 

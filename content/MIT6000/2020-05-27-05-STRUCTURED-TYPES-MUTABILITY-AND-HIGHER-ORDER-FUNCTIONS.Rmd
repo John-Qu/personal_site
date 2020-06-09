@@ -179,7 +179,34 @@ That means that they can be treated like objects of any other type, e.g., int or
 Using functions as arguments allows a style of coding called higher-order programming. It can be particularly convenient in conjunction with lists, as shown in this code:
 
 ```{python}
- def applyToEach(L, f):
+# from ${2020-05-26-04-FUNCTIONS-SCOPING-AND-ABSTRACTION.Rmd} import ${factR}
+
+def factI(n):
+    """ Assumes n an int > 0
+        Returns n!""" 
+    result = 1
+    while n > 1:
+        result = result * n 
+        n -= 1
+    return result
+    
+def factR(n):
+    """ Assumes n an int > 0
+        Returns n!""" 
+    if n == 1:
+        return n
+    else:
+        return n * factR (n - 1)
+        
+def fib(n):
+    """ Assues n int >= 0
+        Returns Fibonacci of n """
+    if n == 0 or n == 1:
+        return 1
+    else:
+    		return fib(n-1) + fib(n-2)
+        
+def applyToEach(L, f):
     """ Assumes L is a list, f a function
         Mutates L by replacing each element, e, of L by f(e)
     """
@@ -282,13 +309,21 @@ def translateWord(word, dictionary):
         return '"' + word + '"'
     return word
     
-def translate(phrase, dicts, direction): UCLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' LCLetters = 'abcdefghijklmnopqrstuvwxyz' letters = UCLetters + LCLetters dictionary = dicts[direction] translation = ''
-word = ''
-for c in phrase:
-if c in letters: word = word + c
-else:
-translation = translation\
-+ translateWord(word, dictionary) + c return translation + ' ' + translateWord(word, dictionary)
+def translate(phrase, dicts, direction):
+    UCLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    LCLetters = 'abcdefghijklmnopqrstuvwxyz'
+    letters = UCLetters + LCLetters
+    dictionary = dicts[direction]
+    translation = ''
+    word = ''
+    for c in phrase:
+        if c in letters:
+            word = word + c
+        else:
+            translation = translation\
+                + translateWord(word, dictionary) + c
+    return translation + ' ' + translateWord(word, dictionary)
+
 print(translate('I drink good red wine, and eat bread.', dicts,'English to French'))
 print(translate('Je bois du vin rouge.', dicts, 'French to English'))
 ```

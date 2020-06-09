@@ -1,0 +1,343 @@
+---
+title: 05 STRUCTURED TYPES, MUTABILITY, AND HIGHER-ORDER FUNCTIONS
+subtitle: 
+author: 曲政
+date: 2020-05-27
+slug: STRUCTURED-TYPES-MUTABILITY-AND-HIGHER-ORDER-FUNCTIONS
+tags:
+- 
+categories:
+- mit6000
+- ICPP booknotes
+typora-root-url: ../../static
+show_toc: yes
+output: html_notebook
+---
+
+
+
+<div id="tuples" class="section level2">
+<h2>5.1 Tuples</h2>
+<div id="what-is-the-similarity-of-tuple-and-string" class="section level3">
+<h3>What is the similarity of tuple and string?</h3>
+<p>Like strings, tuples are immutable ordered sequences of elements. The difference is that the elements of a tuple need not be characters. The individual elements can be of any type, and need not be of the same type as each other.</p>
+</div>
+<div id="what-is-pythons-multiple-assignment-statement" class="section level3">
+<h3>What is Python’s multiple assignment statement?</h3>
+<p>If you know the length of a sequence (e.g., a tuple or a string), it can be convenient to use Python’s multiple assignment statement to extract the individual elements.</p>
+<pre class="python"><code>a, b, c = &#39;xyz&#39;
+print(a, b, c)</code></pre>
+<pre><code>## x y z</code></pre>
+<p>This mechanism is particularly convenient when used in conjunction with functions that return fixed-size sequences.</p>
+<pre class="python"><code>def findExtremeDivisors(n1, n2):
+    &quot;&quot;&quot; Assumes that n1 and n2 are positive ints
+        Returns a tuple containing the smallest common divisor &gt; 1 and
+            the largest common divisor of n1 and n2.
+            If no common divisor, returns (None, None)&quot;&quot;&quot;
+    minVal, maxVal = None, None
+    for i in range(2, min(n1, n2) + 1):
+        if n1%i == 0 and n2%i == 0:
+            if minVal == None:
+                minVal = i
+            maxVal = i
+    return (minVal, maxVal)
+
+minDivisor, maxDivisor = findExtremeDivisors(100, 200)
+print (minDivisor, maxDivisor)</code></pre>
+<pre><code>## 2 100</code></pre>
+</div>
+</div>
+<div id="ranges" class="section level2">
+<h2>5.2 Ranges</h2>
+<div id="what-is-range-type-like" class="section level3">
+<h3>What is <code>range</code> type like?</h3>
+<p>Like strings and tuples, ranges are immutable. The range function returns an object of type range.</p>
+<p>Unlike objects of type tuple, the amount of space occupied by an object of type range is not proportional to its length. Because a range is fully defined by its start, stop, and step values; it can be stored in a small amount of space.</p>
+</div>
+</div>
+<div id="lists-and-mutability" class="section level2">
+<h2>5.3 Lists and Mutability</h2>
+<div id="does-the-square-brackets-lead-to-visual-confusion-as-using-for-literals-of-type-list-indexing-into-lists-and-slicing-lists" class="section level3">
+<h3>Does the square brackets lead to visual confusion as using for literals of type <code>list</code>, indexing into lists, and slicing lists?</h3>
+<p>For example, the expression <code>[1,2,3,4][1:3][1]</code>, which evaluates to 3, uses the square brackets in three different ways. This is rarely a problem in practice, because most of the time lists are built incrementally rather than written as literals.</p>
+</div>
+<div id="what-is-object-equality" class="section level3">
+<h3>What is object-equality?</h3>
+<p>The distinction between mutating an object and assigning an object to a variable may, at first, appear subtle. However, if you keep repeating the mantra, “In Python a variable is merely a name, i.e., a label that can be attached to an object,” it will bring you clarity.</p>
+<pre class="python"><code>Techs = [&#39;MIT&#39;, &#39;Caltech&#39;]
+Ivys = [&#39;Harvard&#39;, &#39;Yale&#39;, &#39;Brown&#39;]
+
+Univs = [Techs, Ivys]
+Univs1 = [[&#39;MIT&#39;, &#39;Caltech&#39;], [&#39;Harvard&#39;, &#39;Yale&#39;, &#39;Brown&#39;]]
+
+print(&#39;Univs =&#39;, Univs) </code></pre>
+<pre><code>## Univs = [[&#39;MIT&#39;, &#39;Caltech&#39;], [&#39;Harvard&#39;, &#39;Yale&#39;, &#39;Brown&#39;]]</code></pre>
+<pre class="python"><code>print(&#39;Univs1 =&#39;, Univs1) </code></pre>
+<pre><code>## Univs1 = [[&#39;MIT&#39;, &#39;Caltech&#39;], [&#39;Harvard&#39;, &#39;Yale&#39;, &#39;Brown&#39;]]</code></pre>
+<pre class="python"><code>print(Univs == Univs1)</code></pre>
+<pre><code>## True</code></pre>
+<div class="figure">
+<img src="/images/2020-05-27-05-STRUCTURED-TYPES-MUTABILITY-AND-HIGHER-ORDER-FUNCTIONS//image-20200527105939070.png" alt="image-20200527105939070" />
+<p class="caption">image-20200527105939070</p>
+</div>
+<pre class="python"><code>print(Univs == Univs1) #test value equality </code></pre>
+<pre><code>## True</code></pre>
+<pre class="python"><code>print(id(Univs) == id(Univs1)) #test object equality </code></pre>
+<pre><code>## False</code></pre>
+<pre class="python"><code>print(&#39;Id of Univs =&#39;, id(Univs))</code></pre>
+<pre><code>## Id of Univs = 140410935729736</code></pre>
+<pre class="python"><code>print(&#39;Id of Univs1 =&#39;, id(Univs1))</code></pre>
+<pre><code>## Id of Univs1 = 140410935871880</code></pre>
+<pre class="python"><code>print(&#39;Ids of Univs[0] and Univs[1]&#39;, id(Univs[0]), id(Univs[1])) </code></pre>
+<pre><code>## Ids of Univs[0] and Univs[1] 140410935702536 140410935872008</code></pre>
+<pre class="python"><code>print(&#39;Ids of Univs1[0] and Univs1[1]&#39;, id(Univs1[0]), id(Univs1[1]))</code></pre>
+<pre><code>## Ids of Univs1[0] and Univs1[1] 140410935871816 140410935871944</code></pre>
+</div>
+<div id="what-is-aliasing" class="section level3">
+<h3>What is aliasing?</h3>
+<div class="figure">
+<img src="/images/2020-05-27-05-STRUCTURED-TYPES-MUTABILITY-AND-HIGHER-ORDER-FUNCTIONS//image-20200527110717733.png" alt="image-20200527110717733" />
+<p class="caption">image-20200527110717733</p>
+</div>
+<p>What we have here is something called aliasing. There are two distinct paths to the same list object. One path is through the variable Techs and the other through the first element of the list object to which Univs is bound. One can mutate the object via either path, and the effect of the mutation will be visible through both paths. This can be convenient, but it can also be treacherous. Unintentional aliasing leads to programming errors that are often enormously hard to track down.</p>
+<p>Notice that the operator + does not have a side effect. It creates a new list and returns it. In contrast, extend and append each mutated L1.</p>
+</div>
+<div id="methods-associated-with-lists" class="section level3">
+<h3>Methods associated with lists</h3>
+<ul>
+<li><code>L.append(e)</code> adds the object e to the end of L.</li>
+<li><code>L.count(e)</code> returns the number of times that e occurs in L.</li>
+<li><code>L.insert(i, e)</code> inserts the object e into L at index i.</li>
+<li><code>L.extend(L1)</code> adds the items in list L1 to the end of L.</li>
+<li><code>L.remove(e)</code> deletes the first occurrence of e from L.</li>
+<li><code>L.index(e)</code> returns the index of the first occurrence of e in L, raises an exception (see Chapter 7) if e is not in L.</li>
+<li><code>L.pop(i)</code> removes and returns the item at index i in L, raises an exception if L is empty. If i is omitted, it defaults to -1, to remove and return the last element of L.</li>
+<li><code>L.sort()</code> sorts the elements of L in ascending order. <code>L.reverse()</code> reverses the order of the elements in L.</li>
+</ul>
+</div>
+<div id="how-to-avoid-missing-element-when-iterating-a-list" class="section level3">
+<h3>How to avoid missing element when iterating a list?</h3>
+<p>It is usually prudent<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> to avoid mutating a list over which one is iterating.</p>
+<pre class="python"><code>def removeDups(L1, L2):
+    &quot;&quot;&quot; Assumes that L1 and L2 are lists.
+        Removes any element from L1 that also occurs in L2
+    &quot;&quot;&quot;
+    for e1 in L1:
+        if e1 in L2:
+            L1.remove(e1)
+
+L1 = [1,2,3,4]
+L2 = [1,2,5,6]
+removeDups(L1, L2)
+print(&#39;L1 =&#39;, L1)</code></pre>
+<pre><code>## L1 = [2, 3, 4]</code></pre>
+<p>One way to avoid this kind of problem is to use slicing to clone35 (i.e., make a copy of) the list and write for e1 in L1[:]. Notice that writing</p>
+<pre class="python"><code>newL1 = L1
+for e1 in newL1:</code></pre>
+<p>would not solve the problem. It would not create a copy of <code>L1</code>, but would merely introduce a new name for the existing list.</p>
+<p>Slicing is not the only way to clone lists in Python. The expression <code>list(L)</code> returns a copy of the list <code>L</code>. If the list to be copied contains mutable objects that you want to copy as well, import the standard library module <code>copy</code> and use the function <code>copy.deepcopy</code>.</p>
+</div>
+<div id="what-is-list-comprehension-used-for" class="section level3">
+<h3>What is list comprehension used for?</h3>
+<p>List comprehension provides a concise way to apply an operation to the values in a sequence. It creates a new list in which each element is the result of applying a given operation to a value from a sequence (e.g., the elements in another list). For example,</p>
+<pre class="python"><code>L = [x**2 for x in range(1,7)] 
+print(L)</code></pre>
+<pre><code>## [1, 4, 9, 16, 25, 36]</code></pre>
+<p>The <code>for</code> clause in a list comprehension can be followed by one or more <code>if</code> and <code>for</code> statements that are applied to the values produced by the <code>for</code> clause. These additional clauses modify the sequence of values generated by the first <code>for</code> clause and produce a new sequence of values, to which the operation associated with the comprehension is applied. For example, the code</p>
+<pre class="python"><code>mixed = [1, 2, &#39;a&#39;, 3, 4.0]
+print([x**2 for x in mixed if type(x) == int])</code></pre>
+<pre><code>## [1, 4, 9]</code></pre>
+<p>squares the integers in mixed, and then prints <code>[1, 4, 9]</code>.</p>
+</div>
+<div id="why-not-use-list-comprehension-too-subtilely" class="section level3">
+<h3>Why not use list comprehension too subtilely?</h3>
+<p>Some Python programmers use list comprehensions in marvelous and subtle ways. That is not always a great idea. Remember that somebody else may need to read your code, and “subtle” is not usually a desirable property.</p>
+</div>
+</div>
+<div id="functions-as-objects" class="section level2">
+<h2>5.4 Functions as Objects</h2>
+<div id="what-does-it-mean-that-functions-are-first-class-objects" class="section level3">
+<h3>What does it mean that functions are first-class objects?</h3>
+<p>That means that they can be treated like objects of any other type, e.g., int or list. They have types, e.g., the expression type(abs) has the value &lt;type ‘built-in_function_or_method’&gt;; they can appear in expressions, e.g., as the right-hand side of an assignment statement or as an argument to a function; they can be elements of lists; etc.</p>
+</div>
+<div id="what-is-higher-order-programming" class="section level3">
+<h3>What is higher-order programming?</h3>
+<p>Using functions as arguments allows a style of coding called higher-order programming. It can be particularly convenient in conjunction with lists, as shown in this code:</p>
+<pre class="python"><code># from ${2020-05-26-04-FUNCTIONS-SCOPING-AND-ABSTRACTION.Rmd} import ${factR}
+
+def factI(n):
+    &quot;&quot;&quot; Assumes n an int &gt; 0
+        Returns n!&quot;&quot;&quot; 
+    result = 1
+    while n &gt; 1:
+        result = result * n 
+        n -= 1
+    return result
+    
+def factR(n):
+    &quot;&quot;&quot; Assumes n an int &gt; 0
+        Returns n!&quot;&quot;&quot; 
+    if n == 1:
+        return n
+    else:
+        return n * factR (n - 1)
+        
+def fib(n):
+    &quot;&quot;&quot; Assues n int &gt;= 0
+        Returns Fibonacci of n &quot;&quot;&quot;
+    if n == 0 or n == 1:
+        return 1
+    else:
+            return fib(n-1) + fib(n-2)
+        
+def applyToEach(L, f):
+    &quot;&quot;&quot; Assumes L is a list, f a function
+        Mutates L by replacing each element, e, of L by f(e)
+    &quot;&quot;&quot;
+    for i in range(len(L)):
+        L[i] = f(L[i])
+
+L = [1, -2, 3.33]
+print(&#39;L =&#39;, L)</code></pre>
+<pre><code>## L = [1, -2, 3.33]</code></pre>
+<pre class="python"><code>print(&#39;Apply abs to each element of L.&#39;)</code></pre>
+<pre><code>## Apply abs to each element of L.</code></pre>
+<pre class="python"><code>applyToEach(L, abs)
+print(&#39;L =&#39;, L)</code></pre>
+<pre><code>## L = [1, 2, 3.33]</code></pre>
+<pre class="python"><code>print(&#39;Apply int to each element of&#39;, L)</code></pre>
+<pre><code>## Apply int to each element of [1, 2, 3.33]</code></pre>
+<pre class="python"><code>applyToEach(L, int)
+print(&#39;L =&#39;, L)</code></pre>
+<pre><code>## L = [1, 2, 3]</code></pre>
+<pre class="python"><code>print(&#39;Apply factorial to each element of&#39;, L)</code></pre>
+<pre><code>## Apply factorial to each element of [1, 2, 3]</code></pre>
+<pre class="python"><code>applyToEach(L, factR)
+print(&#39;L =&#39;, L)</code></pre>
+<pre><code>## L = [1, 2, 6]</code></pre>
+<pre class="python"><code>print(&#39;Apply Fibonnaci to each element of&#39;, L)</code></pre>
+<pre><code>## Apply Fibonnaci to each element of [1, 2, 6]</code></pre>
+<pre class="python"><code>applyToEach(L, fib)
+print(&#39;L =&#39;, L)</code></pre>
+<pre><code>## L = [1, 2, 13]</code></pre>
+<p>The function applyToEach is called higher-order because it has an argument that is itself a function.</p>
+</div>
+<div id="how-to-use-the-built-in-higher-order-function-map" class="section level3">
+<h3>How to use the built-in higher-order function <code>map</code>?</h3>
+<p>Python has a built-in higher-order function, map, that is similar to, but more general than, the applyToEach function defined in Figure 5.5. it is designed to be used in conjunction with a for loop. In its simplest form the first argument to map is a unary function (i.e., a function that has only one parameter) and the second argument is any ordered collection of values suitable as arguments to the first argument.</p>
+<p>When used in a for loop, map behaves like the range function in that it returns one value for each iteration of the loop.36 These values are generated by applying the first argument to each element of the second argument. For example, the code</p>
+<pre class="python"><code>for i in map(fib, [2, 6, 4]): 
+    print(i)</code></pre>
+<pre><code>## 2
+## 13
+## 5</code></pre>
+<p>More generally, the first argument to map can be a function of n arguments, in which case it must be followed by n subsequent ordered collections (each of the same length). For example, the code</p>
+<pre class="python"><code>L1 = [1, 28, 36]
+L2 = [2, 57, 9]
+for i in map(min, L1, L2):
+    print(i)</code></pre>
+<pre><code>## 1
+## 28
+## 9</code></pre>
+</div>
+<div id="where-is-lambda-expression-frequently-used" class="section level3">
+<h3>Where is lambda expression frequently used?</h3>
+<p>Python supports the creation of anonymous functions (i.e., functions that are not bound to a name), using the reserved word lambda. The general form of a lambda expression is</p>
+<pre class="python"><code>lambda &lt;sequence of variable names&gt;: &lt;expression&gt;</code></pre>
+<p>For example, the lambda expression lambda x, y: x*y returns a function that returns the product of its two arguments. Lambda expressions are frequently used as arguments to higher-order functions. For example, the code</p>
+<pre class="python"><code>L = []
+for i in map(lambda x, y: x**y, [1 ,2 ,3, 4], [3, 2, 1, 0]):
+    L.append(i) 
+print(L)</code></pre>
+<pre><code>## [1, 4, 3, 1]</code></pre>
+</div>
+</div>
+<div id="strings-tuples-ranges-and-lists" class="section level2">
+<h2>5.5 Strings, Tuples, Ranges, and Lists</h2>
+<div id="some-methods-on-strings" class="section level3">
+<h3>Some methods on strings</h3>
+<ul>
+<li><code>s.count(s1)</code> counts how many times the string s1 occurs in s.</li>
+<li><code>s.find(s1)</code> returns the index of the first occurrence of the substring s1 in s, and-1ifs1is not ins.</li>
+<li><code>s.rfind(s1)</code> same as find, but starts from the end of s (the “r” in rfind stands</li>
+<li>for reverse).</li>
+<li><code>s.index(s1)</code> same as find, but raises an exception (Chapter 7) if s1 is not in s.</li>
+<li><code>s.rindex(s1)</code> same as index, but starts from the end of s.</li>
+<li><code>s.lower()</code> converts all uppercase letters in s to lowercase.</li>
+<li><code>s.replace(old, new)</code> replaces all occurrences of the string old in s with the string new.</li>
+<li><code>s.rstrip()</code> removes trailing white space from s.</li>
+<li><code>s.split(d)</code> Splits s using d as a delimiter. Returns a list of substrings of s. For example, the value of ‘David Guttag plays basketball’.split(’ ’) is [‘David’, ‘Guttag’, ‘plays’, ‘basketball’]. If d is omitted, the substrings are separated by arbitrary strings of whitespace characters.</li>
+</ul>
+<p>Keep in mind that since strings are immutable these all return values and have no side effect.</p>
+</div>
+</div>
+<div id="dictionaries" class="section level2">
+<h2>5.6 Dictionaries</h2>
+<pre class="python"><code>EtoF = {&#39;bread&#39;:&#39;pain&#39;, &#39;wine&#39;:&#39;vin&#39;, &#39;with&#39;:&#39;avec&#39;, &#39;I&#39;:&#39;Je&#39;,
+  &#39;eat&#39;:&#39;mange&#39;, &#39;drink&#39;:&#39;bois&#39;, &#39;John&#39;:&#39;Jean&#39;,
+  &#39;friends&#39;:&#39;amis&#39;, &#39;and&#39;: &#39;et&#39;, &#39;of&#39;:&#39;du&#39;,&#39;red&#39;:&#39;rouge&#39;}
+FtoE = {&#39;pain&#39;:&#39;bread&#39;, &#39;vin&#39;:&#39;wine&#39;, &#39;avec&#39;:&#39;with&#39;, &#39;Je&#39;:&#39;I&#39;,
+  &#39;mange&#39;:&#39;eat&#39;, &#39;bois&#39;:&#39;drink&#39;, &#39;Jean&#39;:&#39;John&#39;,
+  &#39;amis&#39;:&#39;friends&#39;, &#39;et&#39;:&#39;and&#39;, &#39;du&#39;:&#39;of&#39;, &#39;rouge&#39;:&#39;red&#39;}
+dicts = {&#39;English to French&#39;:EtoF, &#39;French to English&#39;:FtoE}
+
+def translateWord(word, dictionary):
+    if word in dictionary.keys():
+        return dictionary[word]
+    elif word != &#39;&#39;:
+        return &#39;&quot;&#39; + word + &#39;&quot;&#39;
+    return word
+    
+def translate(phrase, dicts, direction):
+    UCLetters = &#39;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;
+    LCLetters = &#39;abcdefghijklmnopqrstuvwxyz&#39;
+    letters = UCLetters + LCLetters
+    dictionary = dicts[direction]
+    translation = &#39;&#39;
+    word = &#39;&#39;
+    for c in phrase:
+        if c in letters:
+            word = word + c
+        else:
+            translation = translation\
+                + translateWord(word, dictionary) + c
+    return translation + &#39; &#39; + translateWord(word, dictionary)
+
+print(translate(&#39;I drink good red wine, and eat bread.&#39;, dicts,&#39;English to French&#39;))</code></pre>
+<pre><code>## Je &quot;Idrink&quot; &quot;Idrinkgood&quot; &quot;Idrinkgoodred&quot; &quot;Idrinkgoodredwine&quot;,&quot;Idrinkgoodredwine&quot; &quot;Idrinkgoodredwineand&quot; &quot;Idrinkgoodredwineandeat&quot; &quot;Idrinkgoodredwineandeatbread&quot;. &quot;Idrinkgoodredwineandeatbread&quot;</code></pre>
+<pre class="python"><code>print(translate(&#39;Je bois du vin rouge.&#39;, dicts, &#39;French to English&#39;))</code></pre>
+<pre><code>## I &quot;Jebois&quot; &quot;Jeboisdu&quot; &quot;Jeboisduvin&quot; &quot;Jeboisduvinrouge&quot;. &quot;Jeboisduvinrouge&quot;</code></pre>
+<div id="what-is-view-object" class="section level3">
+<h3>What is <strong>view</strong> object?</h3>
+<p>The order in which the keys appear in the view is not defined. A view object is dynamic in that if the object with which it is associated changes, the change is visible through the view object.</p>
+<p>Objects of type dict_keys can be iterated over using for, and membership can be tested using in. An object of type dict_keys can easily be converted into a list, e.g., <code>list(months)</code>.</p>
+</div>
+<div id="what-is-a-hashable-type" class="section level3">
+<h3>What is a hashable type?</h3>
+<p>A type is hashable if it has</p>
+<ul>
+<li>A <code>__hash__</code> method that maps an object of the type to an int, and for every ob- ject the value returned by <strong>hash</strong> does not change during the lifetime of the object, and</li>
+<li>An <code>__eq__</code> method that is used to compare objects for equality.</li>
+</ul>
+</div>
+<div id="some-common-operations-on-dicts" class="section level3">
+<h3>Some common operations on dicts</h3>
+<ul>
+<li><code>len(d)</code> returns the number of items in <code>d</code>.</li>
+<li><code>d.keys()</code> returns a view of the keys in <code>d</code>.</li>
+<li><code>d.values()</code> returns a view of the values in <code>d</code>.</li>
+<li><code>k in d</code> returns True if key <code>k</code> is in <code>d</code>.</li>
+<li><code>d[k]</code> returns the item in <code>d</code> with key <code>k</code>.</li>
+<li><code>d.get(k, v)</code> returns <code>d[k]</code> if <code>k</code> is in <code>d</code>, and <code>v</code> otherwise.</li>
+<li><code>d[k] = v</code> associates the value <code>v</code> with the key <code>k</code> in <code>d</code>. If there is already a value associated with k, that value is replaced.</li>
+<li><code>del d[k]</code> removes the key <code>k</code> from <code>d</code>.</li>
+<li><code>for k in d</code> iterates over the keys in <code>d</code>.</li>
+</ul>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><strong>prudent</strong>: Sagacious in adapting means to ends; circumspect in action, or in determining any line of conduct; practically wise; judicious; careful; discreet; sensible; – opposed to rash; as, a prudent man; dictated or directed by prudence or wise forethought; evincing prudence; as, prudent behavior.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</div>

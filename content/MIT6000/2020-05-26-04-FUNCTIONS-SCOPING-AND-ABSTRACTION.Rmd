@@ -177,25 +177,25 @@ Here is the iterative implementation of factorial.
 
 ```{python}
 def factI(n):
-	""" Assumes n an int > 0
-	    Returns n!""" 
+    """ Assumes n an int > 0
+        Returns n!""" 
     result = 1
-	while n > 1:
-		result = result * n 
+    while n > 1:
+        result = result * n 
         n -= 1
-	return result
+    return result
 ```
 
 Here is the recursive implementation of factorial.
 
 ```{python}
-def factrR(n):
-	""" Assumes n an int > 0
-	    Returns n!""" 
+def factR(n):
+    """ Assumes n an int > 0
+        Returns n!""" 
     if n == 1:
-      return n
+        return n
     else:
-		return n * factR (n - 1)
+        return n * factR (n - 1)
 ```
 
 The second is a more obvious translation of the original recursive definition.
@@ -222,7 +222,7 @@ Notice that for month n > 1, females(n) = females(n-1) + females(n-2). This is n
 
 The growth in population is described naturally by the recurrence.
 
-```{python}
+```python
 females(0) = 1
 females(1) = 1
 females(n + 2) = females(n+1) + females(n)
