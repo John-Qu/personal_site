@@ -94,6 +94,8 @@ method attributes of the class
 
 ### What is the relationship of type, class, method and function?
 
+A class should not be confused with instances of that class, just as an object of type list should not be confused with the list type.
+
 ```{python}
 s = IntSet() 
 s.insert(3) 
@@ -104,5 +106,609 @@ print ("Type of 's' is " + str(type (s)) + ".\n" +
        "Type of 's.insert' is " + str(type(s.insert)) + ".")
 ```
 
-113
+### What are method attributes and data attributes?
+
+Method attributes are defined in a class definition, for example `IntSet.member` is an attribute of the class `IntSet`. When the class is instantiated, e.g., by the statement `s = IntSet()`, instance attributes, e.g., `s.member`, are created.
+
+When data attributes are associated with a class we call them class variables. When they are associated with an instance we call them instance variables.
+
+### What is representation-independence?
+
+Data abstraction achieves representation-independence. Think of the im- plementation of an abstract type as having several components:
+
+- Implementations of the methods of the type,
+- Data structures that together encode values of the type, and
+- Conventions[^convention] about how the implementations of the methods are to use the data structures. A key convention is captured by the representation[^representation] invariant[^invariant].
+
+### What is representation invariant?
+
+The **representation invariant** defines which values of the data attributes correspond to valid representations of class instances. The representation invariant for `IntSet` is that `vals` contains no duplicates. The implementation of `__init__` is responsible for establishing the invariant (which holds on the empty list), and the other methods are responsible for maintaining that invariant. That is why `insert` appends e only if it is not already in `self.vals`. The implementation of `remove` exploits the assumption that the representation invariant is satisfied when `remove` is entered. It calls `list.remove` only once, since the representation invariant guarantees that there is at most one occurrence of `e` in `self.vals`.
+
+[^convention]: **convention**: General agreement or concurrence; arbitrary custom; usage; conventionality.
+[^representation]: **representation**: That which represents. Specifically: A description or statement; as, the representation of an historian, of a witness, or an advocate.
+[^invariant]: **invariant**: n. (Math.) An invariable quantity; specifically, a function of the coefficients of one or more forms, which remains unaltered, when these undergo suitable linear transformations.  - J. J. Sylvester.
+
+### Is a user-defined class instance hashable?
+
+#### Any instance of a user-defined class is hashable
+
+All instances of user-defined classes are hashable, and therefore can be used as dictionary keys. If no `__hash__` method is provided, the hash value of the object is derived from the function `id`.
+
+### Why abstract data types are a big deal[^a big deal]?
+
+They lead to a different way of thinking about organizing large programs. 
+
+#### Rely on abstraction when trying to understand concepts about the world
+
+When we think about the world, we rely on abstractions. In the world of finance people talk about stocks and bonds. In the world of biology people talk about proteins and residues. When trying to understand concepts such as these, we mentally gather together some of the relevant **data and features** of these kinds of objects into one **intellectual package**. For example, we think of bonds as having an interest rate and a maturity date as data attributes. We also think of bonds as having operations such as “set price” and “calculate yield to maturity.” Abstract data types allow us to incorporate this kind of organization into the design of programs.
+
+#### Focus on the centrality of data object rather than functions when designing programs 
+
+Data abstraction encourages program designers to focus on the centrality of data objects rather than functions. Thinking about a program more as a collection of types than as a collection of functions leads to a profoundly different organizing principle. Among other things, it encourages one to think about programming as a process of combining relatively large chunks, since data abstractions typically encompass[^encompass] more functionality than do individual functions. This, in turn, leads us to think of the essence of programming as a process not of writing individual lines of code, but of composing[^compose] abstractions.
+
+#### Reuse abstractions to reduce development time and to yield more reliable programs
+
+The availability of reusable abstractions not only reduces development time, but also usually leads to more reliable programs, because mature software is usually more reliable than new software. For many years, the only program libraries in common use were statistical or scientific. Today, however, there is a great range of available program libraries (especially for Python), often based on a rich set of data abstractions.
+
+[^a big deal]: **a big deal**: *informal* *[usually with negative]* a thing considered important: *they don't make a big deal out of minor irritations*. • an important person: *Sam Kinison became a big deal*. • (big deal) used to express one's contempt for something regarded as impressive or important by another person: *“I'll give you an allowance,” he said. “Big deal,” she thought*.
+[^encompass]: **encompass**: To circumscribe or go round so as to surround closely; to encircle; to inclose; to environ; as, a ring *encompasses* the finger; an army *encompasses* a city; a voyage *encompassing* the world. - Shak. A question may be *encompassed* with difficulty. - C. J. Smith.
+[^compose]: **compose**: To construct by mental labor; to design and execute, or put together, in a manner involving the adaptation of forms of expression to ideas, or to the laws of harmony or proportion; as, to compose a sentence, a sermon, a symphony, or a picture.
+
+### What abstraction might be useful, before rushing in to design a bunch of data structures to keep track of all the students and faculty, ?
+
+Is there an abstraction that covers the common attributes of students, professors, and staff? Some would argue that they are all human. The following code contains a class that incorporates some of the common attributes (name and birthday) of humans.
+
+```{python}
+import datetime
+
+class Person(object):
+    def __init__(self, name):
+        """Create a person"""
+        self.name = name
+        try:
+            lastBlank = name.rindex(' ')
+            self.lastName = name[lastBlank+1:]
+        except:
+            self.lastName = name
+        self.birthday = None
+
+    def getName(self):
+        """Returns self's full name"""
+        return self.name
+
+    def getLastName(self):
+        """Returns self's last name"""
+        return self.lastName
+
+    def setBirthday(self, birthdate):
+        """ Assumes birthdate is of type datetime.date
+            Sets self's birthday to birthdate"""
+        self.birthday = birthdate
+
+    def getAge(self):
+        """Returns self's current age in days"""
+        if self.birthday == None:
+            raise ValueError
+        return (datetime.date.today() - self.birthday).days
+
+    def __lt__(self, other):
+        """Returns True if self precedes other in alphabetical
+            order, and False otherwise. Comparison is based on last
+            names, but if these are the same full names are
+            compared."""
+        if self.lastName == other.lastName:
+            return self.name < other.name
+        return self.lastName < other.lastName
+
+    def __str__(self):
+        """Returns self's name"""
+        return self.name
+```
+
+### What should we write into the specification of the `__init__` function of a class?
+
+The following code makes use of `Person`.
+
+```{python}
+me = Person('Michael Guttag')
+him = Person('Barack Hussein Obama')
+her = Person('Madonna')
+print(him.getLastName()) 
+him.setBirthday(datetime.date(1961, 8, 4)) 
+her.setBirthday(datetime.date(1958, 8, 16)) 
+print(him.getName(), 'is', him.getAge(), 'days old')
+```
+
+Notice that whenever `Person` is instantiated[^instance] an argument is supplied to the `__init__` function. In general, when instantiating a class we need to look at the specification of the `__init__` function for that class to know what arguments to supply and what properties those arguments should have.
+
+[^instance]: **instance**: A token; a sign; a symptom or indication. **Syn**. - EXAMPLE, INSTANCE. The discrimination to be made between these two words relates to cases in which we give “instances” or “examples” of things done. An *instance* denotes the single case then “standing” before us; if there be others like it, the word does not express this fact. On the contrary, an *example* is one of an entire class of like things, and should be a true representative or *sample* of that class. Hence, an *example* proves a rule or regular course of things; an *instance* simply points out what may be true only in the case presented. A man's life may be filled up with *examples* of the self-command and kindness which marked his character, and may present only a solitary *instance* of haste or severity. Hence, the word “example” should never be used to describe what stands singly and alone. We do, however, sometimes apply the word *instance* to what is really an *example*, because we are not thinking of the latter under this aspect, but solely as a case which “stands before us.” See PRECEDENT: Something done or said that may serve as an example to authorize a subsequent act of the same kind; an authoritative example. Examples for cases can but direct as precedents only. - Hooker.
+
+### When do we need to overload the `<` operator?
+
+1. Provide the syntactic convenience of writing infix expressions that use `<`;
+1. Provides automatic access to any polymorphic method defined using `__lt__`, such as the build-in method `sort`.
+
+## 8.2 Inheritance
+
+### Is there a mechanism for building groups of related abstraction?
+
+Inheritance allows programmers to create a type hierarchy[^hierarchy] in which each type inherits[^inherit] attributes from the types above it in the hierarchy.
+
+[^hierarchy]: **hierarchy**: A body of officials disposed organically in ranks and orders each subordinate to the one above it; a body of ecclesiastical rulers.
+[^inherit]: **inherit**:to receive as a right or title descendible by law from an ancestor at his decease.
+
+### Why and how to define a class variable?
+
+```{python}
+class MITPerson(Person):
+
+    nextIdNum = 0 #identification number
+
+    def __init__(self, name):
+        Person.__init__(self, name)
+        self.idNum = MITPerson.nextIdNum
+        MITPerson.nextIdNum += 1
+
+    def getIdNum(self):
+        return self.idNum
+
+    def __lt__(self, other):
+        return self.idNum < other.idNum
+
+    def isStudent(self):
+        return isinstance(self, Student)
+```
+
+The instance variable `self.idNum` is initialized using a class variable, `nextIdNum`, that belongs to the class `MITPerson`, rather than to instances of the class. When an instance of `MITPerson` is created, a new instance of `nextIdNum` is not created, but only accumulate one. This allows `__init__` to ensure that each instance of `MITPerson` has a unique `idNum`.
+
+### Why would one ever want to create a class with no new attributes?
+
+```{python}
+
+class Student(MITPerson):
+    pass
+
+class UG(Student):
+    def __init__(self, name, classYear):
+        MITPerson.__init__(self, name)
+        self.year = classYear
+
+    def getClass(self):
+        return self.year
+
+class Grad(Student):
+    pass
+```
+
+![image-20200608104319783](/images/2020-05-29-08-CLASSES-AND-OBJECT-ORIENTED-PROGRAMMING//image-20200608104319783.png)
+
+By introducing the class Grad, we gain the ability to create two different kinds of students and use their types to distinguish one kind of object from another. For example, the code
+
+```{python}
+p5 = Grad('Buzz Aldrin')
+p6 = UG('Billy Beaver', 1984)
+print(p5, 'is a graduate student is', type(p5) == Grad) 
+print(p5, 'is an undergraduate student is', type(p5) == UG)
+```
+
+The utility of the intermediate type Student is a bit subtler. Consider going back to class `MITPerson` and adding the method
+
+```python
+class MITPerson(Person):
+    # ...
+    def isStudent(self):
+        return isinstance(self, Student)
+```
+
+The function isinstance is built into Python. The first argument of isin- stance can be any object, but the second argument must be an object of type `type`. The function returns `True` if and only if the first argument is an instance of the second argument. For example, the value of `isinstance([1,2], list)` is `True`.
+
+Notice that the meaning of `isinstance(p6, Student)` is quite different from the meaning of `type(p6) == Student`. The object to which `p6` is bound is of type `UG`, not `Student`, but since `UG` is a subclass of `Student`, the object to which `p6` is bound is considered to be an instance of class `Student` (as well as an instance of `MITPerson` and `Person`).
+
+Since there are only two kinds of students, we could have implemented `isStudent` as,
+
+```python
+class MITPerson(Person):
+    # ...
+    def isStudent(self):
+        return type(self) == Grad or type(self) == UG
+```
+
+However, if a new type of student were introduced at some later point it would be necessary to go back and edit the code implementing isStudent. By in- troducing the intermediate class Student and using isinstance we avoid this prob- lem. For example, if we were to add
+
+```python
+class TransferStudent(Student):
+
+    def __init__(self, name, fromSchool):
+        MITPerson.__init__(self, name)
+        self.fromSchool = fromSchool
+
+    def getOldSchool(self):
+        return self.fromSchool
+```
+
+no change needs to be made to `isStudent`. It is not unusual during the creation and later maintenance of a program to go back and add new classes or new attributes to old classes. Good programmers design their programs so as to minimize the amount of code that might need to be changed when that is done.
+
+### What should we take care of when we write subclass overriding methods from the superclass?
+
+In particular, important behaviors of the supertype must be supported by each of its subtypes. If client code works correctly using an instance of the supertype, it should also work correctly when an instance of the subtype is substituted for the instance of the supertype.
+
+## 8.3 Encapsulation and Information Hiding
+
+###  How to keep track of the grades of a collection of students?
+
+Instances of class `Grades` are implemented using a list and a dictionary. The list keeps track of the students in the class. The dictionary maps a student’s identification number to a list of grades.
+
+```{python}
+class Grades(object):
+
+    def __init__(self):
+        """Create empty grade book"""
+        self.students = []
+        self.grades = {}
+        self.isSorted = True
+
+    def addStudent(self, student):
+        """Assumes: student is of type Student
+            Add student to the grade book"""
+        if student in self.students:
+            raise ValueError('Duplicate student')
+        self.students.append(student)
+        self.grades[student.getIdNum()] = []
+        self.isSorted = False
+
+    def addGrade(self, student, grade):
+        """Assumes: grade is a float
+            Add grade to the list of grades for student"""
+        try:
+            self.grades[student.getIdNum()].append(grade)
+        except:
+            raise ValueError('Student not in mapping')
+
+    def getGrades(self, student):
+        """Return a list of grades for student"""
+        try: #return copy of list of student's grades
+            return self.grades[student.getIdNum()][:]
+        except:
+            raise ValueError('Student not in mapping')
+
+    def getStudents(self):
+        """Return a sorted list of the students in the grade book"""
+        if not self.isSorted:
+            self.students.sort()
+            self.isSorted = True
+        return self.students[:] #return copy of list of students
+```
+
+### What is the possible problems if `getStudents` returned `self.students` rather than a copy of the list of students?
+
+Consider the code
+
+```python
+allStudents = course1.getStudents() 
+allStudents.extend(course2.getStudents())
+```
+
+If `getStudents` returned `self.students`, the second line of code would have the (probably unexpected) side effect of changing the set of students in `course1`.
+
+### How to avoid sorting an already sorted list?
+
+The instance variable isSorted is used to keep track of whether or not the list of students has been sorted since the last time a student was added to it. As in
+
+```python
+class Grades(object):
+
+    def __init__(self):
+        """Create empty grade book"""
+        # ...
+        self.isSorted = True
+    
+    def addStudent(self, student):
+        """Assumes: student is of type Student
+            Add student to the grade book"""
+        # ...
+        self.isSorted = False
+
+    def getStudents(self):
+        """Return a sorted list of the students in the grade book"""
+        if not self.isSorted:
+            self.students.sort()
+            self.isSorted = True
+        return self.students[:] #return copy of list of students
+```
+
+### How to generate a grade report for some students taking a course named `sixHundred`?
+
+```{python}
+
+def gradeReport(course):
+    """Assumes course is of type Grades"""
+    report = ''
+    for s in course.getStudents():
+        tot = 0.0
+        numGrades = 0
+        for g in course.getGrades(s):
+            tot += g
+            numGrades += 1
+        try:
+            average = tot/numGrades
+            report = report + '\n'\
+                     + str(s) + '\'s mean grade is ' + str(average)
+        except ZeroDivisionError:
+            report = report + '\n'\
+                     + str(s) + ' has no grades'
+    return report
+
+ug1 = UG('Jane Doe', 2014)
+ug2 = UG('John Doe', 2015)
+ug3 = UG('David Henry', 2003)
+g1 = Grad('Billy Buckner')
+g2 = Grad('Bucky F. Dent')
+sixHundred = Grades()
+sixHundred.addStudent(ug1)
+sixHundred.addStudent(ug2)
+sixHundred.addStudent(g1)
+sixHundred.addStudent(g2)
+for s in sixHundred.getStudents():
+    sixHundred.addGrade(s, 75)
+sixHundred.addGrade(g1, 25)
+sixHundred.addGrade(g2, 100)
+sixHundred.addStudent(ug3)
+print(gradeReport(sixHundred))
+```
+
+### What does "encapsulation" mean in taking it as one of the two concepts at the heart of object-oriented programming?
+
+By this we mean the bundling together of data attributes and the methods for operating on them.
+
+### What is the role of "information hiding" in object-oriented programming?
+
+This is one of the keys to modularity. If those parts of the program that use a class (i.e., the clients of the class) rely only on the specifications of the methods in the class, a programmer implementing the class is free to change the implementation of the class (e.g., to improve efficiency) without worrying that the change will break code that uses the class.
+
+### Dose Python provide mechanisms for enforcing information hiding?
+
+Some programming languages (Java and C++, for example) provide mechanisms for enforcing information hiding. Programmers can make the attributes of a class private, so that clients of the class can access the data only through the object's methods. Python 3 uses a naming convention to make attributes invisible outside the class. When the name of an attribute starts with `__` but does not end with `__`, that attribute is not visible outside the class. Consider the class in the following code.
+
+```{python}
+class infoHiding(object):
+    """ Test Python's '__' mechanism for information hiding from the outside of class definition. """
+    
+    def __init__(self):
+        self.visible = 'Look at me'
+        self.__alsoVisible__ = 'Look at me too'
+        self.__invisible = 'Don\'t look at me directly'
+
+    def printVisible(self):
+        print(self.visible)
+
+    def printInvisible(self):
+        print(self.__invisible)
+
+    def __printInvisible(self):
+        print(self.__invisible)
+
+    def __printInvisible__(self):
+        print(self.__invisible)
+```
+
+```{python}
+test = infoHiding()
+print(test.visible)
+print(test.__alsoVisible__)
+print(test.__invisible)
+```
+
+```{python}
+test = infoHiding()
+test.printInvisible()
+test.__printInvisible__()
+test.__printInvisible()
+```
+
+```{python}
+class subClass(infoHiding):
+
+    def __init__(self):
+        print('from subclass', self.__invisible)
+
+testSub = subClass()
+```
+
+
+Notice that when a subclass attempts to use a hidden attribute of its superclass an AttributeError occurs. This can make using information hiding in Python a bit cumbersome. Because it can be cumbersome, many Python programmers do not take advantage of the `__` mechanism for hiding attributes—as we don’t in this book. So, for example, a client of Person can write the expression `Rafael.lastName` rather than `Rafael.getLastName()`.
+
+This is unfortunate because it allows the client code to rely upon something that is not part of the specification of `Person`, and is therefore subject to change. If the implementation of `Person` were changed, for example to extract the last name whenever it is requested rather than store it in an instance variable, then the client code would no longer work.
+
+### Is it legal in Python to access(read and write) instance and class variables from outside the class definition?
+
+Yes. While this relatively weak static semantic checking is a flaw in Python, it is
+
+not a fatal flaw.
+
+### Is there a better solution in the loss of efficiency when preventing client programs from directly accessing critical data structures?
+
+Any function definition containing a `yield` statement is treated in a special way. The presence of `yield` tells the Python system that the function is a generator.
+
+```python
+class Grades(object):
+    
+    def __init__(self):
+        """Create empty grade book"""
+        # ...
+        self.isSorted = True
+
+    def addStudent(self, student):
+        """Assumes: student is of type Student
+            Add student to the grade book"""
+        # ...
+        self.isSorted = False
+
+    # def getStudents(self): # with out yield
+        # """Return a sorted list of the students in the grade book"""
+        # if not self.isSorted:
+            # self.students.sort()
+            # self.isSorted = True
+        # return self.students[:] #return copy of list of students
+
+    def getStudents(self): # with yield
+        """Return the students in the grade book one at a time
+in alphabetical order"""
+        if not self.isSorted:
+            self.students.sort()
+            self.isSorted = True
+        for s in self.students:
+            yield s # return one element once a time
+```
+
+Generators are typically used in conjunction with `for` statements, as in
+
+```{python}
+book = Grades()
+book.addStudent(Grad('Julie'))
+book.addStudent(Grad('Charlie'))
+for s in book.getStudents():
+    print(s)
+```
+
+## 8.4 Mortgages, an Extended Example
+
+### What kinds of loans are there in the mortgage at the end of twentieth century?
+
+Towards the end of the twentieth century, mortgages[^mortgage] started getting a lot more complicated. 
+
+1. People could get lower interest rates by paying “points” to the lender at the time they took on the mortgage. A point is a cash payment of 1% of the value of the loan. 
+1. People could take mortgages that were “interest-only” for a period of time. That is to say, for some number of months at the start of the loan the borrower paid only the accrued interest and none of the principal. 
+1. Other loans involved multiple rates. Typically the initial rate (called a “teaser rate”) was low, and then it went up over time. Many of these loans were variable-rate—the rate to be paid after the initial period would vary depending upon some index[^index] intended to reflect the cost to the lender of borrowing on the wholesale credit market.
+
+[^index]: The London Interbank Offered Rate (LIBOR) is probably the most commonly used index.
+[^mortgage]: **mortgage**: It was called a *mortgage* (or *dead pledge*) because, whatever profit it might yield, it did not thereby redeem itself, but became lost or *dead* to the mortgager upon breach of the condition. But in equity a *right of redemption* is an inseparable incident of a mortgage until the mortgager is debarred by his own laches, or by judicial decree. - Cowell. Kent. 之所以称其为抵押（或无抵押），是因为无论它能产生什么利润，它都不会因此赎回自己，而是在违反条件时对抵押人造成损失或死亡。 但是，衡平法上来说，赎回权是抵押的不可分割的事件，直到抵押人被自己的抵押或司法令禁止为止。 科威尔 肯特
+
+### What is the goal of exercising the implementation of three kinds of loans?
+
+The point of this exercise is to provide some experience in the incremental development of a set of related classes, not to make you an expert on mortgages.
+
+Let’s build a program that examines the costs of three kinds of loans: 
+
+1. A fixed-rate mortgage with no points,
+1. A fixed-rate mortgage with points, and
+1. A mortgage with an initial teaser rate followed by a higher rate for the duration.
+
+### What is abstract class? What does it used for?
+
+We will structure our code to include a `Mortgage` class, and subclasses corresponding to each of the three kinds of mortgages listed above. Figure 8.9 contains the abstract class `Mortgage`. This class contains methods that are shared by each of its subclasses, but it is not intended to be instantiated directly. That is, no objects of type `Mortgage` will be created.
+
+```{python}
+def findPayment (loan, r, m):
+    """ Assumes: 'loan' and 'r' are floats, 'm' an int
+        Returns the monthly payment for a mortgage of size
+        'loan' at a monthly rate of 'r' for 'm' months """
+    return loan * ((r * (1 + r) ** m) / ((1 + r) ** m - 1))
+
+class Mortgage (object):
+    """ Abstract class for building different kinds of mortgages """
+
+    def __init__(self, loan, annRate, months):
+        """ Assumes: loan and annRate are floats, months an int 
+            Creates a new mortgage of size loan, duration months, and annual rate annRate """
+        # Here are three instance initial values
+        self.loan = loan
+        self.rate = annRate / 12 # Is it an common agreement that annual rate is 12 times of monthly rate?
+        self.months = months
+        # Here are two lists extended monthly
+        self.paid = [0.0] # At the first day of loan you don't need to pay loan. Note this list is extended monthly
+        self.outstanding = [loan] # the m th month 本金额 remained to be paid
+        # Here is the monthly payment for a mortgage of size 'loan' at monthly rate of 'self.rate' for 'months' months
+        self.payment = findPayment (loan, self.rate, months) 
+        self.legend = None  # description of certain kind of mortgage
+
+    def makePayment (self):
+        """ Make a monthly payment"""
+        # Calculate monthly payments then append them to two lists:
+        # monthly payments and monthly outstanding loan balance
+        self.paid.append (self.payment) 
+        # reduction used to reduce the loan balance = monthly payment - the amount of interest due on the outstanding loan balance
+        reduction = self.payment - self.outstanding [-1] * self.rate 
+        self.outstanding.append (self.outstanding [-1] - reduction) 
+
+    def getTotalPaid (self):
+        """ Return the total amount paid so far """
+        return sum (self.paid)
+
+    def __str__(self):
+        return self.legend
+```
+
+### What is a safe attitude when needing a closed-form expression?
+
+This expression is not hard to derive, but it is a lot easier to just look it up and more likely to be correct than one derived on the spot[^on the spot].
+
+[^on the spot]: **On the spot**, *or* **Upon the spot**, immediately; before moving; without changing place; as, he made his decision on the spot.
+
+Keep in mind that not everything you discover on the Web (or even in textbooks) is correct. When your code incorporates a formula that you have looked up, make sure that:
+
+- You have taken the formula from a reputable source. We looked at multiple reputable sources, all of which contained equivalent formulas.
+- You fully understand the meaning of all the variables in the formula.
+- You test your implementation against examples taken from reputable sources. After implementing this function, we tested it by comparing our results to the results supplied by a calculator available on the Web.
+
+
+
+```{python}
+class Fixed (Mortgage):
+    """ A fixed-rate mortgage with no points. """
+    
+    def __init__(self, loan, r, months):
+        Mortgage.__init__(self, loan, r, months)
+        self.legend = 'Fixed, ' + str (round (r*100, 2)) + '%'
+
+class FixedWithPts (Mortgage):
+    
+    def __init__(self, loan, r, months, pts):
+        Mortgage.__init__(self, loan, r, months)
+        self.pts = pts # points as service fee
+        self.paid = [loan*(pts/100)] # Override Mortgage's init 0.0. Note that this fee cannot be used to reduce the outstanding of loan balance.
+        self.legend = 'Fixed, ' + str (round (r*100, 2)) + '%, '\
+                      + str (pts) + ' points'
+
+class TwoRate (Mortgage):
+    
+    def __init__(self, loan, r, months, teaserRate, teaserMonths):
+        # Initiate with teaser rate and total months, and calculate monthly payment to the end 
+        Mortgage.__init__(self, loan, teaserRate, months) 
+        self.teaserMonths = teaserMonths
+        self.teaserRate = teaserRate
+        self.nextRate = r/12
+        self.legend = str (teaserRate*100)\
+                     + '% for ' + str (self.teaserMonths)\
+                     + ' months, then ' + str (round (r*100, 2)) + '%'
+                
+    def makePayment (self):
+        # When time is up, replace teaser rate with next rate, and then calculate monthly payment again with new loan, new rate and new months.
+        if len (self.paid) == self.teaserMonths + 1:
+           self.rate = self.nextRate
+           self.payment = findPayment (self.outstanding [-1],
+                                   self.rate,
+                                   self.months - self.teaserMonths)
+        Mortgage.makePayment (self) # Call the superclass method with instance itself
+```
+
+
+
+```{python}
+def compareMortgages (amt, years, fixedRate, pts, ptsRate,
+                     varRate1, varRate2, varMonths):
+    totMonths = years*12
+    fixed1 = Fixed (amt, fixedRate, totMonths)
+    fixed2 = FixedWithPts (amt, ptsRate, totMonths, pts)
+    twoRate = TwoRate (amt, varRate2, totMonths, varRate1, varMonths)
+    morts = [fixed1, fixed2, twoRate]
+    for m in range (totMonths):# 逐月
+        for mort in morts: # 核算每种还款方式的
+            mort.makePayment () # 还款额 残余本金，添加入数组
+    for m in morts: # 打印每种还款方式的
+        print (m) # 还款方式
+        print (' Total payments = $' + str (int (m.getTotalPaid ()))) # 最终加总还款额
+
+compareMortgages (amt=200000, years=30, fixedRate=0.07,
+                 pts = 3.25, ptsRate=0.05, varRate1=0.045,
+                 varRate2=0.095, varMonths=48)
+```
 
