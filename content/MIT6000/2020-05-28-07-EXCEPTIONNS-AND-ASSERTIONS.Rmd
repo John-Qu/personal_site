@@ -2,7 +2,7 @@
 title: 07 EXCEPTIONS AND ASSERTIONS
 subtitle: 
 author: 曲政
-date: 2020-05-29
+date: 2020-05-28
 slug: exceptions-and-assertions
 tags:
 - 

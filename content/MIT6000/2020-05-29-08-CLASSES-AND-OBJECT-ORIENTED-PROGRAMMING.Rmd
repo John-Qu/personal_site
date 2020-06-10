@@ -582,7 +582,7 @@ for s in book.getStudents():
 
 Towards the end of the twentieth century, mortgages[^mortgage] started getting a lot more complicated. 
 
-1. People could get lower interest rates by paying “points” to the lender at the time they took on the mortgage. A point is a cash payment of 1% of the value of the loan. 
+1. People could get lower interest rates by paying “points” to the lender at the time they took on the mortgage. A point is a cash payment of about 1% of the value of the loan. 
 1. People could take mortgages that were “interest-only” for a period of time. That is to say, for some number of months at the start of the loan the borrower paid only the accrued interest and none of the principal. 
 1. Other loans involved multiple rates. Typically the initial rate (called a “teaser rate”) was low, and then it went up over time. Many of these loans were variable-rate—the rate to be paid after the initial period would vary depending upon some index[^index] intended to reflect the cost to the lender of borrowing on the wholesale credit market.
 
@@ -656,29 +656,51 @@ Keep in mind that not everything you discover on the Web (or even in textbooks) 
 - You fully understand the meaning of all the variables in the formula.
 - You test your implementation against examples taken from reputable sources. After implementing this function, we tested it by comparing our results to the results supplied by a calculator available on the Web.
 
+### How concrete subclasses inherit attributes from abstract superclass?
 
+No need to repeat the same specification of superclass in `__init__` of subclass? I think it is better to mention again and to point out what each argument is like.   
 
 ```{python}
 class Fixed (Mortgage):
     """ A fixed-rate mortgage with no points. """
     
     def __init__(self, loan, r, months):
+        """ No need to repeat the same specification of superclass? """
         Mortgage.__init__(self, loan, r, months)
         self.legend = 'Fixed, ' + str (round (r*100, 2)) + '%'
 
 class FixedWithPts (Mortgage):
-    
+    """ A fixed-rate mortgage with points. """
     def __init__(self, loan, r, months, pts):
+        """
+        :param loan: floats, size of mortgage
+        :param r: floats without percentage symbol, annual rate
+        :param months: int, total duration
+        :param pts: float with percentage symbol,
+            payment points of the initial loan
+        :return: a new instance of FixedWithPts of type Mortgage
+        """
         Mortgage.__init__(self, loan, r, months)
         self.pts = pts # points as service fee
-        self.paid = [loan*(pts/100)] # Override Mortgage's init 0.0. Note that this fee cannot be used to reduce the outstanding of loan balance.
+        self.paid = [loan*(pts/100)] # Override Mortgage's init 0.0. /
+            # Note that this part of payment is not used to reduce the /
+            # outstanding of loan balance.
         self.legend = 'Fixed, ' + str (round (r*100, 2)) + '%, '\
                       + str (pts) + ' points'
 
 class TwoRate (Mortgage):
+    """ A mortgage with an initial teaser rate followed by a higher rate for the duration. """
     
     def __init__(self, loan, r, months, teaserRate, teaserMonths):
-        # Initiate with teaser rate and total months, and calculate monthly payment to the end 
+        """ Initiate with teaser rate and total months, and calculate monthly payment to the end
+        :param loan: float, size of mortgage
+        :param r: floats without percentage symbol, annual rate
+        :param months: int, total duration
+        :param teaserRate: float without percentage symbol,
+            annual teaser rate in the teaser months
+        :param teaserMonths: int, teaser duration
+        :return an instance of TwoRate under super class of Mortgage
+        """
         Mortgage.__init__(self, loan, teaserRate, months) 
         self.teaserMonths = teaserMonths
         self.teaserRate = teaserRate
@@ -688,7 +710,11 @@ class TwoRate (Mortgage):
                      + ' months, then ' + str (round (r*100, 2)) + '%'
                 
     def makePayment (self):
-        # When time is up, replace teaser rate with next rate, and then calculate monthly payment again with new loan, new rate and new months.
+        """
+        When time is up, replace teaser rate with next rate, and
+        calculate monthly payment again with new loan, new rate and
+        new months.
+        """
         if len (self.paid) == self.teaserMonths + 1:
            self.rate = self.nextRate
            self.payment = findPayment (self.outstanding [-1],
@@ -697,25 +723,42 @@ class TwoRate (Mortgage):
         Mortgage.makePayment (self) # Call the superclass method with instance itself
 ```
 
-
+The above three mortgage is clear with each parameters.
 
 ```{python}
 def compareMortgages (amt, years, fixedRate, pts, ptsRate,
                      varRate1, varRate2, varMonths):
+    """
+    Print out three kinds of mortgages with their total payments
+    :param amt: int, amount of loan size
+    :param years: int, years of payment duration
+    :param fixedRate: float without percent symbol, fixed annual rate
+    :param pts: float with percent symbol, payment points of the initial loan
+    :param ptsRate: float without percent symbol, fixed annual rate with
+     points payment
+    :param varRate1: float without percentage symbol, annual teaser rate in
+     the teaser months
+    :param varRate2: floats without percentage symbol, annual rate
+    :param varMonths: int, months of teaser duration
+    :return: print out information of each kind of mortgage
+    """
     totMonths = years*12
-    fixed1 = Fixed (amt, fixedRate, totMonths)
-    fixed2 = FixedWithPts (amt, ptsRate, totMonths, pts)
+    fixed = Fixed (amt, fixedRate, totMonths)
+    fixedwithpts = FixedWithPts (amt, ptsRate, totMonths, pts)
     twoRate = TwoRate (amt, varRate2, totMonths, varRate1, varMonths)
-    morts = [fixed1, fixed2, twoRate]
-    for m in range (totMonths):# 逐月
-        for mort in morts: # 核算每种还款方式的
-            mort.makePayment () # 还款额 残余本金，添加入数组
-    for m in morts: # 打印每种还款方式的
-        print (m) # 还款方式
-        print (' Total payments = $' + str (int (m.getTotalPaid ()))) # 最终加总还款额
+    morts = [fixed, fixedwithpts, twoRate]
+    for month in range (totMonths):
+        for mort in morts:
+            mort.makePayment ()
+    for mort in morts:
+        print (mort)
+        print (' Total payments = $' + str (int (mort.getTotalPaid ())))
 
 compareMortgages (amt=200000, years=30, fixedRate=0.07,
                  pts = 3.25, ptsRate=0.05, varRate1=0.045,
                  varRate2=0.095, varMonths=48)
 ```
 
+With parameters description, one can read the code only.
+
+2020-06-09

@@ -1,0 +1,276 @@
+---
+title: 10 SOMESIMPLEALGORITHMSANDDATASTRUCTURES
+subtitle: 
+author: John Qu
+date: 2020-06-10
+slug: some-simple-algorithms-and-data-structure
+tags:
+- 
+categories:
+- mit600
+typora-root-url: ../../static
+show_toc: yes
+output: html_notebook
+---
+
+### Why the teacher will talk and why we should care so much about the efficiency of programs?
+
+The goal of this chapter is:
+
+- Not to make you expert in designing efficient programs.
+- To help you develop some general intuitions about how to approach questions of efficiency. 
+
+By the time you get through this chapter you should understand: 
+
+- why some programs complete in the blink of an eye, 
+- why some need to run overnight, and 
+- why some wouldn’t complete in your lifetime.
+
+### What is the goal of having showed the brute-force exhaustive enumeration algorithm?
+
+Because modern computers are so fast that it is often the case that employing clever algorithms is a waste of time. Writing code that is simple and obviously correct, is often the right way to go.
+
+### Which is the key to efficiency, coding tricks or good algorithms?
+
+There are problems where the search space are too large to make brute force practical. This led us to consider more efficient algorithms such as bisection search and Newton-Raphson. The major point in introducing these two algorithms was that the key to efficiency is a good algorithm, not clever coding tricks.
+
+### What is a practical attitude toward implementing an efficient algorithm?
+
+In the sciences (physical, life, and social), programmers often start by quickly coding up a simple algorithm to test the plausibility[^plausibility] of a hypothesis about a data set, and then run it on a small amount of data. If this yields encouraging results, the hard work of producing an implementation that can be run (perhaps over and over again) on large data sets begins. Such implementations need to be based on efficient algorithms.
+
+[^plausibility]: **plausibility**: The quality of being plausible; speciousness. To give any plausibility to a scheme. - De Quincey.  **Syn.** – Plausible, Specious. *Plausible* denotes that which seems reasonable, yet leaves distrust in the judgment. *Specious* describes that which presents a fair appearance to the view and yet covers something false. *Specious* refers more definitely to the act or purpose of false representation; *plausible* has more reference to the effect on the beholder or hearer. An argument may be *specious* when it is not *plausible* because its sophistry is so easily discovered.
+
+### Do we set our goal at inventing novel algorithms when learning about previously existing ones?
+
+Efficient algorithms are hard to invent. Successful professional computer sci- entists might invent one algorithm during their whole career—if they are lucky. Most of us never invent a novel algorithm. What we do instead is learn to reduce the most complex aspects of the problems we are faced with to previously solved problems. 
+
+More specifically, we
+
+- Develop an understanding of the inherent complexity of the problem,
+- Think about how to break that problem up into subproblems, and
+- Relate those subproblems to other problems for which efficient algorithms already exist.
+
+### What is a good attitude towards finding the most efficient algorithms for all everything in a program?
+
+Keep in mind that the most efficient algorithm is not always the algorithm of choice. A program that does everything in the most efficient possible way is often needlessly difficult to understand. It is often a good strategy to start by solving the problem at hand in the most straightforward manner possible, instrument[^instrument] it to find any computational bottlenecks, and then look for ways to improve the computational complexity of those parts of the program contributing to the bottlenecks.
+
+[^instrument]: **instrument**, v. t.  To perform upon an instrument; to prepare for an instrument; as, a sonata instrumented for orchestra.
+
+## 10.1 Search Algorithms
+
+### What is a search algorithm?
+
+A search algorithm is a method for finding an item or group of items with specific properties within a collection of items. 
+
+We refer to the collection of items as a search space. The search space might be something concrete, such as a set of electronic medical records, or something abstract, such as the set of all integers.
+
+### Is search algorithms useful in solving problems?
+
+Many of the algorithms presented earlier in this book can be viewed as search algorithms. In Chapter 3, we formulated finding an approximation to the roots of a polynomial as a search problem, and looked at three algorithms— exhaustive enumeration, bisection search, and Newton-Raphson—for searching the space of possible answers.
+
+### What is the specification of `e in L`?
+
+```python
+def search(L, e): 
+    """
+    Assumes L is a list.
+    Returns True if e is in L and False otherwise
+    """
+```
+
+### Why it is "at best" linear in the length of `L` if the element `e` is not in the list in the following code?
+
+```python
+for i in range(len(L)): 
+    if L[i] == e:
+         return True
+return False
+```
+
+- It will be linear only if each operation inside the loop can be done in constant time. 
+- That raises the question of whether Python retrieves the i^th^ element of a list in constant time. 
+- Since our model of computation assumes that fetching the contents of an address is a constant-time operation, the question becomes whether we can compute the address of the i^th^ element of a list in constant time.
+
+### In Python, a list is represented as what structure?
+
+a length (the number of objects in the list) and a sequence of fixed-size pointers58 to objects.
+
+![image-20200610191140261](/images/2020-06-10-10-SOMESIMPLEALGORITHMSANDDATASTRUCTURES//image-20200610191140261.png)
+
+### What is the "indirection" implementation technique?
+
+Generally speaking, indirection involves accessing something by first accessing something else that contains a reference to the thing initially sought. This is what happens each time we use a variable to re- fer to the object to which that variable is bound. When we use a variable to access a list and then a reference stored in that list to access another object, we are going through two levels of indirection. It has often been said that “any problem in computing can be solved by adding another level of indirection.” 【Really, or just kidding?】
+
+
+
+```{python}
+def search(L, e):
+    """
+    Assumes L is a list, the elements of which are in
+    ascending order.
+    Returns True if e is in L and False otherwise
+    """
+
+    def bSearch(L, e, low, high): 
+        #Decrements high - low
+        if high == low:
+            return L[low] == e 
+        mid = (low + high)//2 
+        if L[mid] == e:
+            return True 
+        elif L[mid] > e:
+            if low == mid: #nothing left to search 
+                return False
+            else:
+                return bSearch(L, e, low, mid - 1)
+        else:
+            return bSearch(L, e, mid + 1, high)
+
+    if len(L) == 0: 
+        return False
+    else:
+        return bSearch(L, e, 0, len(L) - 1)
+```
+
+### Should search be modified to check that the assumption is satisfied?
+
+```{python}
+def selSort (L):
+    """ 假设 L 是列表，其中的元素可以用 > 进行比较。
+         compared using >.
+       对 L 进行升序排列 """
+    suffixStart = 0
+    while suffixStart != len (L):
+        #检查后缀集合中的每个元素
+        for i in range (suffixStart, len (L)):
+            if L[i] <L[suffixStart]:
+                #交换元素位置
+                L[suffixStart], L[i] = L[i], L[suffixStart]
+        suffixStart += 1
+```
+
+
+
+```{python}
+def merge (left, right, compare):
+    """ 假设 left 和 right 是两个有序列表，compare 定义了一种元素排序规则。
+       返回一个新的有序列表（按照 compare 定义的顺序），其中包含与
+        （left+right）相同的元素。"""
+
+    result =[]
+    i,j = 0, 0
+    # 两两比较，复制走一个，移动一个 index 而已。
+    while i < len (left) and j < len (right):
+        if compare (left[i], right[j]):
+            result.append (left[i])
+            i += 1
+        else:
+            result.append (right[j])
+            j += 1
+    # 谁还有元素，就复制谁。        
+    while (i < len (left)):
+        result.append (left[i])
+        i += 1
+    while (j < len (right)):
+        result.append (right[j])
+        j += 1
+    return result
+
+
+def mergeSort (L, compare = lambda x, y: x < y):
+    """ 假设 L 是列表，compare 定义了 L 中元素的排序规则（默认小于号）
+       返回一个新的具有 L 中相同元素的有序列表。"""
+    if len (L) < 2:
+        return L[:]
+    else:
+        middle = len (L)//2
+        left = mergeSort (L[:middle], compare)
+        right = mergeSort (L[middle:], compare)
+        return merge (left, right, compare)
+```
+
+
+
+```
+The buckets are:
+ []
+ [(99740, 6), (61898, 8)]
+ [(15455, 4)]
+ []
+ [(99913, 18), (276, 19)]
+ []
+ []
+ [(63944, 13), (79618, 17)]
+ [(51093, 15)]
+ [(8271, 2), (3715, 14)]
+ [(74606, 1), (33432, 3), (58915, 7)]
+ [(12302, 12), (56723, 16)]
+ []
+ [(27519, 11)]
+ [(64937, 5), (85405, 9), (49756, 10)]
+ []
+ [(17611, 0)]
+```
+
+
+
+```{python}
+class intDict (object):
+    """键为整数的字典"""
+
+    def __init__(self, numBuckets):
+        """创建一个空字典"""
+        
+        #numBuckets 是散列桶的数量，是一个整数，跟 dict 元素数量相关。
+        # 不能太小，太小了容易重合得多，降低时间效率；
+        # 也不能太大，太大了空 list 多，降低空间效率。
+        
+        #先把 hash table 这个空楼房搭起来
+        self.buckets =[]
+        
+        #盖 numBuckets 层。
+        self.numBuckets = numBuckets
+        for i in range (numBuckets):
+            self.buckets.append ([])
+
+
+    def addEntry (self, key, dictVal):
+        """假设 key 是整数。添加一个字典条目。"""
+        
+        #hashBucket 是一个列表，是 hash talbe 这个楼房的某一层。
+        #求余 %，多大的数，都映射到[0～numBuckets) 区间内的整数
+        hashBucket = self.buckets[key% self.numBuckets]
+        
+        #确认在本层里有没有这个 key，有则替换，没有就什么都没干。
+        for i in range (len (hashBucket)):
+            if hashBucket[i][0] == key:
+                hashBucket[i] = (key, dictVal)
+                return
+                
+        #确认过没有这个 key，没有 return，会执下面的追加动作。   
+        hashBucket.append ((key, dictVal))
+
+
+    def getValue (self, key):
+        """ 假设 key 是整数。
+           返回键为 key 的字典值 """
+        
+        #先通过 hash function 换算出楼层号   
+        hashBucket = self.buckets[key% self.numBuckets]
+        
+        #再搜寻此楼层的各个房间，有则告知，无则 None
+        for e in hashBucket:
+           if e[0] == key:
+               return e[1]
+        return None
+        
+
+    def __str__(self):
+        """构造成字典的字面样子。"""
+        result = '{'
+        for b in self.buckets:
+            for e in b:
+                result = result + str (e[0]) + ':' + str (e[1]) + ','
+        return result[:-1] + '}' #result[:-1] omits the last comma
+```
+

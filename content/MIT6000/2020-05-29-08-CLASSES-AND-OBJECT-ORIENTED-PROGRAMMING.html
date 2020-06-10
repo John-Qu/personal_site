@@ -528,7 +528,7 @@ for s in book.getStudents():
 <h3>What kinds of loans are there in the mortgage at the end of twentieth century?</h3>
 <p>Towards the end of the twentieth century, mortgages<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> started getting a lot more complicated.</p>
 <ol style="list-style-type: decimal">
-<li>People could get lower interest rates by paying “points” to the lender at the time they took on the mortgage. A point is a cash payment of 1% of the value of the loan.</li>
+<li>People could get lower interest rates by paying “points” to the lender at the time they took on the mortgage. A point is a cash payment of about 1% of the value of the loan.</li>
 <li>People could take mortgages that were “interest-only” for a period of time. That is to say, for some number of months at the start of the loan the borrower paid only the accrued interest and none of the principal.</li>
 <li>Other loans involved multiple rates. Typically the initial rate (called a “teaser rate”) was low, and then it went up over time. Many of these loans were variable-rate—the rate to be paid after the initial period would vary depending upon some index<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> intended to reflect the cost to the lender of borrowing on the wholesale credit market.</li>
 </ol>
@@ -595,26 +595,50 @@ class Mortgage (object):
 <li>You fully understand the meaning of all the variables in the formula.</li>
 <li>You test your implementation against examples taken from reputable sources. After implementing this function, we tested it by comparing our results to the results supplied by a calculator available on the Web.</li>
 </ul>
+</div>
+<div id="how-concrete-subclasses-inherit-attributes-from-abstract-superclass" class="section level3">
+<h3>How concrete subclasses inherit attributes from abstract superclass?</h3>
+<p>No need to repeat the same specification of superclass in <code>__init__</code> of subclass? I think it is better to mention again and to point out what each argument is like.</p>
 <pre class="python"><code>class Fixed (Mortgage):
     &quot;&quot;&quot; A fixed-rate mortgage with no points. &quot;&quot;&quot;
     
     def __init__(self, loan, r, months):
+        &quot;&quot;&quot; No need to repeat the same specification of superclass? &quot;&quot;&quot;
         Mortgage.__init__(self, loan, r, months)
         self.legend = &#39;Fixed, &#39; + str (round (r*100, 2)) + &#39;%&#39;
 
 class FixedWithPts (Mortgage):
-    
+    &quot;&quot;&quot; A fixed-rate mortgage with points. &quot;&quot;&quot;
     def __init__(self, loan, r, months, pts):
+        &quot;&quot;&quot;
+        :param loan: floats, size of mortgage
+        :param r: floats without percentage symbol, annual rate
+        :param months: int, total duration
+        :param pts: float with percentage symbol,
+            payment points of the initial loan
+        :return: a new instance of FixedWithPts of type Mortgage
+        &quot;&quot;&quot;
         Mortgage.__init__(self, loan, r, months)
         self.pts = pts # points as service fee
-        self.paid = [loan*(pts/100)] # Override Mortgage&#39;s init 0.0. Note that this fee cannot be used to reduce the outstanding of loan balance.
+        self.paid = [loan*(pts/100)] # Override Mortgage&#39;s init 0.0. /
+            # Note that this part of payment is not used to reduce the /
+            # outstanding of loan balance.
         self.legend = &#39;Fixed, &#39; + str (round (r*100, 2)) + &#39;%, &#39;\
                       + str (pts) + &#39; points&#39;
 
 class TwoRate (Mortgage):
+    &quot;&quot;&quot; A mortgage with an initial teaser rate followed by a higher rate for the duration. &quot;&quot;&quot;
     
     def __init__(self, loan, r, months, teaserRate, teaserMonths):
-        # Initiate with teaser rate and total months, and calculate monthly payment to the end 
+        &quot;&quot;&quot; Initiate with teaser rate and total months, and calculate monthly payment to the end
+        :param loan: float, size of mortgage
+        :param r: floats without percentage symbol, annual rate
+        :param months: int, total duration
+        :param teaserRate: float without percentage symbol,
+            annual teaser rate in the teaser months
+        :param teaserMonths: int, teaser duration
+        :return an instance of TwoRate under super class of Mortgage
+        &quot;&quot;&quot;
         Mortgage.__init__(self, loan, teaserRate, months) 
         self.teaserMonths = teaserMonths
         self.teaserRate = teaserRate
@@ -624,26 +648,45 @@ class TwoRate (Mortgage):
                      + &#39; months, then &#39; + str (round (r*100, 2)) + &#39;%&#39;
                 
     def makePayment (self):
-        # When time is up, replace teaser rate with next rate, and then calculate monthly payment again with new loan, new rate and new months.
+        &quot;&quot;&quot;
+        When time is up, replace teaser rate with next rate, and
+        calculate monthly payment again with new loan, new rate and
+        new months.
+        &quot;&quot;&quot;
         if len (self.paid) == self.teaserMonths + 1:
            self.rate = self.nextRate
            self.payment = findPayment (self.outstanding [-1],
                                    self.rate,
                                    self.months - self.teaserMonths)
         Mortgage.makePayment (self) # Call the superclass method with instance itself</code></pre>
+<p>The above three mortgage is clear with each parameters.</p>
 <pre class="python"><code>def compareMortgages (amt, years, fixedRate, pts, ptsRate,
                      varRate1, varRate2, varMonths):
+    &quot;&quot;&quot;
+    Print out three kinds of mortgages with their total payments
+    :param amt: int, amount of loan size
+    :param years: int, years of payment duration
+    :param fixedRate: float without percent symbol, fixed annual rate
+    :param pts: float with percent symbol, payment points of the initial loan
+    :param ptsRate: float without percent symbol, fixed annual rate with
+     points payment
+    :param varRate1: float without percentage symbol, annual teaser rate in
+     the teaser months
+    :param varRate2: floats without percentage symbol, annual rate
+    :param varMonths: int, months of teaser duration
+    :return: print out information of each kind of mortgage
+    &quot;&quot;&quot;
     totMonths = years*12
-    fixed1 = Fixed (amt, fixedRate, totMonths)
-    fixed2 = FixedWithPts (amt, ptsRate, totMonths, pts)
+    fixed = Fixed (amt, fixedRate, totMonths)
+    fixedwithpts = FixedWithPts (amt, ptsRate, totMonths, pts)
     twoRate = TwoRate (amt, varRate2, totMonths, varRate1, varMonths)
-    morts = [fixed1, fixed2, twoRate]
-    for m in range (totMonths):# 逐月
-        for mort in morts: # 核算每种还款方式的
-            mort.makePayment () # 还款额 残余本金，添加入数组
-    for m in morts: # 打印每种还款方式的
-        print (m) # 还款方式
-        print (&#39; Total payments = $&#39; + str (int (m.getTotalPaid ()))) # 最终加总还款额
+    morts = [fixed, fixedwithpts, twoRate]
+    for month in range (totMonths):
+        for mort in morts:
+            mort.makePayment ()
+    for mort in morts:
+        print (mort)
+        print (&#39; Total payments = $&#39; + str (int (mort.getTotalPaid ())))
 
 compareMortgages (amt=200000, years=30, fixedRate=0.07,
                  pts = 3.25, ptsRate=0.05, varRate1=0.045,
@@ -654,6 +697,8 @@ compareMortgages (amt=200000, years=30, fixedRate=0.07,
 ##  Total payments = $393011
 ## 4.5% for 48 months, then 9.5%
 ##  Total payments = $551444</code></pre>
+<p>With parameters description, one can read the code only.</p>
+<p>2020-06-09</p>
 </div>
 </div>
 <div class="footnotes">
