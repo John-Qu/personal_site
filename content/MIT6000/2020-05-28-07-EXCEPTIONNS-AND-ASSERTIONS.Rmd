@@ -1,13 +1,13 @@
 ---
 title: 07 EXCEPTIONS AND ASSERTIONS
 subtitle: 
-author: 曲政
+author: John Qu
 date: 2020-05-28
 slug: exceptions-and-assertions
 tags:
 - 
 categories:
-- mit6000
+- MIT600
 - ICPP booknotes
 typora-root-url: ../../static
 show_toc: yes

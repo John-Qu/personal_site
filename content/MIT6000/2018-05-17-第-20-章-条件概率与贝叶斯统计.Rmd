@@ -7,7 +7,8 @@ slug: conditional-probability-and-bayesian-statistics
 tags:
 - 
 categories:
-- MIT6000
+- MIT600
+- ICPP booknotes
 typora-root-url: ../../static
 show_toc: yes
 output: html_notebook
@@ -74,7 +75,7 @@ $$ {\rm P (A|B)}=\frac {{\rm P (A)*P (B|A)}}{{\rm P (B)}} $$
 在贝叶斯统计中 (In the Bayesian world)，概率测量的是可信度 (probability measures a **degree of belief**)。贝叶斯定理表明了不考虑证据的可信度和考虑了证据的可信度之间的关系 (Bayes' Theorem links the degree of belief in a proportion before and after accounting for evidence)。
 
 公式等号左边的部分 P (A|B) 是后验 posterior 概率，即考虑了 B 之后的 A 的可信度 (the degree of belief in A, having accounted for B)。后验概率定义为先验概率 P (A) 与证据 B 对 A 的支持度的乘积。(The posterior is defined in terms of the **prior**, P (A), and the **support** that the evidence, B, provides for A.) 支持度是 A 成立的情况下 B 成立的概率与不考虑 A 时 B 成立的概率的比值 (The support is the ratio of the probability of B holding if A holds and the probability of B holding independently of A)，即 \frac {{\rm P (B|A)}}{{\rm P (B)}}。
- 
+
 
 ### 一个年过不惑的女性应该如何面对阳性的乳腺 X 光检查结果呢？她确实罹患乳腺癌的概率是多少？
 
@@ -116,7 +117,7 @@ P (Canc) = P (Canc | woman in her 40s) = 0.008
 
 P (Poc|Canc) = P (TP|Canc) = 0.9
 ```
-      
+
 所以，一个年过 40 的女性，X 光检查阳性，她真有乳腺癌的概率是多
 
 P (Cans|Pos) = 0.008 * 0.9 / 0.07664 = 0.0994

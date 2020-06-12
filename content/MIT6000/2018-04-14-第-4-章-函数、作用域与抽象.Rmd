@@ -7,7 +7,8 @@ slug: function-scoping-and-abstraction
 tags:
 - 
 categories:
-- 
+- MIT600
+- ICPP booknotes
 typora-root-url: ../../static
 show_toc: no
 output: html_notebook
@@ -220,7 +221,7 @@ classic inductive definition:
 - 1! = 1
 - (n+1)! = (n+1)*n!
 
-​```python
+```python
 def factIteration (n):
    """Assumes n an int > 0
       Returns n!"""
@@ -231,7 +232,7 @@ def factIteration (n):
    return result
 ```
 
-```python
+​```python
 def factRecursion (n):
    """Assumes n an int > 0
       Returns n!"""

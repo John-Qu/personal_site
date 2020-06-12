@@ -1,14 +1,14 @@
 ---
 title: 02 INTRODUCTION TO PYTHON
 subtitle: 
-author: 曲政
+author: John Qu
 date: 2020-05-25
 slug: introduction-to-python
 tags:
 - 
 categories:
-- mit6000
-- ICPP
+- MIT600
+- ICPP booknotes
 typora-root-url: ../../static
 show_toc: yes
 output: html_notebook

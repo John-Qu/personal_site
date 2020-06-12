@@ -7,7 +7,8 @@ slug: knapsack-and-graph-optimization-problems
 tags:
 - 
 categories:
-- MIT6000
+- MIT600
+- ICPP booknotes
 typora-root-url: ../../static
 show_toc: yes
 output: html_notebook

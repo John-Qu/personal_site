@@ -7,7 +7,8 @@ slug: testing-and-debugging
 tags:
 - 
 categories:
-- MIT6000
+- MIT600
+- ICPP booknotes
 typora-root-url: ../../static
 show_toc: yes
 output: html_notebook
@@ -131,6 +132,7 @@ print (l2)
 - 知道测试什么情况才能提供更多信息。
 - 评估黑箱测试是否完备。
   
+
 比如这个验证素数的函数
 
 ```python

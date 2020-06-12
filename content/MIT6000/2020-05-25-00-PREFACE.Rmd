@@ -1,14 +1,14 @@
 ---
 title: 00 PREFACE and ACKNOWLEDGMENTS
 subtitle: 
-author: 曲政
+author: John Qu
 date: 2020-05-25
 slug: preface-and-acknowledgments
 tags:
 - 
 categories:
 - mit6000
-- ICPP
+- ICPP booknotes
 typora-root-url: ../../static
 show_toc: yes
 output: html_notebook

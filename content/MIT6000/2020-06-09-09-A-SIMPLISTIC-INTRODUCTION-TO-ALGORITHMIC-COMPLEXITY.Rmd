@@ -7,7 +7,7 @@ slug: algorithmic-complexity
 tags:
 - 
 categories:
-- mit6000
+- MIT600
 - ICPP booknotes
 typora-root-url: ../../static
 show_toc: yes

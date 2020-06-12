@@ -7,7 +7,8 @@ slug: dynamic-programming
 tags:
 - 
 categories:
-- MIT6000
+- MIT600
+- ICPP booknotes
 typora-root-url: ../../static
 show_toc: yes
 output: html_notebook
@@ -277,7 +278,6 @@ liturgial sense: 奇迹。
 
 - 分治算法的复杂度基本是确定的。
 - 动态规划的降低了复杂度，因为结构中子问题重复 overlapping 得多。换句话说，子问题可以有很多很多，但是其中真正不同的子问题相对是很少的，只有在这种情况下，动态规划才是高效的。
-
 
 ---
 以上，2018-04-29。
