@@ -7,7 +7,8 @@ slug: some-simple-algorithms-and-data-structure
 tags:
 - 
 categories:
-- mit600
+- MIT600
+- ICPP booknotes
 typora-root-url: ../../static
 show_toc: yes
 output: html_notebook
@@ -22,9 +23,9 @@ The goal of this chapter is:
 
 By the time you get through this chapter you should understand: 
 
-- why some programs complete in the blink of an eye, 
-- why some need to run overnight, and 
-- why some wouldn’t complete in your lifetime.
+- Why some programs complete in the blink of an eye, 
+- Why some need to run overnight, and 
+- Why some wouldn’t complete in your lifetime.
 
 ### What is the goal of having showed the brute-force exhaustive enumeration algorithm?
 
@@ -42,7 +43,7 @@ In the sciences (physical, life, and social), programmers often start by quickly
 
 ### Do we set our goal at inventing novel algorithms when learning about previously existing ones?
 
-Efficient algorithms are hard to invent. Successful professional computer sci- entists might invent one algorithm during their whole career—if they are lucky. Most of us never invent a novel algorithm. What we do instead is learn to reduce the most complex aspects of the problems we are faced with to previously solved problems. 
+Efficient algorithms are hard to invent. Successful professional computer scientists might invent one algorithm during their whole career—if they are lucky. Most of us never invent a novel algorithm. What we do instead is learn to reduce the most complex aspects of the problems we are faced with to previously solved problems. 
 
 More specifically, we
 
@@ -91,17 +92,39 @@ return False
 - That raises the question of whether Python retrieves the i^th^ element of a list in constant time. 
 - Since our model of computation assumes that fetching the contents of an address is a constant-time operation, the question becomes whether we can compute the address of the i^th^ element of a list in constant time.
 
-### In Python, a list is represented as what structure?
+### In Python, what structure is a list is represented as?
 
-a length (the number of objects in the list) and a sequence of fixed-size pointers58 to objects.
+A length (the number of objects in the list) and a sequence of fixed-size pointers to objects.
 
 ![image-20200610191140261](/images/2020-06-10-10-SOMESIMPLEALGORITHMSANDDATASTRUCTURES//image-20200610191140261.png)
 
 ### What is the "indirection" implementation technique?
 
-Generally speaking, indirection involves accessing something by first accessing something else that contains a reference to the thing initially sought. This is what happens each time we use a variable to re- fer to the object to which that variable is bound. When we use a variable to access a list and then a reference stored in that list to access another object, we are going through two levels of indirection. It has often been said that “any problem in computing can be solved by adding another level of indirection.” 【Really, or just kidding?】
+Generally speaking, indirection involves accessing something by first accessing something else that contains a reference to the thing initially sought. This is what happens each time we use a variable to refer to the object to which that variable is bound. When we use a variable to access a list and then a reference stored in that list to access another object, we are going through two levels of indirection. It has often been said that “any problem in computing can be solved by adding another level of indirection.” 【Really, or just kidding?】
+
+### Getting back to the problem of implementing `search(L, e)`, is O(len(L)) the best we can do?
+
+Yes, if we know nothing about the relationship of the values of the elements in the list and the order in which they are stored. In the worst case, we have to look at each element in L to determine whether L contains e.
+
+【The answer means: "No, if we know something about the relationship of the values of the elements in the list and the order in which they are stored."】
+
+```{python}
+def search(L, e):
+    """Assumes L is a list, the elements of which are in
+    ascending order.
+    Returns True if e is in L and False otherwise"""
+    for i in range(len(L)):
+        if L[i] == e:
+            return True
+        if L[i] > e:
+            return False
+    return False
+```
+
+This would improve the average running time. However, it would not change the worst-case complexity of the algorithm, since in the worst case each element of ` L` is examined.
 
 
+### If we can assume the list has an ordering, can we get a considerable improvement in the worst-case complexity?
 
 ```{python}
 def search(L, e):
@@ -132,42 +155,148 @@ def search(L, e):
         return bSearch(L, e, 0, len(L) - 1)
 ```
 
+The idea is simple:
+
+1. Pick an index, `i`, that divides the list `L` roughly in half.
+1. Ask if `L[i] == e`.
+1. If not, ask whether `L[i]` is larger or smaller than `e`.
+1. Depending upon the answer, search either the left or right half of `L` for `e`.
+
 ### Should search be modified to check that the assumption is satisfied?
+
+This might eliminate a source of errors, but it would defeat the purpose of using binary search, since checking the assumption would itself take O(len(L)) time.
+
+### Why use a wrapper function such as `search`?
+
+The wrapper function provides a nice interface for client code, but is essentially a pass-through that does no serious computation. Instead, it calls the helper function `bSearch` with appropriate arguments. This raises the question of why not eliminate `search` and have clients call `bSearch` directly? The reason is that the parameters `low` and `high` have nothing to do with the abstraction of searching a list for an element. They are implementation details that should be hidden from those writing programs that call search.
+
+How to describe the calculating of the times that the value of `high–low` being cut in half before `high–low == 0`?
+
+Recall that log~y~(x) is the number of times that y has to be multiplied by itself to reach x. Conversely, if x is divided by y log~y~(x) times, the result is 1. This implies that `high–low` can be cut in half using integer division at most `log2 (high–low)` times before it reaches 0.
+
+### Why does the code use `mid+1` rather than `mid` in the second recursive call?
+
+The calculation of `mid` is `mid = (low + high)//2`, which is floor rounding. If take `mid, high ` rather than `mid+1, high ` as `bSearch`'s argument for `low, high` parameters, the new_round_mid `= (mid + high)//2` can also be `mid` when `high` is 1 bigger than `mid` , then the value of the decrementing function `high-low` is no less than the value of it on entry to the instance of the function making the call.
+
+For example:
+
+```python
+L =[0 1 2 3 4 5]
+e = 2.5
+```
+
+Loop 1:
+
+```
+l = 0, h = 5
+m = (0 + 5)//2 i.e 2
+L [m=2] = 2 < e=2.5
+```
+
+Loop 2:
+```
+l = 2, h = 5
+m = 3
+L[m=3] = 3 > e=2.5
+```
+
+Loop 3:
+```
+l = 2, h = 3
+m = 2
+L[m=2] = 2 < e=2.5
+```
+
+Loop 4:
+```
+l = 2, h = 3
+m = 2
+L[m=2] = 2 < e=2.5
+```
+The loop 4 is the same as loop 3.
+
+## 10.2 Sorting Algorithms
+
+### Why should we first sort a list and perform the search?
+
+If we happen to know the list is sorted, we can exploit that information to greatly reduce the time needed to search a list.
+
+However, one cannot sort a list without looking at each element in the list at least once, so it is not possible to sort a list in sub-linear time. Dose that means that binary search is an intellectual curiosity of no practical import? If we expect to search the list k times, the relevant question becomes, is `sortComplexity(L) + k * log(len(L))` less than `k * len(L)`? How big k needs to be depends upon how long it takes to sort a list.
+
+### How to use induction to reason about the loop invariants in selection sort?
 
 ```{python}
 def selSort (L):
-    """ 假设 L 是列表，其中的元素可以用 > 进行比较。
-         compared using >.
-       对 L 进行升序排列 """
+    """ 
+    Assumes that L is a list of elements that can be compared using >.
+    Sorts L in ascending order.
+    """
     suffixStart = 0
     while suffixStart != len (L):
-        #检查后缀集合中的每个元素
+        # Look at each element in suffix.
         for i in range (suffixStart, len (L)):
-            if L[i] <L[suffixStart]:
-                #交换元素位置
+            if L[i] < L[suffixStart]:
+                # Swap position of elements.
                 L[suffixStart], L[i] = L[i], L[suffixStart]
         suffixStart += 1
 ```
 
+The loop invariant in selection sort: given a partitioning of the list into a prefix (L[0:i]) and a suffix (L[i+1:len(L)]), the prefix is sorted and no element in the prefix is larger than the smallest element in the suffix.
 
+- Base case: At the start of the first iteration, the prefix is empty, i.e., the suffix is the entire list. Therefore, the invariant is (trivially) true.
+- Induction step: At each step of the algorithm, we move one element from the suffix to the prefix. We do this by appending a minimum element of the suffix to the end of the prefix. Because the invariant held before we moved the element, we know that after we append the element the prefix is still sorted. We also know that since we removed the smallest element in the suffix, no element in the prefix is larger than the smallest element in the suffix. 
+- Termination: When the loop is exited, the prefix includes the entire list, and the suffix is empty. Therefore, the entire list is now sorted in ascending order.
+
+### What is the character of a divide-and-conquer algorithm?
+
+1. A threshold input size, below which the problem is not subdivided,
+1. The size and number of sub-instances into which an instance is split, and
+1. The algorithm used to combine sub-solutions.
+
+The threshold is sometimes called the recursive base. For item 2 it is usual to consider the ratio of initial problem size to the sub-instance size. In most of the examples we’ve seen so far, the ratio was 2.
+
+### How to describe the divide-and- conquer algorithm recursively?
+
+1. If the list is of length 0 or 1, it is already sorted.
+1. If the list has more than one element, split the list into two lists, and use merge sort to sort each of them.
+1. Merge the results.
+
+### What is the key observation make by von Neumann in inventing merge sort?
+
+Two sorted lists can be efficiently merged into a single sorted list. The merge progress involved two constant-time operations: 
+
+1. Comparing the values of elements O(len(L)), and 
+1. Copying elements from one list to another O(len(L1) + len(L2)).
+
+| Remaining in list 1 | Remaining in list 2 | Result |
+| ------------------- | ------------------- | ------ |
+|[1,5,12,18,19,20]                     | [2,3,4,17] | [] |
+| [5,12,18,19,20] | [2,3,4,17] | [1] |
+| [5,12,18,19,20] | [3,4,17] | [1,2] |
+| [5,12,18,19,20] | [4,17] | [1,2,3] |
+| [5,12,18,19,20] | [17] | [1,2,3,4] |
+| [12,18,19,20] | [17] | [1,2,3,4,5] |
+| [18,19,20] | [17] | [1,2,3,4,5,12] |
+| [18,19,20] | [] | [1,2,3,4,5,12,17] |
+| [] | [] | [1,2,3,4,5,12,17,18,19,20] |
+
+###  What is the implementation of merge sort?
 
 ```{python}
 def merge (left, right, compare):
-    """ 假设 left 和 right 是两个有序列表，compare 定义了一种元素排序规则。
-       返回一个新的有序列表（按照 compare 定义的顺序），其中包含与
-        （left+right）相同的元素。"""
-
+    """ Assumes left and right are sorted lists and
+        compare defines an ordering on the elements. 
+        Returns a new sorted (by compare) list containing the
+        same elements as (left + right) would contain."""
     result =[]
     i,j = 0, 0
-    # 两两比较，复制走一个，移动一个 index 而已。
     while i < len (left) and j < len (right):
         if compare (left[i], right[j]):
             result.append (left[i])
-            i += 1
+            i += 1 # not delete, but move pointer one step forward
         else:
             result.append (right[j])
             j += 1
-    # 谁还有元素，就复制谁。        
     while (i < len (left)):
         result.append (left[i])
         i += 1
@@ -176,10 +305,10 @@ def merge (left, right, compare):
         j += 1
     return result
 
-
 def mergeSort (L, compare = lambda x, y: x < y):
-    """ 假设 L 是列表，compare 定义了 L 中元素的排序规则（默认小于号）
-       返回一个新的具有 L 中相同元素的有序列表。"""
+    """ Assumes L is a list, compare defines an ordering
+        on elements of L
+        Returns a new sorted list with the same elements as L"""
     if len (L) < 2:
         return L[:]
     else:
@@ -189,88 +318,144 @@ def mergeSort (L, compare = lambda x, y: x < y):
         return merge (left, right, compare)
 ```
 
+### What is the benefit of making the comparison operator a parameter of the `mergeSort` function?
 
+To get control handle of compare behavior. Suppose we want to sort a list of names written as firstName lastName, e.g., the list ['Chris Terman', 'Tom Brady', 'Eric Grimson', 'Gisele Bundchen']. We can uses these function in the following code to sort the list in two different ways.
 
+```{python}
+def lastNameFirstName(name1, name2):
+    arg1 = name1.split(' ')
+    arg2 = name2.split(' ')
+    if arg1[1] != arg2[1]:
+        return arg1[1] < arg2[1]
+    else: #last names the same, sort by first name
+        return arg1[0] < arg2[0]
+
+def firstNameLastName(name1, name2):
+    arg1 = name1.split(' ')
+    arg2 = name2.split(' ')
+    if arg1[0] != arg2[0]:
+        return arg1[0] < arg2[0]
+    else: #first names the same, sort by last name
+        return arg1[1] < arg2[1]
+
+L = ['Tom Brady', 'Eric Grimson', 'Gisele Bundchen']
+newL1 = mergeSort(L, lastNameFirstName)
+print('Sorted by last name =', newL1)
+newL2 = mergeSort(L, firstNameLastName)
+print('Sorted by first name =', newL2)
 ```
-The buckets are:
- []
- [(99740, 6), (61898, 8)]
- [(15455, 4)]
- []
- [(99913, 18), (276, 19)]
- []
- []
- [(63944, 13), (79618, 17)]
- [(51093, 15)]
- [(8271, 2), (3715, 14)]
- [(74606, 1), (33432, 3), (58915, 7)]
- [(12302, 12), (56723, 16)]
- []
- [(27519, 11)]
- [(64937, 5), (85405, 9), (49756, 10)]
- []
- [(17611, 0)]
-```
 
+## 10.3 Hash Tables
 
+### Is logarithmic the best that we can do for search when we are willing to do some preprocessing?
+
+If we put merge sort together with binary search, we have a nice way to search lists. We use merge sort to preprocess the list in `O(n*log(n))` time, and then we use binary search to test whether elements are in the list in `O(log(n))` time. If we search the list `k` times, the overall time complexity is `O(n*log(n) + k*log(n))`.
+
+Dictionaries use a technique called hashing to do the lookup in time that is nearly independent of the size of the dictionary.
+
+### What is the basic idea behind a hash table?
+
+We convert the key to an integer, and then use that integer to index into a list, which can be done in constant time.
+
+In principle, values of any type can be easily converted to an integer. After all, we know that the internal representation of each object is a sequence of bits, and any sequence of bits can be viewed as representing an integer.
+
+### What is the function of a hash function?
+
+A hash function maps a large space of inputs (e.g., all natural numbers) to a smaller space of outputs (e.g., the nature numbers between 0 and 5000). Hash functions can be used to convert a large space of keys to a smaller space of integer indices.
+
+### What is the character of a good hash function?
+
+Since the space of possible outputs is smaller than the space of possible inputs, a hash function is a many-to-one mapping, i.e., multiple different inputs may be mapped to the same output. When two inputs are mapped to the same output, it is called a collision. A good hash function produces a uniform distribution; i.e., every output in the range is equally probable, which minimizes the probability of collisions.
+
+### Can you create a concrete example to illustrate the inner mechanism of a hash buckets?
 
 ```{python}
 class intDict (object):
-    """键为整数的字典"""
+    """ A dictionary with integer keys """
 
-    def __init__(self, numBuckets):
-        """创建一个空字典"""
-        
-        #numBuckets 是散列桶的数量，是一个整数，跟 dict 元素数量相关。
-        # 不能太小，太小了容易重合得多，降低时间效率；
-        # 也不能太大，太大了空 list 多，降低空间效率。
-        
-        #先把 hash table 这个空楼房搭起来
+    def __init__(self, numBuckets:int):
+        """
+        Create an empty dictionary as list of lists of key-value pairs
+        :param numBuckets: int, number of hash buckets. It should be
+        relevant to the number of dict items, not too small causing
+        too much collision, and not too large wasting space.
+        :return none: init self.buckets into an list of numBucket empty lists
+        """
         self.buckets =[]
-        
-        #盖 numBuckets 层。
         self.numBuckets = numBuckets
+        # why not write like this
+        # self.buckets = list([] * numBuckets)
+        # Oh, print([] * 7), got [].
+        # So, repeating list items have to be appended iterate
         for i in range (numBuckets):
             self.buckets.append ([])
 
-
     def addEntry (self, key, dictVal):
-        """假设 key 是整数。添加一个字典条目。"""
-        
-        #hashBucket 是一个列表，是 hash talbe 这个楼房的某一层。
-        #求余 %，多大的数，都映射到[0～numBuckets) 区间内的整数
-        hashBucket = self.buckets[key% self.numBuckets]
-        
-        #确认在本层里有没有这个 key，有则替换，没有就什么都没干。
+        """
+        Add an entry of (key, dictVal) pair to buckets, or update it.
+        :param key: hashable type, as dict's key.
+        :param dictVal: any type, as dict key's value.
+        :return none: make sure there is an entry of (key, dictVal) pair
+         in the list in the bucket list.
+        """
+        # Recall that i%j returns the remainder when the integer i is
+        # divided by j, so it is an integer in range [0, j)
+        hashBucket = self.buckets[ (key % self.numBuckets) ]
+        # Check to update the (key, dictVal) pair if key already existed
         for i in range (len (hashBucket)):
             if hashBucket[i][0] == key:
                 hashBucket[i] = (key, dictVal)
                 return
-                
-        #确认过没有这个 key，没有 return，会执下面的追加动作。   
+        # Append the (key, dictVal) pair since there is no this key.
         hashBucket.append ((key, dictVal))
 
-
     def getValue (self, key):
-        """ 假设 key 是整数。
-           返回键为 key 的字典值 """
-        
-        #先通过 hash function 换算出楼层号   
-        hashBucket = self.buckets[key% self.numBuckets]
-        
-        #再搜寻此楼层的各个房间，有则告知，无则 None
+        """
+        Get value with key from this dict.
+        :param key: hashable type, as dict's key.
+        :return: value of key, or None if the key not exist.
+        """
+        hashBucket = self.buckets[ (key % self.numBuckets) ]
+        # Search rooms on this floor for the key.
         for e in hashBucket:
            if e[0] == key:
                return e[1]
         return None
-        
 
     def __str__(self):
-        """构造成字典的字面样子。"""
+        """ Construct the literal of dict. """
         result = '{'
         for b in self.buckets:
             for e in b:
-                result = result + str (e[0]) + ':' + str (e[1]) + ','
-        return result[:-1] + '}' #result[:-1] omits the last comma
+                result = result + str (e[0]) + ':' + str (e[1]) + ', '
+        return result[:-2] + '}' #result[:-2] omits the last coma
 ```
 
+```{python}
+import random
+D = intDict(17)
+for i in range(20):
+    #choose a random int in the range 0 to 10**5 - 1
+    key = random.choice(range(10**5))
+    D.addEntry(key, i)
+print('The value of the intDict is:')
+print(D)
+print('\n', 'The buckets are:')
+for hashBucket in D.buckets: #violates abstraction barrier
+    print(' ', hashBucket)
+```
+
+### Is list an efficient way to handle collisions?
+
+There are many other ways to handle collisions, some considerably more efficient than using lists. But this is probably the simplest mechanism, and it works fine if the hash table is large enough relative to the number of elements stored in it, and the hash function provides a good enough approximation to a uniform distribution.
+
+### What is the complexity of `getValue`?
+
+If there were no collisions it would be O(1), because each hash bucket would be of length 0 or 1. But, of course, there might be collisions. If everything hashed to the same bucket, it would be O(n) where n is the number of entries in the dictionary, because the code would perform a linear search on that hash bucket. By making the hash table large enough, we can reduce the number of collisions sufficiently to allow us to treat the complexity as O(1). That is, we can trade space for time.
+
+### What is the tradeoff? 
+
+To answer this question, one needs to know a tiny bit of probability. Ref. to Chapter 15.
+
+2020-06-11
