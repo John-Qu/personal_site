@@ -1,0 +1,497 @@
+---
+title: 10 SOMESIMPLEALGORITHMSANDDATASTRUCTURES
+subtitle: 
+author: John Qu
+date: 2020-06-10
+slug: some-simple-algorithms-and-data-structure
+tags:
+- 
+categories:
+- MIT600
+- ICPP booknotes
+typora-root-url: ../../static
+show_toc: yes
+output: html_notebook
+---
+
+
+
+<div id="why-the-teacher-will-talk-and-why-we-should-care-so-much-about-the-efficiency-of-programs" class="section level3">
+<h3>Why the teacher will talk and why we should care so much about the efficiency of programs?</h3>
+<p>The goal of this chapter is:</p>
+<ul>
+<li>Not to make you expert in designing efficient programs.</li>
+<li>To help you develop some general intuitions about how to approach questions of efficiency.</li>
+</ul>
+<p>By the time you get through this chapter you should understand:</p>
+<ul>
+<li>Why some programs complete in the blink of an eye,</li>
+<li>Why some need to run overnight, and</li>
+<li>Why some wouldn’t complete in your lifetime.</li>
+</ul>
+</div>
+<div id="what-is-the-goal-of-having-showed-the-brute-force-exhaustive-enumeration-algorithm" class="section level3">
+<h3>What is the goal of having showed the brute-force exhaustive enumeration algorithm?</h3>
+<p>Because modern computers are so fast that it is often the case that employing clever algorithms is a waste of time. Writing code that is simple and obviously correct, is often the right way to go.</p>
+</div>
+<div id="which-is-the-key-to-efficiency-coding-tricks-or-good-algorithms" class="section level3">
+<h3>Which is the key to efficiency, coding tricks or good algorithms?</h3>
+<p>There are problems where the search space are too large to make brute force practical. This led us to consider more efficient algorithms such as bisection search and Newton-Raphson. The major point in introducing these two algorithms was that the key to efficiency is a good algorithm, not clever coding tricks.</p>
+</div>
+<div id="what-is-a-practical-attitude-toward-implementing-an-efficient-algorithm" class="section level3">
+<h3>What is a practical attitude toward implementing an efficient algorithm?</h3>
+<p>In the sciences (physical, life, and social), programmers often start by quickly coding up a simple algorithm to test the plausibility<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> of a hypothesis about a data set, and then run it on a small amount of data. If this yields encouraging results, the hard work of producing an implementation that can be run (perhaps over and over again) on large data sets begins. Such implementations need to be based on efficient algorithms.</p>
+</div>
+<div id="do-we-set-our-goal-at-inventing-novel-algorithms-when-learning-about-previously-existing-ones" class="section level3">
+<h3>Do we set our goal at inventing novel algorithms when learning about previously existing ones?</h3>
+<p>Efficient algorithms are hard to invent. Successful professional computer scientists might invent one algorithm during their whole career—if they are lucky. Most of us never invent a novel algorithm. What we do instead is learn to reduce the most complex aspects of the problems we are faced with to previously solved problems.</p>
+<p>More specifically, we</p>
+<ul>
+<li>Develop an understanding of the inherent complexity of the problem,</li>
+<li>Think about how to break that problem up into subproblems, and</li>
+<li>Relate those subproblems to other problems for which efficient algorithms already exist.</li>
+</ul>
+</div>
+<div id="what-is-a-good-attitude-towards-finding-the-most-efficient-algorithms-for-all-everything-in-a-program" class="section level3">
+<h3>What is a good attitude towards finding the most efficient algorithms for all everything in a program?</h3>
+<p>Keep in mind that the most efficient algorithm is not always the algorithm of choice. A program that does everything in the most efficient possible way is often needlessly difficult to understand. It is often a good strategy to start by solving the problem at hand in the most straightforward manner possible, instrument<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> it to find any computational bottlenecks, and then look for ways to improve the computational complexity of those parts of the program contributing to the bottlenecks.</p>
+</div>
+<div id="search-algorithms" class="section level2">
+<h2>10.1 Search Algorithms</h2>
+<div id="what-is-a-search-algorithm" class="section level3">
+<h3>What is a search algorithm?</h3>
+<p>A search algorithm is a method for finding an item or group of items with specific properties within a collection of items.</p>
+<p>We refer to the collection of items as a search space. The search space might be something concrete, such as a set of electronic medical records, or something abstract, such as the set of all integers.</p>
+</div>
+<div id="is-search-algorithms-useful-in-solving-problems" class="section level3">
+<h3>Is search algorithms useful in solving problems?</h3>
+<p>Many of the algorithms presented earlier in this book can be viewed as search algorithms. In Chapter 3, we formulated finding an approximation to the roots of a polynomial as a search problem, and looked at three algorithms— exhaustive enumeration, bisection search, and Newton-Raphson—for searching the space of possible answers.</p>
+</div>
+<div id="what-is-the-specification-of-e-in-l" class="section level3">
+<h3>What is the specification of <code>e in L</code>?</h3>
+<pre class="python"><code>def search(L, e): 
+    &quot;&quot;&quot;
+    Assumes L is a list.
+    Returns True if e is in L and False otherwise
+    &quot;&quot;&quot;</code></pre>
+</div>
+<div id="why-it-is-at-best-linear-in-the-length-of-l-if-the-element-e-is-not-in-the-list-in-the-following-code" class="section level3">
+<h3>Why it is “at best” linear in the length of <code>L</code> if the element <code>e</code> is not in the list in the following code?</h3>
+<pre class="python"><code>for i in range(len(L)): 
+    if L[i] == e:
+         return True
+return False</code></pre>
+<ul>
+<li>It will be linear only if each operation inside the loop can be done in constant time.</li>
+<li>That raises the question of whether Python retrieves the i<sup>th</sup> element of a list in constant time.</li>
+<li>Since our model of computation assumes that fetching the contents of an address is a constant-time operation, the question becomes whether we can compute the address of the i<sup>th</sup> element of a list in constant time.</li>
+</ul>
+</div>
+<div id="in-python-what-structure-is-a-list-is-represented-as" class="section level3">
+<h3>In Python, what structure is a list is represented as?</h3>
+<p>A length (the number of objects in the list) and a sequence of fixed-size pointers to objects.</p>
+<div class="figure">
+<img src="/images/2020-06-10-10-SOMESIMPLEALGORITHMSANDDATASTRUCTURES//image-20200610191140261.png" alt="image-20200610191140261" />
+<p class="caption">image-20200610191140261</p>
+</div>
+</div>
+<div id="what-is-the-indirection-implementation-technique" class="section level3">
+<h3>What is the “indirection” implementation technique?</h3>
+<p>Generally speaking, indirection involves accessing something by first accessing something else that contains a reference to the thing initially sought. This is what happens each time we use a variable to refer to the object to which that variable is bound. When we use a variable to access a list and then a reference stored in that list to access another object, we are going through two levels of indirection. It has often been said that “any problem in computing can be solved by adding another level of indirection.” 【Really, or just kidding?】</p>
+</div>
+<div id="getting-back-to-the-problem-of-implementing-searchl-e-is-olenl-the-best-we-can-do" class="section level3">
+<h3>Getting back to the problem of implementing <code>search(L, e)</code>, is O(len(L)) the best we can do?</h3>
+<p>Yes, if we know nothing about the relationship of the values of the elements in the list and the order in which they are stored. In the worst case, we have to look at each element in L to determine whether L contains e.</p>
+<p>【The answer means: “No, if we know something about the relationship of the values of the elements in the list and the order in which they are stored.”】</p>
+<pre class="python"><code>def search(L, e):
+    &quot;&quot;&quot;Assumes L is a list, the elements of which are in
+    ascending order.
+    Returns True if e is in L and False otherwise&quot;&quot;&quot;
+    for i in range(len(L)):
+        if L[i] == e:
+            return True
+        if L[i] &gt; e:
+            return False
+    return False</code></pre>
+<p>This would improve the average running time. However, it would not change the worst-case complexity of the algorithm, since in the worst case each element of <code>L</code> is examined.</p>
+</div>
+<div id="if-we-can-assume-the-list-has-an-ordering-can-we-get-a-considerable-improvement-in-the-worst-case-complexity" class="section level3">
+<h3>If we can assume the list has an ordering, can we get a considerable improvement in the worst-case complexity?</h3>
+<pre class="python"><code>def search(L, e):
+    &quot;&quot;&quot;
+    Assumes L is a list, the elements of which are in
+    ascending order.
+    Returns True if e is in L and False otherwise
+    &quot;&quot;&quot;
+
+    def bSearch(L, e, low, high): 
+        #Decrements high - low
+        if high == low:
+            return L[low] == e 
+        mid = (low + high)//2 
+        if L[mid] == e:
+            return True 
+        elif L[mid] &gt; e:
+            if low == mid: #nothing left to search 
+                return False
+            else:
+                return bSearch(L, e, low, mid - 1)
+        else:
+            return bSearch(L, e, mid + 1, high)
+
+    if len(L) == 0: 
+        return False
+    else:
+        return bSearch(L, e, 0, len(L) - 1)</code></pre>
+<p>The idea is simple:</p>
+<ol style="list-style-type: decimal">
+<li>Pick an index, <code>i</code>, that divides the list <code>L</code> roughly in half.</li>
+<li>Ask if <code>L[i] == e</code>.</li>
+<li>If not, ask whether <code>L[i]</code> is larger or smaller than <code>e</code>.</li>
+<li>Depending upon the answer, search either the left or right half of <code>L</code> for <code>e</code>.</li>
+</ol>
+</div>
+<div id="should-search-be-modified-to-check-that-the-assumption-is-satisfied" class="section level3">
+<h3>Should search be modified to check that the assumption is satisfied?</h3>
+<p>This might eliminate a source of errors, but it would defeat the purpose of using binary search, since checking the assumption would itself take O(len(L)) time.</p>
+</div>
+<div id="why-use-a-wrapper-function-such-as-search" class="section level3">
+<h3>Why use a wrapper function such as <code>search</code>?</h3>
+<p>The wrapper function provides a nice interface for client code, but is essentially a pass-through that does no serious computation. Instead, it calls the helper function <code>bSearch</code> with appropriate arguments. This raises the question of why not eliminate <code>search</code> and have clients call <code>bSearch</code> directly? The reason is that the parameters <code>low</code> and <code>high</code> have nothing to do with the abstraction of searching a list for an element. They are implementation details that should be hidden from those writing programs that call search.</p>
+<p>How to describe the calculating of the times that the value of <code>high–low</code> being cut in half before <code>high–low == 0</code>?</p>
+<p>Recall that log<sub>y</sub>(x) is the number of times that y has to be multiplied by itself to reach x. Conversely, if x is divided by y log<sub>y</sub>(x) times, the result is 1. This implies that <code>high–low</code> can be cut in half using integer division at most <code>log2 (high–low)</code> times before it reaches 0.</p>
+</div>
+<div id="why-does-the-code-use-mid1-rather-than-mid-in-the-second-recursive-call" class="section level3">
+<h3>Why does the code use <code>mid+1</code> rather than <code>mid</code> in the second recursive call?</h3>
+<p>The calculation of <code>mid</code> is <code>mid = (low + high)//2</code>, which is floor rounding. If take <code>mid, high</code> rather than <code>mid+1, high</code> as <code>bSearch</code>’s argument for <code>low, high</code> parameters, the new_round_mid <code>= (mid + high)//2</code> can also be <code>mid</code> when <code>high</code> is 1 bigger than <code>mid</code> , then the value of the decrementing function <code>high-low</code> is no less than the value of it on entry to the instance of the function making the call.</p>
+<p>For example:</p>
+<pre class="python"><code>L =[0 1 2 3 4 5]
+e = 2.5</code></pre>
+<p>Loop 1:</p>
+<pre><code>l = 0, h = 5
+m = (0 + 5)//2 i.e 2
+L [m=2] = 2 &lt; e=2.5</code></pre>
+<p>Loop 2:</p>
+<pre><code>l = 2, h = 5
+m = 3
+L[m=3] = 3 &gt; e=2.5</code></pre>
+<p>Loop 3:</p>
+<pre><code>l = 2, h = 3
+m = 2
+L[m=2] = 2 &lt; e=2.5</code></pre>
+<p>Loop 4:</p>
+<pre><code>l = 2, h = 3
+m = 2
+L[m=2] = 2 &lt; e=2.5</code></pre>
+<p>The loop 4 is the same as loop 3.</p>
+</div>
+</div>
+<div id="sorting-algorithms" class="section level2">
+<h2>10.2 Sorting Algorithms</h2>
+<div id="why-should-we-first-sort-a-list-and-perform-the-search" class="section level3">
+<h3>Why should we first sort a list and perform the search?</h3>
+<p>If we happen to know the list is sorted, we can exploit that information to greatly reduce the time needed to search a list.</p>
+<p>However, one cannot sort a list without looking at each element in the list at least once, so it is not possible to sort a list in sub-linear time. Dose that means that binary search is an intellectual curiosity of no practical import? If we expect to search the list k times, the relevant question becomes, is <code>sortComplexity(L) + k * log(len(L))</code> less than <code>k * len(L)</code>? How big k needs to be depends upon how long it takes to sort a list.</p>
+</div>
+<div id="how-to-use-induction-to-reason-about-the-loop-invariants-in-selection-sort" class="section level3">
+<h3>How to use induction to reason about the loop invariants in selection sort?</h3>
+<pre class="python"><code>def selSort (L):
+    &quot;&quot;&quot; 
+    Assumes that L is a list of elements that can be compared using &gt;.
+    Sorts L in ascending order.
+    &quot;&quot;&quot;
+    suffixStart = 0
+    while suffixStart != len (L):
+        # Look at each element in suffix.
+        for i in range (suffixStart, len (L)):
+            if L[i] &lt; L[suffixStart]:
+                # Swap position of elements.
+                L[suffixStart], L[i] = L[i], L[suffixStart]
+        suffixStart += 1</code></pre>
+<p>The loop invariant in selection sort: given a partitioning of the list into a prefix (L[0:i]) and a suffix (L[i+1:len(L)]), the prefix is sorted and no element in the prefix is larger than the smallest element in the suffix.</p>
+<ul>
+<li>Base case: At the start of the first iteration, the prefix is empty, i.e., the suffix is the entire list. Therefore, the invariant is (trivially) true.</li>
+<li>Induction step: At each step of the algorithm, we move one element from the suffix to the prefix. We do this by appending a minimum element of the suffix to the end of the prefix. Because the invariant held before we moved the element, we know that after we append the element the prefix is still sorted. We also know that since we removed the smallest element in the suffix, no element in the prefix is larger than the smallest element in the suffix.</li>
+<li>Termination: When the loop is exited, the prefix includes the entire list, and the suffix is empty. Therefore, the entire list is now sorted in ascending order.</li>
+</ul>
+</div>
+<div id="what-is-the-character-of-a-divide-and-conquer-algorithm" class="section level3">
+<h3>What is the character of a divide-and-conquer algorithm?</h3>
+<ol style="list-style-type: decimal">
+<li>A threshold input size, below which the problem is not subdivided,</li>
+<li>The size and number of sub-instances into which an instance is split, and</li>
+<li>The algorithm used to combine sub-solutions.</li>
+</ol>
+<p>The threshold is sometimes called the recursive base. For item 2 it is usual to consider the ratio of initial problem size to the sub-instance size. In most of the examples we’ve seen so far, the ratio was 2.</p>
+</div>
+<div id="how-to-describe-the-divide-and--conquer-algorithm-recursively" class="section level3">
+<h3>How to describe the divide-and- conquer algorithm recursively?</h3>
+<ol style="list-style-type: decimal">
+<li>If the list is of length 0 or 1, it is already sorted.</li>
+<li>If the list has more than one element, split the list into two lists, and use merge sort to sort each of them.</li>
+<li>Merge the results.</li>
+</ol>
+</div>
+<div id="what-is-the-key-observation-make-by-von-neumann-in-inventing-merge-sort" class="section level3">
+<h3>What is the key observation make by von Neumann in inventing merge sort?</h3>
+<p>Two sorted lists can be efficiently merged into a single sorted list. The merge progress involved two constant-time operations:</p>
+<ol style="list-style-type: decimal">
+<li>Comparing the values of elements O(len(L)), and</li>
+<li>Copying elements from one list to another O(len(L1) + len(L2)).</li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th>Remaining in list 1</th>
+<th>Remaining in list 2</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[1,5,12,18,19,20]</td>
+<td>[2,3,4,17]</td>
+<td>[]</td>
+</tr>
+<tr class="even">
+<td>[5,12,18,19,20]</td>
+<td>[2,3,4,17]</td>
+<td>[1]</td>
+</tr>
+<tr class="odd">
+<td>[5,12,18,19,20]</td>
+<td>[3,4,17]</td>
+<td>[1,2]</td>
+</tr>
+<tr class="even">
+<td>[5,12,18,19,20]</td>
+<td>[4,17]</td>
+<td>[1,2,3]</td>
+</tr>
+<tr class="odd">
+<td>[5,12,18,19,20]</td>
+<td>[17]</td>
+<td>[1,2,3,4]</td>
+</tr>
+<tr class="even">
+<td>[12,18,19,20]</td>
+<td>[17]</td>
+<td>[1,2,3,4,5]</td>
+</tr>
+<tr class="odd">
+<td>[18,19,20]</td>
+<td>[17]</td>
+<td>[1,2,3,4,5,12]</td>
+</tr>
+<tr class="even">
+<td>[18,19,20]</td>
+<td>[]</td>
+<td>[1,2,3,4,5,12,17]</td>
+</tr>
+<tr class="odd">
+<td>[]</td>
+<td>[]</td>
+<td>[1,2,3,4,5,12,17,18,19,20]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="what-is-the-implementation-of-merge-sort" class="section level3">
+<h3>What is the implementation of merge sort?</h3>
+<pre class="python"><code>def merge (left, right, compare):
+    &quot;&quot;&quot; Assumes left and right are sorted lists and
+        compare defines an ordering on the elements. 
+        Returns a new sorted (by compare) list containing the
+        same elements as (left + right) would contain.&quot;&quot;&quot;
+    result =[]
+    i,j = 0, 0
+    while i &lt; len (left) and j &lt; len (right):
+        if compare (left[i], right[j]):
+            result.append (left[i])
+            i += 1 # not delete, but move pointer one step forward
+        else:
+            result.append (right[j])
+            j += 1
+    while (i &lt; len (left)):
+        result.append (left[i])
+        i += 1
+    while (j &lt; len (right)):
+        result.append (right[j])
+        j += 1
+    return result
+
+def mergeSort (L, compare = lambda x, y: x &lt; y):
+    &quot;&quot;&quot; Assumes L is a list, compare defines an ordering
+        on elements of L
+        Returns a new sorted list with the same elements as L&quot;&quot;&quot;
+    if len (L) &lt; 2:
+        return L[:]
+    else:
+        middle = len (L)//2
+        left = mergeSort (L[:middle], compare)
+        right = mergeSort (L[middle:], compare)
+        return merge (left, right, compare)</code></pre>
+</div>
+<div id="what-is-the-benefit-of-making-the-comparison-operator-a-parameter-of-the-mergesort-function" class="section level3">
+<h3>What is the benefit of making the comparison operator a parameter of the <code>mergeSort</code> function?</h3>
+<p>To get control handle of compare behavior. Suppose we want to sort a list of names written as firstName lastName, e.g., the list [‘Chris Terman’, ‘Tom Brady’, ‘Eric Grimson’, ‘Gisele Bundchen’]. We can uses these function in the following code to sort the list in two different ways.</p>
+<pre class="python"><code>def lastNameFirstName(name1, name2):
+    arg1 = name1.split(&#39; &#39;)
+    arg2 = name2.split(&#39; &#39;)
+    if arg1[1] != arg2[1]:
+        return arg1[1] &lt; arg2[1]
+    else: #last names the same, sort by first name
+        return arg1[0] &lt; arg2[0]
+
+def firstNameLastName(name1, name2):
+    arg1 = name1.split(&#39; &#39;)
+    arg2 = name2.split(&#39; &#39;)
+    if arg1[0] != arg2[0]:
+        return arg1[0] &lt; arg2[0]
+    else: #first names the same, sort by last name
+        return arg1[1] &lt; arg2[1]
+
+L = [&#39;Tom Brady&#39;, &#39;Eric Grimson&#39;, &#39;Gisele Bundchen&#39;]
+newL1 = mergeSort(L, lastNameFirstName)
+print(&#39;Sorted by last name =&#39;, newL1)</code></pre>
+<pre><code>## Sorted by last name = [&#39;Tom Brady&#39;, &#39;Gisele Bundchen&#39;, &#39;Eric Grimson&#39;]</code></pre>
+<pre class="python"><code>newL2 = mergeSort(L, firstNameLastName)
+print(&#39;Sorted by first name =&#39;, newL2)</code></pre>
+<pre><code>## Sorted by first name = [&#39;Eric Grimson&#39;, &#39;Gisele Bundchen&#39;, &#39;Tom Brady&#39;]</code></pre>
+</div>
+</div>
+<div id="hash-tables" class="section level2">
+<h2>10.3 Hash Tables</h2>
+<div id="is-logarithmic-the-best-that-we-can-do-for-search-when-we-are-willing-to-do-some-preprocessing" class="section level3">
+<h3>Is logarithmic the best that we can do for search when we are willing to do some preprocessing?</h3>
+<p>If we put merge sort together with binary search, we have a nice way to search lists. We use merge sort to preprocess the list in <code>O(n*log(n))</code> time, and then we use binary search to test whether elements are in the list in <code>O(log(n))</code> time. If we search the list <code>k</code> times, the overall time complexity is <code>O(n*log(n) + k*log(n))</code>.</p>
+<p>Dictionaries use a technique called hashing to do the lookup in time that is nearly independent of the size of the dictionary.</p>
+</div>
+<div id="what-is-the-basic-idea-behind-a-hash-table" class="section level3">
+<h3>What is the basic idea behind a hash table?</h3>
+<p>We convert the key to an integer, and then use that integer to index into a list, which can be done in constant time.</p>
+<p>In principle, values of any type can be easily converted to an integer. After all, we know that the internal representation of each object is a sequence of bits, and any sequence of bits can be viewed as representing an integer.</p>
+</div>
+<div id="what-is-the-function-of-a-hash-function" class="section level3">
+<h3>What is the function of a hash function?</h3>
+<p>A hash function maps a large space of inputs (e.g., all natural numbers) to a smaller space of outputs (e.g., the nature numbers between 0 and 5000). Hash functions can be used to convert a large space of keys to a smaller space of integer indices.</p>
+</div>
+<div id="what-is-the-character-of-a-good-hash-function" class="section level3">
+<h3>What is the character of a good hash function?</h3>
+<p>Since the space of possible outputs is smaller than the space of possible inputs, a hash function is a many-to-one mapping, i.e., multiple different inputs may be mapped to the same output. When two inputs are mapped to the same output, it is called a collision. A good hash function produces a uniform distribution; i.e., every output in the range is equally probable, which minimizes the probability of collisions.</p>
+</div>
+<div id="can-you-create-a-concrete-example-to-illustrate-the-inner-mechanism-of-a-hash-buckets" class="section level3">
+<h3>Can you create a concrete example to illustrate the inner mechanism of a hash buckets?</h3>
+<pre class="python"><code>class intDict (object):
+    &quot;&quot;&quot; A dictionary with integer keys &quot;&quot;&quot;
+
+    def __init__(self, numBuckets:int):
+        &quot;&quot;&quot;
+        Create an empty dictionary as list of lists of key-value pairs
+        :param numBuckets: int, number of hash buckets. It should be
+        relevant to the number of dict items, not too small causing
+        too much collision, and not too large wasting space.
+        :return none: init self.buckets into an list of numBucket empty lists
+        &quot;&quot;&quot;
+        self.buckets =[]
+        self.numBuckets = numBuckets
+        # why not write like this
+        # self.buckets = list([] * numBuckets)
+        # Oh, print([] * 7), got [].
+        # So, repeating list items have to be appended iterate
+        for i in range (numBuckets):
+            self.buckets.append ([])
+
+    def addEntry (self, key, dictVal):
+        &quot;&quot;&quot;
+        Add an entry of (key, dictVal) pair to buckets, or update it.
+        :param key: hashable type, as dict&#39;s key.
+        :param dictVal: any type, as dict key&#39;s value.
+        :return none: make sure there is an entry of (key, dictVal) pair
+         in the list in the bucket list.
+        &quot;&quot;&quot;
+        # Recall that i%j returns the remainder when the integer i is
+        # divided by j, so it is an integer in range [0, j)
+        hashBucket = self.buckets[ (key % self.numBuckets) ]
+        # Check to update the (key, dictVal) pair if key already existed
+        for i in range (len (hashBucket)):
+            if hashBucket[i][0] == key:
+                hashBucket[i] = (key, dictVal)
+                return
+        # Append the (key, dictVal) pair since there is no this key.
+        hashBucket.append ((key, dictVal))
+
+    def getValue (self, key):
+        &quot;&quot;&quot;
+        Get value with key from this dict.
+        :param key: hashable type, as dict&#39;s key.
+        :return: value of key, or None if the key not exist.
+        &quot;&quot;&quot;
+        hashBucket = self.buckets[ (key % self.numBuckets) ]
+        # Search rooms on this floor for the key.
+        for e in hashBucket:
+           if e[0] == key:
+               return e[1]
+        return None
+
+    def __str__(self):
+        &quot;&quot;&quot; Construct the literal of dict. &quot;&quot;&quot;
+        result = &#39;{&#39;
+        for b in self.buckets:
+            for e in b:
+                result = result + str (e[0]) + &#39;:&#39; + str (e[1]) + &#39;, &#39;
+        return result[:-2] + &#39;}&#39; #result[:-2] omits the last coma</code></pre>
+<pre class="python"><code>import random
+D = intDict(17)
+for i in range(20):
+    #choose a random int in the range 0 to 10**5 - 1
+    key = random.choice(range(10**5))
+    D.addEntry(key, i)
+print(&#39;The value of the intDict is:&#39;)</code></pre>
+<pre><code>## The value of the intDict is:</code></pre>
+<pre class="python"><code>print(D)</code></pre>
+<pre><code>## {4743:9, 46241:15, 76282:2, 96835:8, 60593:0, 80553:10, 60902:17, 99833:16, 7644:18, 70086:5, 94278:3, 66738:6, 2138:14, 2122:1, 79166:4, 62761:7, 33487:11, 17150:12, 29357:13, 57730:19}</code></pre>
+<pre class="python"><code>print(&#39;\n&#39;, &#39;The buckets are:&#39;)</code></pre>
+<pre><code>## 
+##  The buckets are:</code></pre>
+<pre class="python"><code>for hashBucket in D.buckets: #violates abstraction barrier
+    print(&#39; &#39;, hashBucket)</code></pre>
+<pre><code>##   [(4743, 9)]
+##   [(46241, 15)]
+##   []
+##   [(76282, 2), (96835, 8)]
+##   []
+##   [(60593, 0)]
+##   []
+##   [(80553, 10)]
+##   [(60902, 17)]
+##   [(99833, 16)]
+##   []
+##   [(7644, 18)]
+##   [(70086, 5)]
+##   [(94278, 3), (66738, 6), (2138, 14)]
+##   [(2122, 1), (79166, 4), (62761, 7), (33487, 11), (17150, 12)]
+##   [(29357, 13), (57730, 19)]
+##   []</code></pre>
+</div>
+<div id="is-list-an-efficient-way-to-handle-collisions" class="section level3">
+<h3>Is list an efficient way to handle collisions?</h3>
+<p>There are many other ways to handle collisions, some considerably more efficient than using lists. But this is probably the simplest mechanism, and it works fine if the hash table is large enough relative to the number of elements stored in it, and the hash function provides a good enough approximation to a uniform distribution.</p>
+</div>
+<div id="what-is-the-complexity-of-getvalue" class="section level3">
+<h3>What is the complexity of <code>getValue</code>?</h3>
+<p>If there were no collisions it would be O(1), because each hash bucket would be of length 0 or 1. But, of course, there might be collisions. If everything hashed to the same bucket, it would be O(n) where n is the number of entries in the dictionary, because the code would perform a linear search on that hash bucket. By making the hash table large enough, we can reduce the number of collisions sufficiently to allow us to treat the complexity as O(1). That is, we can trade space for time.</p>
+</div>
+<div id="what-is-the-tradeoff" class="section level3">
+<h3>What is the tradeoff?</h3>
+<p>To answer this question, one needs to know a tiny bit of probability. Ref. to Chapter 15.</p>
+<p>2020-06-11</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><strong>plausibility</strong>: The quality of being plausible; speciousness. To give any plausibility to a scheme. - De Quincey. <strong>Syn.</strong> – Plausible, Specious. <em>Plausible</em> denotes that which seems reasonable, yet leaves distrust in the judgment. <em>Specious</em> describes that which presents a fair appearance to the view and yet covers something false. <em>Specious</em> refers more definitely to the act or purpose of false representation; <em>plausible</em> has more reference to the effect on the beholder or hearer. An argument may be <em>specious</em> when it is not <em>plausible</em> because its sophistry is so easily discovered.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p><strong>instrument</strong>, v. t. To perform upon an instrument; to prepare for an instrument; as, a sonata instrumented for orchestra.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+</ol>
+</div>

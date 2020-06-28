@@ -1,0 +1,211 @@
+---
+title: 03 SOME SIMPLE NUMERICAL PROGRAMS
+subtitle: 
+author: John Qu
+date: 2020-05-25
+slug: some-simple-numerical-programs
+tags:
+- 
+categories:
+- MIT600
+- ICPP booknotes
+typora-root-url: ../../static
+show_toc: yes
+output: html_notebook
+---
+
+
+
+<div id="exhaustive-enumeration" class="section level2">
+<h2>3.1 Exhaustive Enumeration</h2>
+<div id="what-is-decrementing-function-in-a-loop-program-block" class="section level3">
+<h3>What is decrementing function in a loop program block?</h3>
+<p>The decrementing function in a loop has four properties:</p>
+<ol style="list-style-type: decimal">
+<li>It maps a set of program variables into an integer.</li>
+<li>When the loop is entered, its value is nonnegative.</li>
+<li>When its value is <code>≤ 0</code>, the loop terminates.</li>
+<li>Its value is decreased every time through the loop.</li>
+</ol>
+</div>
+<div id="can-we-look-down-the-exhaustive-enumeration-algorithms" class="section level3">
+<h3>Can we look down the exhaustive enumeration algorithms?</h3>
+<p>The algorithmic technique used in this program is a variant of guess and check called exhaustive enumeration. We enumerate all possibilities until we get to the right answer or exhaust the space of possibilities. At first blush[^ At first blush], this may seem like an incredibly stupid way to solve a problem. Surprisingly, however, exhaustive enumeration algorithms are often the most practical way to solve a problem. They are typically easy to implement and easy to understand. And, in many cases, they run fast enough for all practical purposes.</p>
+<p>[^ At first blush]: <strong>At first blush</strong> , or <strong>At the first blush</strong> , at the first appearance or view. “<em>At the first blush</em>, we thought they had been ships come from France.” Hakluyt. This phrase is used now more of ideas, opinions, etc., than of material things.</p>
+</div>
+</div>
+<div id="for-loops" class="section level2">
+<h2>3.2 For Loops</h2>
+<div id="what-is-the-relationship-of-for-loop-mechanism-and-while-loop" class="section level3">
+<h3>What is the relationship of <code>for</code> loop mechanism and <code>while</code> loop?</h3>
+<p>The while loops we have used so far are highly stylized [^ stylized]. Each iterates over a sequence of integers. Python provides a language mechanism, the <strong>for</strong> loop, that can be used to simplify programs containing this kind of iteration.</p>
+<p>[^ stylized]: <strong>stylized</strong>: depicted or treated in a mannered and nonrealistic style.</p>
+</div>
+</div>
+<div id="approximate-solutions-and-bisection-search" class="section level2">
+<h2>3.3 Approximate Solutions and Bisection Search</h2>
+<div id="what-is-the-exhaustive-enumeration-method-for-finding-the-square-root" class="section level3">
+<h3>What is the exhaustive enumeration method for finding the square root?</h3>
+<pre class="python"><code># x = 25
+x = 0.25
+epsilon = 0.01
+step = epsilon**2
+numGuesses = 0
+ans = 0.0
+# while abs(ans**2 - x) &gt;= epsilon and ans &lt;= x:
+while abs(ans**2 - x) &gt;= epsilon and ans*ans &lt;= x:
+    ans += step
+    numGuesses += 1 
+print(&#39;numGuesses =&#39;, numGuesses) </code></pre>
+<pre><code>## numGuesses = 4899</code></pre>
+<pre class="python"><code>if abs(ans**2 - x) &gt;= epsilon:
+    print(&#39;Failed on square root of&#39;, x) 
+else:
+    print(ans, &#39;is close to square root of&#39;, x)</code></pre>
+<pre><code>## 0.48989999999996237 is close to square root of 0.25</code></pre>
+<p>Exhaustive enumeration method for finding the square root has nothing in common with the way of finding square roots using a pencil that you might have learned in middle school. It is often the case that the best way to solve a problem with a computer is quite different from how one would approach the problem by hand.</p>
+</div>
+<div id="should-we-be-disappointed-that-the-program-didnt-figure-out-that-25-is-a-perfect-square-and-print-5" class="section level3">
+<h3>Should we be disappointed that the program didn’t figure out that 25 is a perfect square and print 5?</h3>
+<p>No. The program did what it was intended to do. Though it would have been OK to print 5, doing so is no better than printing any value close enough to 5.</p>
+</div>
+<div id="what-is-the-option-b-when-finding-exhaustive-enumeration-algorithm-not-efficient-in-some-case" class="section level3">
+<h3>What is the option B when finding exhaustive enumeration algorithm not efficient in some case?</h3>
+<p>We could try to speed it up by starting closer to the answer, but that presumes that we know the answer. The time has come to look for a different way to attack the problem. We need to choose a better algorithm rather than fine-tune the current one.</p>
+</div>
+<div id="what-is-the-bisection-search-method-for-finding-the-square-root" class="section level3">
+<h3>What is the bisection search method for finding the square root?</h3>
+<pre class="python"><code>x = 25
+epsilon = 0.01
+numGuesses = 0
+low = 0.0
+high = max(1.0, x)
+ans = (high + low)/2.0
+while abs(ans**2 - x) &gt;= epsilon:
+    print(&#39;low =&#39;, low, &#39;high =&#39;, high, &#39;ans =&#39;, ans) 
+    numGuesses += 1
+    if ans**2 &lt; x:
+        low = ans 
+    else:
+        high = ans
+    ans = (high + low)/2.0</code></pre>
+<pre><code>## low = 0.0 high = 25 ans = 12.5
+## low = 0.0 high = 12.5 ans = 6.25
+## low = 0.0 high = 6.25 ans = 3.125
+## low = 3.125 high = 6.25 ans = 4.6875
+## low = 4.6875 high = 6.25 ans = 5.46875
+## low = 4.6875 high = 5.46875 ans = 5.078125
+## low = 4.6875 high = 5.078125 ans = 4.8828125
+## low = 4.8828125 high = 5.078125 ans = 4.98046875
+## low = 4.98046875 high = 5.078125 ans = 5.029296875
+## low = 4.98046875 high = 5.029296875 ans = 5.0048828125
+## low = 4.98046875 high = 5.0048828125 ans = 4.99267578125
+## low = 4.99267578125 high = 5.0048828125 ans = 4.998779296875
+## low = 4.998779296875 high = 5.0048828125 ans = 5.0018310546875</code></pre>
+<pre class="python"><code>print(&#39;numGuesses =&#39;, numGuesses) </code></pre>
+<pre><code>## numGuesses = 13</code></pre>
+<pre class="python"><code>print(ans, &#39;is close to square root of&#39;, x)</code></pre>
+<pre><code>## 5.00030517578125 is close to square root of 25</code></pre>
+<p>More important, notice that at each iteration of the loop the size of the space to be searched is cut in half. Because it divides the search space in half at each step, it is called a bisection search. Bisection search is a huge improvement over our earlier algorithm, which reduced the search space by only a small amount at each iteration.</p>
+</div>
+</div>
+<div id="a-few-words-about-using-floats" class="section level2">
+<h2>3.4 A Few Words About Using Floats</h2>
+<div id="why-not-call-it-real-number-in-computer-system" class="section level3">
+<h3>Why not call it real number in computer system?</h3>
+<p>In almost modern programming languages non-integer numbers are implemented using a representation called <strong>floating point</strong>.</p>
+</div>
+<div id="how-to-represent-digital-number-in-binary-float-point" class="section level3">
+<h3>How to represent digital number in binary float point?</h3>
+<p>Modern computers use binary, not decimal, representations. We represent the significant digits and exponents in binary rather than decimal and raise 2 rather than 10 to the exponent. For example, the number 0.625 (5/8) would be represented as the pair (101, -11); because 5/8 is 0.101 in binary and -11 is the binary representation of -3, the pair (101, -11) stands for 5*2-3 = 5/8 = 0.625.</p>
+</div>
+<div id="what-is-the-representation-of-0.1-in-python-floating-point" class="section level3">
+<h3>What is the representation of 0.1 in Python floating point?</h3>
+<p>What about the decimal fraction 1/10, which we write in Python as 0.1? The best we can do with four significant binary digits is (0011, -101). This is equivalent to 3/32, i.e., 0.09375. If we had five significant binary digits, we would represent 0.1 as (11001, -1000), which is equivalent to 25/256, i.e., 0.09765625. How many significant digits would we need to get an exact floating point representation of 0.1? An infinite number of digits! There do not exist integers <code>sig</code> and <code>exp</code> such that sig * 2<sup>-exp</sup> equals 0.1.</p>
+<p>In most Python implementations, there are 53 bits of precision available for floating point numbers, so the significant digits stored for the decimal number 0.1 will be</p>
+<p><code>11001100110011001100110011001100110011001100110011001</code></p>
+<p>This is equivalent to the decimal number</p>
+<p><code>0.1000000000000000055511151231257827021181583404541015625</code></p>
+</div>
+<div id="does-the-difference-between-real-and-floating-point-numbers-really-matter" class="section level3">
+<h3>Does the difference between real and floating point numbers really matter?</h3>
+<p>As we have seen, using <code>==</code> to compare two floating point values can produce a surprising result. It is almost always more appropriate to ask whether two floating point values are close enough to each other, not whether they are identical. So, for example, it is better to write <code>abs(x-y) &lt; 0.0001</code> rather than <code>x == y</code>.</p>
+</div>
+</div>
+<div id="newton-raphson" class="section level2">
+<h2>3.5 Newton-Raphson</h2>
+<div id="how-to-define-finding-the-square-root-problem-in-the-polynomial-formulation" class="section level3">
+<h3>How to define finding the square root problem in the polynomial formulation?</h3>
+<p>A polynomial with one variable (by convention, we will write the variable as x) is either 0 or the sum of a finite number of nonzero terms, e.g., 3x2 + 2x + 3. Each term, e.g., 3x2, consists of a constant (the coefficient of the term, 3 in this case) multiplied by the variable (x in this case) raised to a nonnegative integer exponent (2 in this case). The exponent on a variable in a term is called the degree of that term. The degree of a polynomial is the largest degree of any single term. Some examples are, 3 (degree 0), 2.5x + 12 (degree 1), and 3x2 (degree 2). In contrast, 2/x and x0.5 are not polynomials.</p>
+<p>If p is a polynomial and r a real number, we will write p(r) to stand for the value of the polynomial when x = r. A root of the polynomial p is a solution to the equation p = 0, i.e., an r such that p(r) = 0. So, for example, the problem of finding an approximation to the square root of 24 can be formulated as finding an x such that x2 – 24 ≈ 0.</p>
+</div>
+<div id="what-is-successive-approximation" class="section level3">
+<h3>What is successive approximation?</h3>
+<p>Newton proved a theorem that implies that if a value, call it guess, is an ap- proximation to a root of a polynomial, then guess – p(guess)/p’(guess), where p’ is the first derivative of p, is a better approximation.20</p>
+<p>For any constant k and any coefficient c, the first derivative of the polynomial cx<sup>2</sup> + k is 2cx. For example, the first derivative of x<sup>2</sup> – k is 2x. Therefore, we know that we can improve on the current guess, call it y, by choosing as our next guess y - (y<sup>2</sup> - k)/2y. This is called <strong>successive approximation</strong>.</p>
+</div>
+<div id="what-is-newton-raphson-method-code-for-finding-square-root" class="section level3">
+<h3>What is Newton-Raphson method code for finding square root?</h3>
+<pre class="python"><code>#Newton-Raphson for square root
+#Find x such that x**2 - 24 is within epsilon of 0 epsilon = 0.01
+k = 24.0
+guess = k/2.0
+while abs(guess*guess - k) &gt;= epsilon:
+    guess = guess - (((guess**2) - k)/(2*guess)) 
+print(&#39;Square root of&#39;, k, &#39;is about&#39;, guess)</code></pre>
+<pre><code>## Square root of 24.0 is about 4.8989887432139305</code></pre>
+</div>
+<div id="compare-the-efficiency-of-newton-raphson-and-bisection-search-method" class="section level3">
+<h3>Compare the efficiency of Newton-Raphson and bisection search method?</h3>
+<pre class="python"><code>y = 54.0
+epsilon = 0.01
+
+numGuesses = 0
+low = 0.0
+high = y
+ans = (high + low)/2.0
+
+while abs (ans**2 - y) &gt;= epsilon:
+    print (&#39;low = &#39; + str (low) + &#39; high = &#39; + str (high) + &#39; ans = &#39; + str (ans))
+    numGuesses += 1
+    if ans**2 &lt; y:
+        low = ans
+    else:
+        high = ans
+    ans = (high + low)/2.0</code></pre>
+<pre><code>## low = 0.0 high = 54.0 ans = 27.0
+## low = 0.0 high = 27.0 ans = 13.5
+## low = 0.0 high = 13.5 ans = 6.75
+## low = 6.75 high = 13.5 ans = 10.125
+## low = 6.75 high = 10.125 ans = 8.4375
+## low = 6.75 high = 8.4375 ans = 7.59375
+## low = 6.75 high = 7.59375 ans = 7.171875
+## low = 7.171875 high = 7.59375 ans = 7.3828125
+## low = 7.171875 high = 7.3828125 ans = 7.27734375
+## low = 7.27734375 high = 7.3828125 ans = 7.330078125
+## low = 7.330078125 high = 7.3828125 ans = 7.3564453125
+## low = 7.330078125 high = 7.3564453125 ans = 7.34326171875
+## low = 7.34326171875 high = 7.3564453125 ans = 7.349853515625
+## low = 7.34326171875 high = 7.349853515625 ans = 7.3465576171875</code></pre>
+<pre class="python"><code>print (&#39;Bisection search numGuesses = &#39; + str (numGuesses))</code></pre>
+<pre><code>## Bisection search numGuesses = 14</code></pre>
+<pre class="python"><code>print (str (ans) + &#39; is close to square root of &#39; + str (y))</code></pre>
+<pre><code>## 7.34820556640625 is close to square root of 54.0</code></pre>
+<pre class="python"><code>guess = y/2.0
+numGuesses = 0
+
+while abs (guess*guess - y) &gt;= epsilon:
+    numGuesses += 1
+    print(&quot;Guess is now at&quot;, guess)
+    guess = guess - (((guess**2) - y)/(2*guess))</code></pre>
+<pre><code>## Guess is now at 27.0
+## Guess is now at 14.5
+## Guess is now at 9.112068965517242
+## Guess is now at 7.5191376048021406
+## Guess is now at 7.350406132303943</code></pre>
+<pre class="python"><code>print (&#39;Newton-Raphson numGuesses = &#39; + str (numGuesses))</code></pre>
+<pre><code>## Newton-Raphson numGuesses = 5</code></pre>
+<pre class="python"><code>print (&#39;Square root of &#39; + str (y) + &#39; is about &#39; + str (guess))</code></pre>
+<pre><code>## Square root of 54.0 is about 7.348469483546109</code></pre>
+</div>
+</div>

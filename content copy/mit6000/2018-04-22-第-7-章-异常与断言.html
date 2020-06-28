@@ -1,0 +1,142 @@
+---
+title: 第 7 章　异常与断言
+subtitle: 7 EXCEPTIONS AND ASSERTIONS
+author: 曲政
+date: 2018-04-21
+slug: exceptions-and-assertions
+tags:
+- 
+categories:
+- MIT600
+- ICPP booknotes
+typora-root-url: ../../static
+show_toc: yes
+output: html_notebook
+---
+
+
+
+<div id="exception-的含义在-python-中有什么不同" class="section level3">
+<h3>“exception” 的含义在 Python 中有什么不同？</h3>
+<p>英语中：not norm, thus rare.</p>
+<p>python 里：not rare, everywhere.</p>
+</div>
+<div id="最常出现的-exception-的类型有哪四种" class="section level3">
+<h3>最常出现的 exception 的类型有哪四种？</h3>
+<ul>
+<li>TypeError</li>
+<li>IndexError</li>
+<li>NameError</li>
+<li>ValueError</li>
+</ul>
+</div>
+<div id="handing-exceptions" class="section level2">
+<h2>7.1 Handing Exceptions</h2>
+<div id="exception-有哪两种命运" class="section level3">
+<h3>exception 有哪两种命运？</h3>
+<ul>
+<li>raise an error, program terminates</li>
+<li>be handled, and program continues</li>
+</ul>
+</div>
+<div id="为什么要处理-exception" class="section level3">
+<h3>为什么要处理 exception？</h3>
+<p>除了因为 bug 引发的 exception，更多的 exception 可以并应该被预计到，然后得到相应的处理。</p>
+<p>比如
+- 尝试打开不存在的文件。
+- 用户输入数据不合理。</p>
+</div>
+<div id="一个检验输入数据是否合理的函数" class="section level3">
+<h3>一个检验输入数据是否合理的函数？</h3>
+<pre class="python"><code>def read_val (val_type, request_msg, error_msg):
+    while True:
+        val = input (request_msg + &quot; &quot;)
+        try:
+            return (val_type (val))
+        except ValueError:
+            print (val, error_msg)
+
+
+def test_read_val ():
+    print (read_val (int, &quot;Enter an integer:&quot;, &quot;is not an integer&quot;))
+
+
+test_read_val ()</code></pre>
+<p>解释两句：</p>
+<ul>
+<li>它有 “多型性”，polymorphic.</li>
+<li>int 是 type，也是 function，是 first-class object。在 python 里，一切都是对象。所谓 first-class object 可以理解为，它能作为函数的 arguments 和 return value。</li>
+</ul>
+</div>
+<div id="为什么要承担处理-exception-的麻烦" class="section level3">
+<h3>为什么要承担处理 exception 的麻烦？</h3>
+<ul>
+<li>让程序不中止。</li>
+<li>明确区分函数返回值的意义。比如 <code>int ('abc')</code> 返回的是 abc 的编码值，还是 None？</li>
+<li>忘记了写 except，程序会死机等，这是一个明确的 bug 信号。</li>
+</ul>
+</div>
+<div id="except-有几种写法" class="section level3">
+<h3>except 有几种写法？</h3>
+<ul>
+<li><code>except:</code></li>
+<li><code>except ValueError:</code></li>
+<li><code>except (ValueError, TypeError):</code></li>
+</ul>
+</div>
+</div>
+<div id="exceptions-as-a-control-flow-mechanism" class="section level2">
+<h2>7.2 Exceptions as a Control Flow Mechanism</h2>
+<div id="函数计算出错了怎么让它告诉我们" class="section level3">
+<h3>函数计算出错了，怎么让它告诉我们？</h3>
+<p>大多数编程语言是让函数返回一个特定的值，类似 Python 的 <code>None</code>，让程序判断是否得到 None，是否出错。</p>
+<p>有更好的做法：让函数自己就把错误信息显示出来，在它内部检查是否符合 specification，如果不符合，就把不符合的部分反馈出来。</p>
+<p>在函数内可以用 <code>raise exceptionName (arguments)</code> 语句，构建错误信息。在函数外，用 <code>except ValueError as msg: print (&quot;some coment&quot;, msg)</code> 把信息显示出来。</p>
+<p>比如：</p>
+<pre class="python"><code>def get_ratios (vect1, vect2):
+    &quot;&quot;&quot;Assumes : vect1 and vect2 are equal lenght lists of numbers.
+       Returns: s list containing the meaningful values of vect1 [1]/vect2 [2].&quot;&quot;&quot;
+    ratios = []
+    for index in range (len (vect1)):
+        try:
+            ratios.append (vect1 [index]/vect2 [index])
+        except ZeroDivisionError:
+            ratios.append (float (&#39;nan&#39;))
+        except:
+            raise ValueError (&#39;get_ratios called with bad arguments&#39;)
+    return ratios
+    
+
+def test_get_ratios ():
+    try:
+        print (get_ratios ([1.0, 2.0, 7.0, 6.0], [1.0, 2.0, 0.0, 3.0]))
+        print (get_ratios ([], []))
+        print (get_ratios ([1.0, 2.0], [3.0]))
+    except ValueError as msg:
+        print (msg)</code></pre>
+<p>输出</p>
+<pre class="commandline"><code>$ python3 fe_7_2_get_ratios.py 
+[1.0, 1.0, nan, 2.0]
+[]
+get_ratios called with bad arguments</code></pre>
+<p>###<code>nan</code> 怎么用？</p>
+<p>可以用 <code>float (&quot;nan&quot;)</code> 把它作为浮点数使用，包含它的 expression 值也是 nan。</p>
+<pre class="python"><code>ratios.append (float (&#39;nan&#39;))</code></pre>
+<pre class="commandline"><code>[1.0, 1.0, nan, 2.0]</code></pre>
+</div>
+<div id="为什么还要用except-包含不符合-specificaion-的情况" class="section level3">
+<h3>为什么还要用<code>except</code> 包含不符合 specificaion 的情况？</h3>
+<p>检验一下又不会增加多少计算成本，而防范一下，defensive programming and checking，是个好习惯。</p>
+<pre class="python"><code>except:
+    raise ValueError (&#39;get_ratios called with bad arguments&#39;)</code></pre>
+</div>
+</div>
+<div id="assertions" class="section level2">
+<h2>7.3 Assertions</h2>
+<div id="为什么要加-assertion" class="section level3">
+<h3>为什么要加 assertion？</h3>
+<p>另一种 defensive programming 的习惯。检验中间值，检验函数返回值。</p>
+<p>assert <em>Boolean expression</em>, argument</p>
+<p>以上，2018-04-15 记。</p>
+</div>
+</div>
