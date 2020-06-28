@@ -7,7 +7,8 @@ slug: knapsack-and-graph-optimization-problems
 tags:
 - 
 categories:
-- MIT6000
+- MIT600
+- ICPP booknotes
 typora-root-url: ../../static
 show_toc: yes
 output: html_notebook
@@ -523,7 +524,7 @@ Shortest path is 0-&gt;2-&gt;3-&gt;5</code></pre>
                 newPath = tmpPath + [nextNode]
                 pathQueue.append (newPath)
     return None</code></pre>
-<p>它是一个循环函数。while 在外层，只要 pathQueue 里还有路径没有被探索过，就一个一个地探索下去。for 在内层，每次循环向当权路径中追加一个子节点，形成新的路径，存入 pathQueue，以备探索。</p>
+<p>它是一个循环函数。while 在外层，只要 pathQueue 里还有路径没有被探索过，就一个一个地探索下去。for 在内层，每次循环向当前路径中追加一个子节点，形成新的路径，存入 pathQueue，以备探索。</p>
 <p>当新路径的末端节点是目标节点，就停止循环，返回当前路径。因为循环是逐层深入的，那最早走到目标的路经，层级也就最少。</p>
 <pre class="commandline"><code>Current BFS path: 0
 Current BFS path: 0-&gt;1

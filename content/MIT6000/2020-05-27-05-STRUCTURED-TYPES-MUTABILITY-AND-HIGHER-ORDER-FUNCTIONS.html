@@ -1,13 +1,13 @@
 ---
 title: 05 STRUCTURED TYPES, MUTABILITY, AND HIGHER-ORDER FUNCTIONS
 subtitle: 
-author: 曲政
+author: John Qu
 date: 2020-05-27
 slug: STRUCTURED-TYPES-MUTABILITY-AND-HIGHER-ORDER-FUNCTIONS
 tags:
 - 
 categories:
-- mit6000
+- MIT600
 - ICPP booknotes
 typora-root-url: ../../static
 show_toc: yes
@@ -85,13 +85,13 @@ print(&#39;Univs =&#39;, Univs) </code></pre>
 <pre class="python"><code>print(id(Univs) == id(Univs1)) #test object equality </code></pre>
 <pre><code>## False</code></pre>
 <pre class="python"><code>print(&#39;Id of Univs =&#39;, id(Univs))</code></pre>
-<pre><code>## Id of Univs = 140410935729736</code></pre>
+<pre><code>## Id of Univs = 140559757298120</code></pre>
 <pre class="python"><code>print(&#39;Id of Univs1 =&#39;, id(Univs1))</code></pre>
-<pre><code>## Id of Univs1 = 140410935871880</code></pre>
+<pre><code>## Id of Univs1 = 140559757298376</code></pre>
 <pre class="python"><code>print(&#39;Ids of Univs[0] and Univs[1]&#39;, id(Univs[0]), id(Univs[1])) </code></pre>
-<pre><code>## Ids of Univs[0] and Univs[1] 140410935702536 140410935872008</code></pre>
+<pre><code>## Ids of Univs[0] and Univs[1] 140559734897480 140559757298568</code></pre>
 <pre class="python"><code>print(&#39;Ids of Univs1[0] and Univs1[1]&#39;, id(Univs1[0]), id(Univs1[1]))</code></pre>
-<pre><code>## Ids of Univs1[0] and Univs1[1] 140410935871816 140410935871944</code></pre>
+<pre><code>## Ids of Univs1[0] and Univs1[1] 140559757298248 140559757298504</code></pre>
 </div>
 <div id="what-is-aliasing" class="section level3">
 <h3>What is aliasing?</h3>

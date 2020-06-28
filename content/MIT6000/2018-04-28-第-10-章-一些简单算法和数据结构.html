@@ -7,7 +7,8 @@ slug: some-simple-algorithms-and-data-structures
 tags:
 - 
 categories:
-- MIT6000
+- MIT600
+- ICPP booknotes
 typora-root-url: ../../static
 show_toc: yes
 output: html_notebook
@@ -207,7 +208,7 @@ l = 2, h = 3
 <p>可见，由于求 m 值的 // 向下取整，m 可能等于 l，如果在下一轮递归时 m 不加 1，就会陷入死循环。</p>
 <hr />
 <p>但是前半递归函数的上限参数 mid-1 就没有那么复杂。
-e 在【L[low]，L[mid]）区间内，那么下一轮检验空间就可以写成 L[low:mid], 实际上末尾元素的 index 就是 mid-1。</p>
+e 在 [L[low]，L[mid]）区间内，那么下一轮检验空间就可以写成 L[low:mid], 实际上末尾元素的 index 就是 mid-1。</p>
 <pre class="python"><code>def search (L, e):
     &quot;&quot;&quot; 假设 L 是列表，其中元素按升序排列。
        如果 e 是 L 中的元素，则返回 True，否则返回 False&quot;&quot;&quot;

@@ -7,7 +7,8 @@ slug: function-scoping-and-abstraction
 tags:
 - 
 categories:
-- 
+- MIT600
+- ICPP booknotes
 typora-root-url: ../../static
 show_toc: no
 output: html_notebook
@@ -223,14 +224,15 @@ classic inductive definition:</p>
 <li>1! = 1</li>
 <li>(n+1)! = (n+1)*n!</li>
 </ul>
-<p>​<code>python def factIteration (n):    &quot;&quot;&quot;Assumes n an int &gt; 0       Returns n!&quot;&quot;&quot;    result = 1    while n &gt;= 1:        result = result * n        n -= 1    return result</code></p>
-<pre class="python"><code>def factRecursion (n):
+<pre class="python"><code>def factIteration (n):
    &quot;&quot;&quot;Assumes n an int &gt; 0
       Returns n!&quot;&quot;&quot;
-   if n == 1:
-       return 1
-   else:
-       return n*factRecursion (n-1)</code></pre>
+   result = 1
+   while n &gt;= 1:
+       result = result * n
+       n -= 1
+   return result</code></pre>
+<p>​<code>python def factRecursion (n):    &quot;&quot;&quot;Assumes n an int &gt; 0       Returns n!&quot;&quot;&quot;    if n == 1:        return 1    else:        return n*factRecursion (n-1)</code></p>
 </div>
 <div id="佩波那契数列是他发明的吗" class="section level3">
 <h3>佩波那契数列是他发明的吗？</h3>

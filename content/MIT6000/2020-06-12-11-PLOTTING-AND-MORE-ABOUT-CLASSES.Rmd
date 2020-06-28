@@ -17,7 +17,7 @@ output: html_notebook
 
 Initiate a virtual environment.
 
-```{shell}
+```commandline
 pip install virtualenv
 ```
 
@@ -28,9 +28,9 @@ Have a test.
 ```{python}
 import matplotlib.pyplot as pylab
 import numpy as np
-plt.figure(1) #create figure 1 
-plt.plot([1,2,3,4], [1,7,3,5]) #draw on figure 1 
-plt.show() #show figure on screen
+pylab.figure(1) #create figure 1 
+pylab.plot([1,2,3,4], [1,7,3,5]) #draw on figure 1 
+pylab.show() #show figure on screen
 ```
 
 ### What does `rc` mean in `rcParams`?
