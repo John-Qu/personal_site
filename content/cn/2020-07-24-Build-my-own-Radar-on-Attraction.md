@@ -38,9 +38,9 @@ show_toc: yes
 
 ## 技术缘起
 
-我这周都在看 Thoughtworkers 的文章，比如[熊节的](https://www.google.com/search?q=site:gigix.thoughtworkers.org+%E6%9C%9F%E6%9C%9B)。我喜欢他们的[洞见博客](https://insights.thoughtworks.cn/category/tech-radar/)和[技术雷达](https://www.thoughtworks.com/radar/faq)。[Darren Smith](https://www.thoughtworks.com/profiles/darren-smith) 在 *[Birth of the Technology Radar](https://www.thoughtworks.com/insights/blog/birth-technology-radar) / Tracking tech maturity* 小节讲了他想到雷达这个类比时的初衷：“gates that would trigger different activities”。Neal Ford 提倡“[Build Your Own Technology Radar](https://www.thoughtworks.com/insights/blog/build-your-own-technology-radar)（[打造你自己的技术雷达](https://insights.thoughtworks.cn/build-your-own-technology-radar/)）”，他讲了公司建技术雷达的[诸般好处](https://www.thoughtworks.com/radar/byor)，又说一个人理所应当地（他年轻时吃过亏）有自己的技术雷达。二者匹配性怎么样 ，甚至可以在面谈时碰撞一下子。
+我这周都在看 Thoughtworkers 的文章，比如[熊节的](https://www.google.com/search?q=site:gigix.thoughtworkers.org+%E6%9C%9F%E6%9C%9B)。我喜欢他们的[洞见博客](https://insights.thoughtworks.cn/category/tech-radar/)和[技术雷达](https://www.thoughtworks.com/radar/faq)。[Darren Smith](https://www.thoughtworks.com/profiles/darren-smith) 在 *[Birth of the Technology Radar](https://www.thoughtworks.com/insights/blog/birth-technology-radar) / Tracking tech maturity* 小节讲了他想到雷达这个类比时的初衷：“gates that would trigger different activities”。Neal Ford 提倡“[Build Your Own Technology Radar](https://www.thoughtworks.com/insights/blog/build-your-own-technology-radar)（[打造你自己的技术雷达](https://insights.thoughtworks.cn/build-your-own-technology-radar/)）”，他讲了公司建技术雷达的[诸般好处](https://www.thoughtworks.com/radar/byor)，又说一个人理所应当地有自己的技术雷达（，他年轻时吃过亏）。
 
-见贤思齐，我也想学着做一个，借机梳理一下自己的思路。
+见贤思齐，我也想学着做一个类似的东西，借机梳理一下自己的思路。
 
 ## 不是什么
 
@@ -50,11 +50,11 @@ show_toc: yes
 
 ### 读书雷达
 
-Thoughtworkers 们在张逸的带头之下，做了三版（[2013](http://agiledon.github.io/blog/2013/04/17/thoughtworks-developer-reading-radar/)、[2016](https://insights.thoughtworks.cn/reading-radar-2016/)、[2019](https://insights.thoughtworks.cn/reading-radar-2019/)）读书雷达，还有分语言的“[C#读书雷达](https://insights.thoughtworks.cn/csharp-reading-radar/)”，分领域的“[公益+互联网篇](https://insights.thoughtworks.cn/reading-radar-p3/)、[业务分析师（BA）篇](https://cloud.tencent.com/developer/article/1104501)”。在最近这一份读书雷达的[序言](https://www.douban.com/doulist/120532290/)中，张凯峰说“三年过来，并没有那么多令人振奋的知识或者技能，能够彻底触动我们的内心，心悦诚服地将它置于同一份书单中。”可见这份雷达并不是搜寻新目标用的，而是列出了在 ThoughtWorks 工作的一些人对些工作所需读的书的一个共识。这一个猜测也可以从他们把环分为“初级、进阶、高级”看出来。还有，头两版把“初级”放在内环，近一版把“高级”放在内环，虽然从环的角度都说得通，但是从雷达的角度，外环表示远，内环表示近，雷达图可能不是合适的类比工具。读书列清单就好了，没有必要画在图里，因为我们只能根据兴趣或问题，一本一本地读，不需要全盘考虑。
+Thoughtworkers 们在张逸的带头之下，做了三版（[2013](http://agiledon.github.io/blog/2013/04/17/thoughtworks-developer-reading-radar/)、[2016](https://insights.thoughtworks.cn/reading-radar-2016/)、[2019](https://insights.thoughtworks.cn/reading-radar-2019/)）读书雷达，还有分语言的“[C#读书雷达](https://insights.thoughtworks.cn/csharp-reading-radar/)”，分领域的“[公益+互联网篇](https://insights.thoughtworks.cn/reading-radar-p3/)、[业务分析师（BA）篇](https://cloud.tencent.com/developer/article/1104501)”。在最近这一份读书雷达的[序言](https://www.douban.com/doulist/120532290/)中，张凯峰说“三年过来，并没有那么多令人振奋的知识或者技能，能够彻底触动我们的内心，心悦诚服地将它置于同一份书单中。”可见这份雷达并不是搜寻新目标用的，而是列出了在 ThoughtWorks 工作的一些人对些工作需要读的书的一个共识。这一个猜测也可以从他们把环分为“初级、进阶、高级”看出来。另外，在 2013 和 2016 两版中，他们把“初级”放在内环，2019 版把“高级”放在内环，虽然从环的角度都说得通，但是从雷达的角度，外环表示远，内环表示近，雷达图可能不是适合用来类比读书。读书列清单就好了，没有必要画在图里，因为我们只能根据兴趣或问题，一本一本地读，不需要全盘考虑。
 
 ### 半径算法
 
-需要用环形图全盘考虑的事情，有一种是喻颖正提出的“半径算法”，专治信心膨胀后的贪婪。人有三个半径：行动半径，能力半径，和认知半径。行动半径要尽量缩小，这样它与能力半径之间在有足够的安全空间。认知半径要努力扩大，这样才知道还有什么不知道。半径算法只是一种哲学比喻，都算不上形象，因为半径之内的空间并不是圆，边界也很难清晰定义。要分出象限来就更难了。它提醒了我要向哪个方向努力培养能力，也警告了我要在哪里深挖创造价值。
+需要用环形图来全盘考虑的事情，有一种是喻颖正提出的“半径算法”，专治信心膨胀后的贪婪。人有三个半径：行动半径，能力半径，和认知半径。行动半径要尽量缩小，这样它与能力半径之间有足够的安全空间。认知半径要努力扩大，这样才知道还有什么不知道。半径算法只是一种哲学比喻，都算不上形象，因为半径之内的空间并不是圆，边界也很难清晰定义。要分出象限来就更难了。半径算法提醒了我要向哪个方向努力来培养能力，也警告了我要在哪里深挖创造价值。
 
 ### 黄金圈
 

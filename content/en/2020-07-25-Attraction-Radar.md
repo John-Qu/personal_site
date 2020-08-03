@@ -12,6 +12,21 @@ typora-root-url: ../../static
 show_toc: no
 ---
 
+Here is my Attraction Radar, powered by radar.thoughtworks.com. The URL of my [Google Sheet](https://www.thoughtworks.com/radar/how-to-byor) file is:
+
+https://docs.google.com/spreadsheets/d/1_lHFMIZTJnjO0ZftooSPZ5ni3rrOhnNPz_2mwQeOzMU/edit#gid=0
+
+![Screen Shot 2020-07-29 at 21.07.42](/images/2020-07-24-Build-my-own-Radar-on-Attraction/Screen%20Shot%202020-07-29%20at%2021.07.42.png)
+
+The four quarters are：
+![Screen Shot 2020-07-29 at 21.08.04](/images/2020-07-24-Build-my-own-Radar-on-Attraction/Screen%20Shot%202020-07-29%20at%2021.08.04.png)
+![Screen Shot 2020-07-29 at 21.08.32](/images/2020-07-24-Build-my-own-Radar-on-Attraction/Screen%20Shot%202020-07-29%20at%2021.08.32.png)
+![Screen Shot 2020-07-29 at 21.08.46](/images/2020-07-24-Build-my-own-Radar-on-Attraction/Screen%20Shot%202020-07-29%20at%2021.08.46.png)
+![Screen Shot 2020-07-29 at 21.09.02](/images/2020-07-24-Build-my-own-Radar-on-Attraction/Screen%20Shot%202020-07-29%20at%2021.09.02.png)
+
+Item expanded:
+![Screen Shot 2020-07-29 at 21.24.24](/images/2020-07-24-Build-my-own-Radar-on-Attraction/Screen%20Shot%202020-07-29%20at%2021.24.24.png)
+
 ## Profession
 
 ### Occupy
