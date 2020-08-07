@@ -14,6 +14,20 @@ show_toc: yes
 output: html_notebook
 ---
 
+# 6.00 to be replaced by new 6.0001 and 6.0002
+
+[6.00 to be replaced by new 6.0001 and 6.0002](https://thetech.com/2014/04/29/six0001-v134-n22)
+
+I think 6.00 was never required for Course 6 students, at least not in recent history. Its replacements, 6.0001/2, aren't requirements either. The Course 6 curriculum basically assumes you know how to code and hence doesn't require courses that teach you how to code (which you should still take if you don't know how to code, of course!).
+
+On the other hand, 6.00 was a requirement for Course 9 (Brain and Cognitive Science) and Course 20 (Bioengineering), a capacity inherited by its successors, 6.0001/2.
+
+[When do MIT students take 6.00 - introduction to computer science and programming?](https://www.quora.com/When-do-MIT-students-take-6-00-introduction-to-computer-science-and-programming)
+
+# [Introductory Programming Courses](https://ocw.mit.edu/courses/intro-programming/)
+
+[Course reference](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-00sc-introduction-to-computer-science-and-programming-spring-2011/references/)
+
 ## The book is particular as this:
 
 ### How long is the course using this book?
