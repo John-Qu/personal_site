@@ -565,25 +565,29 @@ Having a class for nodes may seem like overkill[^overkill]. After all, none of t
 [^overkill]: **overkill**: n [U] (usually fig) much greater amount than is needed to defeat sb/sth or achieve sth. *It was surely overkill to screen three interviews on the same subject in one evening.*
 
 
+### What is the implementation code of `Digraph` and `Graph` classes?
 
 ```{python}
 class Digraph(object):
     """
-    Directional graph, with a list of nodes, and edges as a dictionary of
-    {parent:[children]} pairs.
+    Directional graph, with nodes as a list of nodes, and
+    edges as a dictionary of {parent:[children]} pairs,
+    i.e., a dict mapping each node to a list of its children.
     """
     def __init__(self):
         """
-        Initiate an instance of digraph with its nodes as empty list, and its edges as empty dictionary.
+        Initiate an instance of digraph with its nodes as empty list,
+        and its edges as empty dictionary.
         """
         self.nodes = []
         self.edges = {}
 
     def add_node(self, node):
         """
-        Add a node to its nodes list if it doesn't exist.
-        :param node: node, as part of an edge.
-        :return: none.
+        Add a node to its nodes list if it doesn't exist,
+        and add it to its edges as a new key.
+        :param node: a Node, as part of an Edge.
+        :return: none, alternating self.nodes and self.edges.
         """
         if node in self.nodes:
             raise ValueError ('Duplicate node')
@@ -597,7 +601,7 @@ class Digraph(object):
         under the condition that the edge's source and destination nodes
         are already in the digraph's nodes list.
         :param edge: an edge with source and destination nodes.
-        :return: none, append the destination to the list of edges[source].
+        :return: none, alternating the self.edges dict.
         """
         source = edge.get_source ()
         destination = edge.get_destination ()
@@ -608,10 +612,10 @@ class Digraph(object):
     def children_of_node(self, node):
         """
         Get the children nodes of a parent node.
-        :param node: parent node
-        :return: list, of the children nodes
+        :param node: a Node, as the parent node.
+        :return: list, of the children nodes.
         """
-        return self.edge[node]
+        return self.edges[node]
 
     def has_node (self, node):
         """
@@ -639,9 +643,10 @@ class Graph (Digraph):
     """
     def add_edge (self, edge):
         """
-        Add edge with no direction between two nodes.
-        :param edge: an edge with source and destination nodes.
-        :return: none, append the destination to the list of edges[source].
+        Add edge with no direction between two nodes, i.e.,
+        adding a directional edge and its reverse one to Digraph.edges.
+        :param edge: an Edge with source and destination nodes.
+        :return: none, alternating the self.edges dict.
         """
         Digraph.add_edge(self, edge)
         # Duplicate an edge with reverse direction from destination to source.
@@ -701,4 +706,26 @@ In 1990 the playwright John Guare wrote Six Degrees of Separation. The dubious[^
 A less hypothetical[^hypothetical] question is the distance using the “friend” relation between pairs of people on Facebook.
 
 [^hypothetical]: **hypothetical**: Characterized by, or of the nature of, an hypothesis; conditional; assumed without proof, for the purpose of reasoning and deducing proof, or of accounting for some fact or phenomenon.
+
+
+### How to print a `path`?
+
+```{python}
+def print_path(path):
+    """
+    Construct a string representing a path.
+    :param path: list, of nodes.
+    :return: string.
+    """
+    result_str  = ''
+    for i in range(len(path)): # use index, not element.
+        result_str = result_str + str(path[i])
+        # result += str(node) # for node in path:
+        if i!= len(path) - 1:
+            result_str = result_str + '->'
+    return result_str
+```
+
+### How to do a deep first search?
+
 

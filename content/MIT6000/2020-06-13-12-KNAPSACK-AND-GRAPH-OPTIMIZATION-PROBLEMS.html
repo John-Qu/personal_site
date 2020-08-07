@@ -594,23 +594,30 @@ class WeightedEdge (Edge):
 <div id="barren-superclass-for-subclasses-of-addition-properties" class="section level4">
 <h4>Barren superclass for subclasses of addition properties</h4>
 <p>Having a class for nodes may seem like overkill<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>. After all, none of the methods in class <code>Node</code> perform any interesting computation. We introduced the class merely to give us the flexibility of deciding, perhaps at some later point, to introduce a subclass of <code>Node</code> with additional properties.</p>
+</div>
+</div>
+<div id="what-is-the-implementation-code-of-digraph-and-graph-classes" class="section level3">
+<h3>What is the implementation code of <code>Digraph</code> and <code>Graph</code> classes?</h3>
 <pre class="python"><code>class Digraph(object):
     &quot;&quot;&quot;
-    Directional graph, with a list of nodes, and edges as a dictionary of
-    {parent:[children]} pairs.
+    Directional graph, with nodes as a list of nodes, and
+    edges as a dictionary of {parent:[children]} pairs,
+    i.e., a dict mapping each node to a list of its children.
     &quot;&quot;&quot;
     def __init__(self):
         &quot;&quot;&quot;
-        Initiate an instance of digraph with its nodes as empty list, and its edges as empty dictionary.
+        Initiate an instance of digraph with its nodes as empty list,
+        and its edges as empty dictionary.
         &quot;&quot;&quot;
         self.nodes = []
         self.edges = {}
 
     def add_node(self, node):
         &quot;&quot;&quot;
-        Add a node to its nodes list if it doesn&#39;t exist.
-        :param node: node, as part of an edge.
-        :return: none.
+        Add a node to its nodes list if it doesn&#39;t exist,
+        and add it to its edges as a new key.
+        :param node: a Node, as part of an Edge.
+        :return: none, alternating self.nodes and self.edges.
         &quot;&quot;&quot;
         if node in self.nodes:
             raise ValueError (&#39;Duplicate node&#39;)
@@ -624,7 +631,7 @@ class WeightedEdge (Edge):
         under the condition that the edge&#39;s source and destination nodes
         are already in the digraph&#39;s nodes list.
         :param edge: an edge with source and destination nodes.
-        :return: none, append the destination to the list of edges[source].
+        :return: none, alternating the self.edges dict.
         &quot;&quot;&quot;
         source = edge.get_source ()
         destination = edge.get_destination ()
@@ -635,10 +642,10 @@ class WeightedEdge (Edge):
     def children_of_node(self, node):
         &quot;&quot;&quot;
         Get the children nodes of a parent node.
-        :param node: parent node
-        :return: list, of the children nodes
+        :param node: a Node, as the parent node.
+        :return: list, of the children nodes.
         &quot;&quot;&quot;
-        return self.edge[node]
+        return self.edges[node]
 
     def has_node (self, node):
         &quot;&quot;&quot;
@@ -666,15 +673,15 @@ class Graph (Digraph):
     &quot;&quot;&quot;
     def add_edge (self, edge):
         &quot;&quot;&quot;
-        Add edge with no direction between two nodes.
-        :param edge: an edge with source and destination nodes.
-        :return: none, append the destination to the list of edges[source].
+        Add edge with no direction between two nodes, i.e.,
+        adding a directional edge and its reverse one to Digraph.edges.
+        :param edge: an Edge with source and destination nodes.
+        :return: none, alternating the self.edges dict.
         &quot;&quot;&quot;
         Digraph.add_edge(self, edge)
         # Duplicate an edge with reverse direction from destination to source.
         rev_edge = Edge(edge.get_destination(), edge.get_source())
         Digraph.add_edge(self, rev_edge)</code></pre>
-</div>
 </div>
 <div id="how-to-represent-the-digraph-in-computer-what-is-the-choice-of-its-data-structure" class="section level3">
 <h3>How to represent the <code>Digraph</code> in computer? What is the choice of its data structure?</h3>
@@ -719,6 +726,25 @@ class Graph (Digraph):
 <h3>Where does the hypothetic “Six Degrees of Separation” come from?</h3>
 <p>In 1990 the playwright John Guare wrote Six Degrees of Separation. The dubious<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> premise<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a> underlying the play is that “everybody on this planet is separated by only six other people.” By this he meant that if one built a social network including every person on the earth using the relation “knows,” the shortest path between any two individuals would pass through at most six other nodes.</p>
 <p>A less hypothetical<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> question is the distance using the “friend” relation between pairs of people on Facebook.</p>
+</div>
+<div id="how-to-print-a-path" class="section level3">
+<h3>How to print a <code>path</code>?</h3>
+<pre class="python"><code>def print_path(path):
+    &quot;&quot;&quot;
+    Construct a string representing a path.
+    :param path: list, of nodes.
+    :return: string.
+    &quot;&quot;&quot;
+    result_str  = &#39;&#39;
+    for i in range(len(path)): # use index, not element.
+        result_str = result_str + str(path[i])
+        # result += str(node) # for node in path:
+        if i!= len(path) - 1:
+            result_str = result_str + &#39;-&gt;&#39;
+    return result_str</code></pre>
+</div>
+<div id="how-to-do-a-deep-first-search" class="section level3">
+<h3>How to do a deep first search?</h3>
 </div>
 </div>
 <div class="footnotes">

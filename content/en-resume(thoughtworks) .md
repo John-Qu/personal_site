@@ -1,5 +1,5 @@
 ---
-title: "RESUME"
+31title: "RESUME"
 slug: "en/resume-thoughtworks"
 disable_comments: true
 typora-root-url: ../static
@@ -7,7 +7,7 @@ typora-root-url: ../static
 
 # John Qu
 
-Search for a platform full of open, diverse, and competent colleagues, helping traditional enterprises in digital transformation.
+Search for a platform full of open, diverse, and competent colleagues, helping traditional enterprises in digital transforma1tion.
 
 ```Email: JohnQuicker@163.com```  ```WeChat ID: bbQuickor```  ```Blog: johnqu.site```
 
