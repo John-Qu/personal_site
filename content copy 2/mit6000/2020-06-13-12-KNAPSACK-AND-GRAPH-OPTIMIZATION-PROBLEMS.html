@@ -1,0 +1,764 @@
+---
+title: 12 KNAPSACK AND GRAPH OPTIMIZATION PROBLEMS
+subtitle: 
+author: John Qu
+date: 2020-06-13
+slug: 
+tags:
+- 
+categories:
+- mit600
+typora-root-url: ../../static
+show_toc: yes
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+
+
+<div id="what-are-the-characters-of-optimization-problem" class="section level3">
+<h3>What are the characters of optimization problem?</h3>
+<p>In general, an optimization problem has two parts:</p>
+<ol style="list-style-type: decimal">
+<li>An objective function that is to be maximized or minimized. For example, the airfare<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> between Boston and Istanbul.</li>
+<li>A set of constraints (possibly empty) that must be honored<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. For example, an upper bound<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> on the travel time.</li>
+</ol>
+</div>
+<div id="whats-the-main-things-to-take-away-from-this-chapter" class="section level3">
+<h3>What’s the main things to take away from this chapter?</h3>
+<ul>
+<li>Many problems of real importance can be formulated in a simple way that leads naturally to a computational solution.</li>
+<li>Reducing a seemingly new problem to an instance of a well-known problem allows one to use preexisting solutions.</li>
+<li>Knapsack problems and graph problems are classes of problems to which other problems can often be reduced.</li>
+<li>Exhaustive enumeration algorithms provide a simple, but often computationally intractable, way to search for optimal solutions.</li>
+<li>A greedy algorithm is often a practical approach to finding a pretty good, but not always optimal, solution to an optimization problem.</li>
+</ul>
+</div>
+<div id="knapsackknapsack-problems" class="section level2">
+<h2>12.1 Knapsack<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> Problems</h2>
+<div id="why-it-is-not-easy-being-a-burglar" class="section level3">
+<h3>Why it is not easy being a burglar?</h3>
+<p>In addition to the obvious problems (making sure that a home is empty, picking locks, circumventing alarms, dealing with ethical quandaries, etc.), a burglar has to decide what to steal. The problem is that most homes contain more things of value than the average burglar can carry away. What’s a poor burglar to do? He needs to find the set of things that provides the most value without exceeding his carrying capacity. Suppose for example, a burglar who has a knapsack that can hold at most 20 pounds of loot<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> breaks into a house and finds the items in Figure 12.1. Clearly, he will not be able to fit it all in his knapsack, so he needs to decide what to take and what to leave behind.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"></th>
+<th align="right">Value</th>
+<th align="right">Weight</th>
+<th align="right">Value/Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Clock</td>
+<td align="right">175</td>
+<td align="right">10</td>
+<td align="right">17.5</td>
+</tr>
+<tr class="even">
+<td align="center">Painting</td>
+<td align="right">90</td>
+<td align="right">9</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="center">Radio</td>
+<td align="right">20</td>
+<td align="right">4</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="center">Vase</td>
+<td align="right">50</td>
+<td align="right">2</td>
+<td align="right">25</td>
+</tr>
+<tr class="odd">
+<td align="center">Book</td>
+<td align="right">10</td>
+<td align="right">1</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="center">Computer</td>
+<td align="right">200</td>
+<td align="right">20</td>
+<td align="right">10</td>
+</tr>
+</tbody>
+</table>
+<center>
+Figure 12.1 Table of items
+</center>
+</div>
+<div id="what-is-the-basic-concept-behind-greedy-algorithm" class="section level3">
+<h3>What is the basic concept behind greedy algorithm?</h3>
+<p>The thief would choose the best item first, then the next best, and continue until he reached his limit. Of course, before doing this, the thief would have to decide what “best” should mean. Is the best item the most valuable, the least heavy, or maybe the item with the highest value-to-weight ratio?</p>
+<p>Don’t under look a greedy algorithm. It is an algorithm:</p>
+<ul>
+<li>It sets the ruler to compare: the best.</li>
+<li>It shows the order of actions: one by one.</li>
+<li>It puts clear boundary: carry weight.</li>
+</ul>
+</div>
+<div id="what-is-the-implementation-of-three-best-greedy-algorithm" class="section level3">
+<h3>What is the implementation of three “best” greedy algorithm?</h3>
+<pre class="python"><code>class Item (object):
+    &quot;&quot;&quot;
+    Class of loot item, including three attributes: &lt;name, value, and weight&gt;.
+    &quot;&quot;&quot;
+
+    def __init__(self, n, v, w):
+        &quot;&quot;&quot;
+        Init a instance of Item with name, value and weight.
+        :param n: string, name of item
+        :param v: float, value of item
+        :param w: float, value of item
+        &quot;&quot;&quot;
+        self.name = n
+        self.value = v
+        self.weight = w
+
+    def getName (self):
+        return self.name
+
+    def getValue (self):
+        return self.value
+
+    def getWeight (self):
+        return self.weight
+
+    def __str__(self):
+        result = &#39;&lt;&#39; + self.name + &#39;, &#39; + str (self.value)\
+                 + &#39;, &#39; + str (self.weight) + &#39;&gt;&#39;
+        return result
+
+
+def value (item):
+    &quot;&quot;&quot;
+    Map &quot;item&quot; into its value.
+    :param item: an Item type item
+    :return: this item&#39;s value
+    &quot;&quot;&quot;
+    return item.getValue ()
+
+
+def weightInverse (item):
+    &quot;&quot;&quot;
+    Map &quot;item&quot; into its weight&#39;s inverse value.
+    :param item: an Item type item
+    :return: this item&#39;s 1/weight
+    &quot;&quot;&quot;
+    return 1.0/item.getWeight ()
+
+
+def density (item):
+    &quot;&quot;&quot;
+    Map &quot;item&quot; into its density(value/weight).
+    :param item: an Item type item
+    :return: this item&#39;s value/weight
+    &quot;&quot;&quot;
+    return item.getValue ()/item.getWeight ()
+
+
+def greedy (items, maxWeight, keyFunction):
+    &quot;&quot;&quot;
+    Greedy is the core process of greedy algorithm. According to the keyFunction,
+    it puts the best items into knapsack until it is full.
+    :param items: list, of instances of Item.
+    :param maxWeight: float &gt;= 0, the maximum weight a knapsack can contain.
+    :param keyFunction: function,
+    maps an item in a list to an comparable value accordingly,
+    as the second parameter of the `sorted` function
+    :return: a list of taken items, and a float of their total value
+    &quot;&quot;&quot;
+    # Use &quot;what is my best&quot; as the key function to sort a copied list of the items.
+    # Note the `sorted`&#39;s algorithm efficiency is in O(n * log(n)).
+    itemsCopy = sorted (items, key = keyFunction, reverse = True)
+    result = []
+    totalValue, totalWeight = 0.0, 0.0
+    # Try each item in the sorted items list descendingly.
+    for i in range (len (itemsCopy)):
+        # Check whether the next biggest one could be taken into knapsack.
+        if (totalWeight + itemsCopy[i].getWeight ()) &lt;= maxWeight:
+            result.append (itemsCopy[i])
+            # If new item is taken, update the total weight and value of result
+            totalWeight += itemsCopy[i].getWeight ()
+            totalValue += itemsCopy[i].getValue ()
+    return result, totalValue
+
+
+def build_items ():
+    &quot;&quot;&quot;
+    Build a list of Items instances.
+    :return: a list of Items instances.
+    &quot;&quot;&quot;
+    names = [&#39;clock&#39;,&#39;painting&#39;,&#39;radio&#39;,&#39;vase&#39;,&#39;book&#39;,&#39;computer&#39;]
+    values = [175,90,20,50,10,200]
+    weights = [10,9,4,2,1,20]
+    items = []
+    for i in range (len(values)):
+        items.append (Item(names[i], values[i], weights[i]))
+    return items
+
+
+def test_greedy (items, maxWeight, keyFunction):
+    &quot;&quot;&quot;
+    Calculate for one sort of greedy strategy, and print its result.
+    :param items: a list of Items instances.
+    :param maxWeight: float, as the maximum weight a knapsack can hold.
+    :param keyFunction: function,
+    maps an item in a list to an comparable value accordingly,
+    as the second parameter of the `sorted` function
+    :return: None. Print out total value and items in taken loot.
+    &quot;&quot;&quot;
+    taken, val = greedy (items, maxWeight, keyFunction)
+    print (&#39;Total value of items taken is&#39;, val)
+    for item in taken:
+        print (&#39; &#39;, item)
+
+
+def test_diff_greedys (maxWeight = 20):
+    &quot;&quot;&quot;
+    Print out the results of different sorts of greedy strategy.
+    :param maxWeight: float, as the maximum weight a knapsack can hold,
+    with default value 20.0.
+    :return: None. Print out total value and items in taken loot of three sorts of strategy.
+    &quot;&quot;&quot;
+    items = build_items ()
+    # Greedy by value.
+    print (&#39;Use greedy by value to fill knapsack of size&#39;, maxWeight)
+    test_greedy (items, maxWeight, value)
+    # Greedy by weight.
+    print (&#39;\nUse greedy by weight to fill knapsack of size&#39;,
+          maxWeight)
+    test_greedy (items, maxWeight, weightInverse)
+    # Greedy by density.
+    print (&#39;\nUse greedy by density to fill knapsack of size&#39;,
+          maxWeight)
+    test_greedy (items, maxWeight, density)</code></pre>
+<p>Here we run it.</p>
+<pre class="python"><code>test_diff_greedys(maxWeight=20.0)</code></pre>
+<pre><code>## Use greedy by value to fill knapsack of size 20.0
+## Total value of items taken is 200.0
+##   &lt;computer, 200, 20&gt;
+## 
+## Use greedy by weight to fill knapsack of size 20.0
+## Total value of items taken is 170.0
+##   &lt;book, 10, 1&gt;
+##   &lt;vase, 50, 2&gt;
+##   &lt;radio, 20, 4&gt;
+##   &lt;painting, 90, 9&gt;
+## 
+## Use greedy by density to fill knapsack of size 20.0
+## Total value of items taken is 255.0
+##   &lt;vase, 50, 2&gt;
+##   &lt;clock, 175, 10&gt;
+##   &lt;book, 10, 1&gt;
+##   &lt;radio, 20, 4&gt;</code></pre>
+</div>
+<div id="how-to-formalize-the-01-knapsack-problem-as-an-instance-of-a-classic-optimization-problem" class="section level3">
+<h3>How to formalize the 0/1 knapsack problem as an instance of a classic optimization problem?</h3>
+<p>The 0/1 knapsack problem can be formalized as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Each item is represented by a pair, &lt;value, weight&gt;.</li>
+<li>The knapsack can accommodate items with a total weight of no more than w.</li>
+<li>A vector, I, of length n, represents the set of available items. Each element of the vector is an item.</li>
+<li>A vector, V, of length n, is used to indicate whether or not each item is taken by the burglar. If V[i] = 1, item I[i] is taken. If V[i] = 0, item I[i] is not taken.</li>
+<li>Find a V that maximizes</li>
+</ol>
+<p><span class="math display">\[
+\sum_{i=0}^{n-1} V[i]^{*} I[i] . \text { value }
+\]</span></p>
+<p>​ subject to the constraint that
+<span class="math display">\[
+\sum_{i=0}^{n-1} V[i] * I[i] . \text {weight} \leq w
+\]</span></p>
+</div>
+<div id="how-to-implement-the-01-knapsack-problems-formalization-which-is-inherently-exponential-in-the-number-of-items-in-a-straightforward-way" class="section level3">
+<h3>How to implement the 0/1 knapsack problem’s formalization which is inherently exponential in the number of items in a straightforward way?</h3>
+<pre class="python"><code>def get_binary_rep(positive_integer: int, num_bi_digits: int):
+    &quot;&quot;&quot;
+    Get int n&#39;s binary representation in a fix binary digits with leading zeros.
+    :param positive_integer: int, a non-negative decimal integer to be turned into binary number.
+    :param num_bi_digits: int, a non-negative decimal integer to set a fixed length of the
+    resulting binary number digits. It should be big enough.
+    :return: a string of &#39;0&#39;s and &#39;1&#39;s of length numDigits that is a binary representation
+    of n.
+    &quot;&quot;&quot;
+    binary_str = &#39;&#39;
+    while positive_integer &gt; 0:
+        binary_str = str(positive_integer % 2) + binary_str
+        positive_integer = positive_integer // 2
+    if len(binary_str) &gt; num_bi_digits:
+        raise ValueError(&#39;not enough digits&#39;)
+    for i in range(num_bi_digits- len(binary_str)):
+        binary_str = &#39;0&#39; + binary_str
+    return binary_str
+
+def gen_power_set (ori_list): # O(2**len(ori_list)) * O(len (ori_list))
+    &quot;&quot;&quot;
+    Generate the power set of ori_list, including all subsets of the set of
+     ori_list&#39;s items.
+    E.g., if ori_list is [1, 2] it will return a list with elements
+    [], [1], [2], and [1,2].
+    Recall that every set is a subset of itself and the empty set is a subset of every set.
+    So the length of the power set is 2**len(ori_list).
+    :param ori_list: list
+    :return: a list of lists that contains all possible combinations of
+    the elements of ori_list.
+    &quot;&quot;&quot;
+    power_set = []
+    for i in range (0, 2**len(ori_list)): # O(2**len(ori_list))
+        bin_str = get_binary_rep(i, len(ori_list))
+        subset = []
+        for j in range(len(ori_list)): # O(len(ori_list))
+           if bin_str[j] == &#39;1&#39;:
+              subset.append(ori_list[j])
+        power_set.append(subset)
+    return power_set
+
+def choose_best(pset, max_weight, get_val, get_weight):
+    &quot;&quot;&quot;
+    Choose the best set of items from the power set of original list,
+    within the maximum weight budget of knapsack.
+    :param pset: list of lists, that contains all possible combinations of
+    the elements of ori_list.
+    :param max_weight: float or int, maximum weight budget of knapsack.
+    :param get_val: function or method, map an item in pset&#39;s list into its
+    comparable value
+    :param get_weight: function or method, map an item in pset&#39;s list into its
+    comparable weight
+    :return: a best set of items, and this best set&#39;s total value
+    &quot;&quot;&quot;
+    best_val = 0.0
+    best_set = None
+    for items in pset:
+        items_val = 0.0
+        items_weight = 0.0
+        for item in items:
+            items_val += get_val(item)
+            items_weight += get_weight(item)
+        if items_weight &lt;= max_weight and items_val &gt; best_val:
+            best_val = items_val
+            best_set = items
+    return best_set, best_val
+
+def test_best(max_weight = 20):
+    &quot;&quot;&quot;
+    Run the choose_best function, and print its result in proper format.
+    :param max_weight: float or int, maximum weight budget of knapsack, default 20.
+    :return: None, print out the items taken and their total value.
+    &quot;&quot;&quot;
+    items = build_items()
+    pset = gen_power_set(items)
+    taken, val = choose_best(pset, max_weight, Item.getValue, Item.getWeight)
+    print(&#39;Total value of items taken is&#39;, val)
+    for item in taken:
+        print(item)</code></pre>
+<p>Run <code>test_best</code> script.</p>
+<pre class="python"><code>test_best(max_weight=20)</code></pre>
+<pre><code>## Total value of items taken is 275.0
+## &lt;clock, 175, 10&gt;
+## &lt;painting, 90, 9&gt;
+## &lt;book, 10, 1&gt;</code></pre>
+<p>This result is different from the result of density.</p>
+</div>
+<div id="could-this-straightforward-way-be-speeded-up" class="section level3">
+<h3>Could this straightforward way be speeded up?</h3>
+<p>01.The <code>gen_power_set</code> could have had the header</p>
+<pre class="python"><code>def genPowerset(items, constraint, getVal, getWeight)</code></pre>
+<pre><code>and returned only those combinations that meet the weight constraint.</code></pre>
+<p>Or</p>
+<p>02.The <code>choose_best</code> could exit the inner loop as soon as the weight constraint is exceeded.</p>
+<pre class="python"><code># def gen_power_set (ori_list): # O(2**len(ori_list)) * O(len (ori_list))
+def gen_power_set_within_constraint(items, constraint, getWeight):
+    &quot;&quot;&quot;
+    Generate the power set of items which meet the weight constraint.
+    :param items: list, instances of Items.
+    :param constraint: float, maximum weight of knapsack.
+    :param getWeight: method, get weight of an Item.
+    :return: a list of lists that contains all possible combinations of
+    the elements that meet the weight constraint.
+    &quot;&quot;&quot;
+    power_set_within_constraint = []
+    for i in range (0, 2**len(items)): # O(2**len(ori_list))
+        bin_str = get_binary_rep(i, len(items))
+        subset = []
+        subset_total_weight = 0
+        for j in range(len(items)): # O(len(ori_list))
+            if bin_str[j] == &#39;1&#39;:
+                subset.append(items[j])
+                subset_total_weight += items[j].getWeight()
+        if subset_total_weight &lt;= constraint:
+            power_set_within_constraint.append(subset)
+    return power_set_within_constraint
+
+# def choose_best(pset, max_weight, get_val, get_weight):
+def choose_best_efficiently(pset, max_weight, get_val, get_weight):
+    &quot;&quot;&quot;
+    Choose the best set of items from the power set of original list,
+    within the maximum weight budget of knapsack.
+    :param pset: list of lists, that contains all possible combinations of
+    the elements of ori_list.
+    :param max_weight: float or int, maximum weight budget of knapsack.
+    :param get_val: function or method, map an item in pset&#39;s list into its
+    comparable value
+    :param get_weight: function or method, map an item in pset&#39;s list into its
+    comparable weight
+    :return: a best set of items, and this best set&#39;s total value
+    &quot;&quot;&quot;
+    best_val = 0.0
+    best_set = None
+    for items in pset:
+        items_val = 0.0
+        items_weight = 0.0
+        for item in items:
+            items_val += get_val(item)
+            items_weight += get_weight(item)
+            if items_weight &gt; max_weight:
+                break
+        if items_weight &lt;= max_weight and items_val &gt; best_val:
+            best_val = items_val
+            best_set = items
+    return best_set, best_val
+
+# def test_best(max_weight = 20):
+def test_best_opt_01(max_weight = 20):
+    &quot;&quot;&quot;
+    Run the choose_best function, and print its result in proper format.
+    :param max_weight: float or int, maximum weight budget of knapsack, default 20.
+    :return: None, print out the items taken and their total value.
+    &quot;&quot;&quot;
+    items = build_items()
+    pset_within_constraint = gen_power_set_within_constraint(items, constraint=max_weight, getWeight=Item.getWeight)
+    taken, val = choose_best(pset_within_constraint, max_weight, Item.getValue, Item.getWeight)
+    print(&#39;Total value of items taken is&#39;, val)
+    for item in taken:
+        print(item)
+
+# def test_best(max_weight = 20):
+def test_best_opt_02(max_weight = 20):
+    &quot;&quot;&quot;
+    Run the choose_best function, and print its result in proper format.
+    :param max_weight: float or int, maximum weight budget of knapsack, default 20.
+    :return: None, print out the items taken and their total value.
+    &quot;&quot;&quot;
+    items = build_items()
+    pset = gen_power_set(items)
+    taken, val = choose_best_efficiently(pset, max_weight, Item.getValue, Item.getWeight)
+    print(&#39;Total value of items taken is&#39;, val)
+    for item in taken:
+        print(item)</code></pre>
+<pre class="python"><code>test_best_opt_01(max_weight=20)</code></pre>
+<pre><code>## Total value of items taken is 275.0
+## &lt;clock, 175, 10&gt;
+## &lt;painting, 90, 9&gt;
+## &lt;book, 10, 1&gt;</code></pre>
+<pre class="python"><code>test_best_opt_02(max_weight=20)</code></pre>
+<pre><code>## Total value of items taken is 275.0
+## &lt;clock, 175, 10&gt;
+## &lt;painting, 90, 9&gt;
+## &lt;book, 10, 1&gt;</code></pre>
+<p>While these kinds of optimizations are often worth doing, they don’t address the fundamental issue. 【吴军老师写好算法后，工程主管要他做优化，省机器就是省钱，值工程师的时间。】</p>
+</div>
+<div id="what-is-the-essence-of-a-greedy-algorithm-in-compare-with-this-power-set-algorithm" class="section level3">
+<h3>What is the essence of a greedy algorithm in compare with this power set algorithm?</h3>
+<p>The essence of a greedy algorithm is making the best (as defined by some metric) local choice at each step. It makes a choice that is locally optimal. However, as this example illustrates, a series of locally optimal decisions does not always lead to a solution that is globally optimal.</p>
+</div>
+<div id="why-are-greedy-algorithms-often-used-in-practice-despite-the-fact-that-they-do-not-always-find-the-best-solution" class="section level3">
+<h3>Why are greedy algorithms often used in practice, despite the fact that they do not always find the best solution?</h3>
+<p>They are usually easier to implement and more efficient to run than algorithms guaranteed to find optimal solutions. As Ivan Boesky once said, “I think greed is healthy. You can be greedy and still feel good about yourself.”</p>
+</div>
+<div id="in-what-case-a-greedy-by-density-algorithm-will-always-find-the-optimal-solution" class="section level3">
+<h3>In what case, a greedy-by-density algorithm will always find the optimal solution?</h3>
+<p>There is a variant of the knapsack problem, called the fractional (or continuous) knapsack problem. Since the items are infinitely divisible, it always makes sense to take as much as possible of the item with the highest remaining value-to-weight ratio.</p>
+</div>
+</div>
+<div id="graph-optimization-problems" class="section level2">
+<h2>12.2 Graph Optimization Problems</h2>
+<div id="what-is-the-terms-in-the-graph-theory" class="section level3">
+<h3>What is the terms in the graph theory?</h3>
+<div id="graph-nodevertex-edgearc" class="section level4">
+<h4>graph, node/vertex, edge/arc</h4>
+<p>A graph is a set of objects called nodes (or vertices) connected by a set of edges (or arcs).</p>
+</div>
+<div id="digraph-sourceparent-destinationchild" class="section level4">
+<h4>digraph, source/parent, destination/child</h4>
+<p>If the edges are unidirectional the graph is called a directed graph or digraph. In a directed graph, if there is an edge from n1 to n2, we refer to n1 as the source or parent node and n2 as the destination or child node.</p>
+</div>
+</div>
+<div id="what-is-eulers-insight-into-the-problem-of-königsberg-bridges-problem" class="section level3">
+<h3>What is Euler’s insight into the problem of Königsberg bridges problem?</h3>
+<p>Euler’s great insight was that the problem could be vastly simplified by view- ing each separate landmass as a point (think “node”) and each bridge as a line (think “edge”) connecting two of these points. The map of the town could then be represented by the graph to the right of the map in Figure 12.6. Euler then reasoned that if a walk were to traverse each edge exactly once, it must be the case that each node in the middle of the walk (i.e., any island that is both entered and exited during the walk) must be connected by an even number of edges. Since none of the nodes in this graph has an even number of edges, Euler concluded that it is impossible to traverse each bridge exactly once.</p>
+<div class="figure">
+<img src="/images/2020-06-13-12-KNAPSACK-AND-GRAPH-OPTIMIZATION-PROBLEMS//image-20200619163859579.png" alt="image-20200619163859579" />
+<p class="caption">image-20200619163859579</p>
+</div>
+</div>
+<div id="how-to-use-graph-theory-to-help-understand-problems-give-some-examples." class="section level3">
+<h3>How to use graph theory to help understand problems? Give some examples.</h3>
+<p>Only one small extension to the kind of graph used by Euler is needed to model a country’s highway system. If a weight is associated with each edge in a graph (or digraph) it is called a weighted graph. Using weighted graphs, the highway system can be represented as a graph in which cities are represented by nodes and the highways connecting them as edges, where each edge is labeled with the distance between the two nodes. More generally, one can represent any road map (including those with one-way streets) by a weighted digraph.</p>
+<p>Similarly, the structure of the World Wide Web can be represented as a digraph in which the nodes are Web pages and there is an edge from node 𝐴 to node 𝐵 if and only if there is a link to page 𝐵 on page 𝐴. Traffic patterns could be modeled by adding a weight to each edge indicating how often is it used.</p>
+<p>There are also many less obvious uses of graphs. Biologists use graphs to model things ranging from the way proteins interact with each other to gene ex- pression networks. Physicists use graphs to describe phase transitions. Epidemi- ologists use graphs to model disease trajectories. And so on.</p>
+</div>
+<div id="why-does-it-need-to-have-a-class-for-node-in-implementing-abstract-types" class="section level3">
+<h3>Why does it need to have a class for Node in implementing abstract types?</h3>
+<div id="implementation-code-of-three-classes" class="section level4">
+<h4>Implementation code of three classes</h4>
+<pre class="python"><code>class Node (object):
+    def __init__(self, name):
+        &quot;&quot;&quot;
+        Initiate an instance of Node with its name.
+        :param name: str, identify a Node
+        &quot;&quot;&quot;
+        self.name = name
+
+    def get_name(self):
+        &quot;&quot;&quot;
+        Get a node&#39;s name string
+        :return: str, of a node&#39;s name.
+        &quot;&quot;&quot;
+        return self.name
+
+    def __str__(self):
+        &quot;&quot;&quot;
+        Give out the main information of a node to identify from other objects.
+        :return: str, of node&#39;s name.
+        &quot;&quot;&quot;
+        return self.name
+
+
+class Edge (object):
+    def __init__(self, source, destination):
+        &quot;&quot;&quot;
+        Initiate an instance of edge with its source node and destination.
+        :param source: node, of an edge&#39;s source.
+        :param destination: node, of an edge&#39;s destination.
+        &quot;&quot;&quot;
+        self.source = source
+        self.destination = destination
+
+    def get_source(self):
+        &quot;&quot;&quot;
+        Get the source node of an edge.
+        :return: node, of an edge&#39;s source.
+        &quot;&quot;&quot;
+        return self.source
+
+    def get_destination(self):
+        &quot;&quot;&quot;
+        Get the destination node of an edge.
+        :return: node, of an edge&#39;s destination.
+        &quot;&quot;&quot;
+        return self.destination
+
+    def __str__(self):
+        &quot;&quot;&quot;
+        Represent a edge with its source and destination nodes.
+        :return: str, a representation of a unidirectional edge.
+        &quot;&quot;&quot;
+        return self.source.get_name () + &#39;-&gt;&#39; + self.destination.get_name ()
+
+
+class WeightedEdge (Edge):
+    def __init__(self, source, destination, weight = 1.0):
+        &quot;&quot;&quot;
+        Initiate an instance of an weighted edge.
+        :param source: node, of an edge&#39;s source.
+        :param destination: node, of an edge&#39;s destination.
+        :param weight: float, a weight factor on an edge.
+        &quot;&quot;&quot;
+        self.source = source
+        self.destination = destination
+        #上面这两句也可以写成：
+        # Edge.__init__(self, source, dectination)
+        self.weight = weight
+
+    def get_weight(self):
+        &quot;&quot;&quot;
+        Get the weight of an weighted edge.
+        :return: float, the weight factor of an edge.
+        &quot;&quot;&quot;
+        return self.weight
+
+    def __str__(self):
+        &quot;&quot;&quot;
+        Represent a weighted edge with its source and destination nodes and weight value on the edge.
+        :return: str, a representation of a unidirectional edge with weight on its edge.
+        &quot;&quot;&quot;
+        return self.source.get_name () + &#39;-&gt;(&#39; + str (self.weight) + &#39;)&#39;\
+               + self.destination.get_name()</code></pre>
+</div>
+<div id="barren-superclass-for-subclasses-of-addition-properties" class="section level4">
+<h4>Barren superclass for subclasses of addition properties</h4>
+<p>Having a class for nodes may seem like overkill<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>. After all, none of the methods in class <code>Node</code> perform any interesting computation. We introduced the class merely to give us the flexibility of deciding, perhaps at some later point, to introduce a subclass of <code>Node</code> with additional properties.</p>
+</div>
+</div>
+<div id="what-is-the-implementation-code-of-digraph-and-graph-classes" class="section level3">
+<h3>What is the implementation code of <code>Digraph</code> and <code>Graph</code> classes?</h3>
+<pre class="python"><code>class Digraph(object):
+    &quot;&quot;&quot;
+    Directional graph, with nodes as a list of nodes, and
+    edges as a dictionary of {parent:[children]} pairs,
+    i.e., a dict mapping each node to a list of its children.
+    &quot;&quot;&quot;
+    def __init__(self):
+        &quot;&quot;&quot;
+        Initiate an instance of digraph with its nodes as empty list,
+        and its edges as empty dictionary.
+        &quot;&quot;&quot;
+        self.nodes = []
+        self.edges = {}
+
+    def add_node(self, node):
+        &quot;&quot;&quot;
+        Add a node to its nodes list if it doesn&#39;t exist,
+        and add it to its edges as a new key.
+        :param node: a Node, as part of an Edge.
+        :return: none, alternating self.nodes and self.edges.
+        &quot;&quot;&quot;
+        if node in self.nodes:
+            raise ValueError (&#39;Duplicate node&#39;)
+        else:
+            self.nodes.append(node)
+            self.edges[node] = [] # assuming all node could be a source of edge
+
+    def add_edge (self, edge):
+        &quot;&quot;&quot;
+        Add an edge to the digraph&#39;s edges dictionary,
+        under the condition that the edge&#39;s source and destination nodes
+        are already in the digraph&#39;s nodes list.
+        :param edge: an edge with source and destination nodes.
+        :return: none, alternating the self.edges dict.
+        &quot;&quot;&quot;
+        source = edge.get_source ()
+        destination = edge.get_destination ()
+        if not (source in self.nodes and destination in self.nodes):
+            raise ValueError (&#39;Node not in graph&#39;)
+        self.edges[source].append(destination)
+
+    def children_of_node(self, node):
+        &quot;&quot;&quot;
+        Get the children nodes of a parent node.
+        :param node: a Node, as the parent node.
+        :return: list, of the children nodes.
+        &quot;&quot;&quot;
+        return self.edges[node]
+
+    def has_node (self, node):
+        &quot;&quot;&quot;
+        Check whether the digraph has this node.
+        :param node: a node object
+        :return: bool, true if node exists in digraph&#39;s nodes list.
+        &quot;&quot;&quot;
+        return node in self.nodes
+
+    def __str__(self):
+        &quot;&quot;&quot;
+        Represent a digraph with its source -&gt; destinations relationship.
+        :return: str.
+        &quot;&quot;&quot;
+        result = &#39;&#39;
+        for source in self.nodes:
+            for destination in self.edges [source]:
+                result = result + source.get_name () + &#39;-&gt;&#39;\
+                         + destination.get_name () + &#39;\n&#39;
+        return result [:-1]
+
+class Graph (Digraph):
+    &quot;&quot;&quot;
+    Graph class with no directional relation between two nodes.
+    &quot;&quot;&quot;
+    def add_edge (self, edge):
+        &quot;&quot;&quot;
+        Add edge with no direction between two nodes, i.e.,
+        adding a directional edge and its reverse one to Digraph.edges.
+        :param edge: an Edge with source and destination nodes.
+        :return: none, alternating the self.edges dict.
+        &quot;&quot;&quot;
+        Digraph.add_edge(self, edge)
+        # Duplicate an edge with reverse direction from destination to source.
+        rev_edge = Edge(edge.get_destination(), edge.get_source())
+        Digraph.add_edge(self, rev_edge)</code></pre>
+</div>
+<div id="how-to-represent-the-digraph-in-computer-what-is-the-choice-of-its-data-structure" class="section level3">
+<h3>How to represent the <code>Digraph</code> in computer? What is the choice of its data structure?</h3>
+<p>One important decision is the choice of data structure used to represent a <code>Digraph</code>. One common representation is an n × n adjacency matrix, where n is the number of nodes in the graph. Each cell of the matrix contains information (e.g., weights) about the edges connecting the pair of nodes &lt;𝑖, 𝑗&gt;. If the edges are unweighted, each entry is <code>True</code> if and only if there is an edge from 𝑖 to 𝑗.</p>
+<p>Another common representation is an adjacency list, which we use here. Class <code>Digraph</code> has two instance variables. The variable <code>nodes</code> is a Python list containing the names of the nodes in the <code>Digraph</code>. The connectivity of the nodes is represented using an adjacency list implemented as a dictionary. The variable <code>edges</code> is a dictionary that maps each <code>Node</code> in the <code>Digraph</code> to a list of the children of that <code>Node</code>.</p>
+</div>
+<div id="is-it-arbitrary-that-the-choice-of-which-one-of-digraph-and-graph-to-make-the-superclass" class="section level3">
+<h3>Is it arbitrary that the choice of which one of <code>Digraph</code> and <code>Graph</code> to make the superclass?</h3>
+<p>There is an important substitution principle: If client code works correctly using an instance of the supertype, it should also work correctly when an instance of the subtype is substituted for the instance of the supertype.</p>
+<p>There are many algorithms that work on graphs (by exploiting the symmetry of edges) that do not work on directed graphs.</p>
+</div>
+<div id="what-are-the-best-known-graph-optimization-problems" class="section level3">
+<h3>What are the best-known graph optimization problems?</h3>
+<p>One of the nice things about formulating a problem using graph theory is that there are well-known algorithms for solving many optimization problems on graphs.</p>
+<div id="shortest-path" class="section level4">
+<h4>Shortest path</h4>
+<p>For some pair of nodes, 𝑛1 and 𝑛2, find the shortest sequence of edges &lt;𝑠h, 𝑑h&gt; (source node and destination node), such that</p>
+<ul>
+<li>The source node in the first edge is 𝑛1</li>
+<li>The destination node of the last edge is 𝑛2</li>
+<li>For all edges 𝑒1 and 𝑒2 in the sequence, if 𝑒2 follows 𝑒1 in the sequence, the source node of 𝑒2 is the destination node of 𝑒1.</li>
+</ul>
+</div>
+<div id="shortest-weighted-path" class="section level4">
+<h4>Shortest weighted path</h4>
+<p>This is like the shortest path, except instead of choosing the shortest sequence of edges that connects two nodes, we define some function on the weights of the edges in the sequence (e.g., their sum) and minimize that value. This is the kind of problem solved by Google Maps when asked to compute driving directions between two points.</p>
+</div>
+<div id="maximum-clique" class="section level4">
+<h4>Maximum clique</h4>
+<p>A clique<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> is a set of nodes such that there is an edge between each pair of nodes in the set. A maximum clique is a clique of the largest size in a graph.</p>
+</div>
+<div id="min-cut" class="section level4">
+<h4>Min cut</h4>
+<p>Given two sets of nodes in a graph, a cut is a set of edges whose removal eliminates all paths from each node in one set to each node in the other. The minimum cut is the smallest set of edges whose removal accomplishes this.</p>
+</div>
+</div>
+<div id="how-to-model-those-social-networks-which-are-made-up-of-individuals-and-relationships-between-individuals" class="section level3">
+<h3>How to model those social networks, which are made up of individuals and relationships between individuals?</h3>
+<p>These are typically modeled as graphs in which the individuals are nodes and the edges relationships. If the relationships are symmetric, the edges are undirected; if the relationships are asymmetric the edges are directed. Some social networks model multiple kinds of relationships, in which case labels on the edges indicate the kind of relationship.</p>
+</div>
+<div id="where-does-the-hypothetic-six-degrees-of-separation-come-from" class="section level3">
+<h3>Where does the hypothetic “Six Degrees of Separation” come from?</h3>
+<p>In 1990 the playwright John Guare wrote Six Degrees of Separation. The dubious<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> premise<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a> underlying the play is that “everybody on this planet is separated by only six other people.” By this he meant that if one built a social network including every person on the earth using the relation “knows,” the shortest path between any two individuals would pass through at most six other nodes.</p>
+<p>A less hypothetical<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> question is the distance using the “friend” relation between pairs of people on Facebook.</p>
+</div>
+<div id="how-to-print-a-path" class="section level3">
+<h3>How to print a <code>path</code>?</h3>
+<pre class="python"><code>def print_path(path):
+    &quot;&quot;&quot;
+    Construct a string representing a path.
+    :param path: list, of nodes.
+    :return: string.
+    &quot;&quot;&quot;
+    result_str  = &#39;&#39;
+    for i in range(len(path)): # use index, not element.
+        result_str = result_str + str(path[i])
+        # result += str(node) # for node in path:
+        if i!= len(path) - 1:
+            result_str = result_str + &#39;-&gt;&#39;
+    return result_str</code></pre>
+</div>
+<div id="how-to-do-a-deep-first-search" class="section level3">
+<h3>How to do a deep first search?</h3>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><strong>airfare</strong>: the price to be paid by an aircraft passenger for a particular journey: <em>save a bundle in airfare by flying standby</em>.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p><strong>honor_v.t.</strong>: <em>make sure the franchisees honour the terms of the contract</em>: fulfil, observe, keep, discharge, implement, perform, execute, effect, obey, heed, follow, carry out, carry through, keep to, abide by, adhere to, comply with, conform to, act in accordance with, be true to, be faithful to, live up to; <em>rare</em> effectuate. ANTONYMS disobey.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p><strong>Syn.</strong> – Limit; bound; border; term; termination; barrier; verge; confines; precinct. Bound, Boundary. <em>Boundary</em>, in its original and strictest sense, is a visible object or mark indicating a limit. <em>Bound</em> is the limit itself. But in ordinary usage the two words are made interchangeable.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p><strong>knapsack</strong>: noun RUCKSACK, BACKPACK, haversack, pack, kitbag, duffel bag, satchel, shoulder bag; <em>British</em> holdall.<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p><strong>loot</strong>: Plunder; booty; especially, the booty taken in a conquered or sacked city.<a href="#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn6"><p><strong>overkill</strong>: n [U] (usually fig) much greater amount than is needed to defeat sb/sth or achieve sth. <em>It was surely overkill to screen three interviews on the same subject in one evening.</em><a href="#fnref6" class="footnote-back">↩</a></p></li>
+<li id="fn7"><p><strong>clique</strong>: A narrow circle of persons associated by common interests or for the accomplishment of a common purpose; – generally used in a bad sense.<a href="#fnref7" class="footnote-back">↩</a></p></li>
+<li id="fn8"><p><strong>dubious</strong>: Occasioning doubt; not clear, or obvious; equivocal; questionable; doubtful; as, a dubious answer.Wiping the dingy shirt with a still more dubious pocket handkerchief. - Thackeray. <strong>Syn.</strong> – Doubtful; doubting; unsettled; undetermined; equivocal; uncertain. Cf. Doubtful.<a href="#fnref8" class="footnote-back">↩</a></p></li>
+<li id="fn9"><p><strong>premise</strong>: A proposition antecedently supposed or proved; something previously stated or assumed as the basis of further argument; a condition; a supposition. The premises observed,Thy will by my performance shall be served. - Shak.<a href="#fnref9" class="footnote-back">↩</a></p></li>
+<li id="fn10"><p><strong>hypothetical</strong>: Characterized by, or of the nature of, an hypothesis; conditional; assumed without proof, for the purpose of reasoning and deducing proof, or of accounting for some fact or phenomenon.<a href="#fnref10" class="footnote-back">↩</a></p></li>
+</ol>
+</div>

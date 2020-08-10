@@ -1,0 +1,85 @@
+---
+title: 00 PREFACE and ACKNOWLEDGMENTS
+subtitle: 
+author: John Qu
+date: 2020-05-25
+slug: preface-and-acknowledgments
+tags:
+- 
+categories:
+- mit600
+- ICPP booknotes
+typora-root-url: ../../static
+show_toc: yes
+output: html_notebook
+---
+
+# 6.00 to be replaced by new 6.0001 and 6.0002
+
+[6.00 to be replaced by new 6.0001 and 6.0002](https://thetech.com/2014/04/29/six0001-v134-n22)
+
+I think 6.00 was never required for Course 6 students, at least not in recent history. Its replacements, 6.0001/2, aren't requirements either. The Course 6 curriculum basically assumes you know how to code and hence doesn't require courses that teach you how to code (which you should still take if you don't know how to code, of course!).
+
+On the other hand, 6.00 was a requirement for Course 9 (Brain and Cognitive Science) and Course 20 (Bioengineering), a capacity inherited by its successors, 6.0001/2.
+
+[When do MIT students take 6.00 - introduction to computer science and programming?](https://www.quora.com/When-do-MIT-students-take-6-00-introduction-to-computer-science-and-programming)
+
+# [Introductory Programming Courses](https://ocw.mit.edu/courses/intro-programming/)
+
+[Course reference](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-00sc-introduction-to-computer-science-and-programming-spring-2011/references/)
+
+## The book is particular as this:
+
+### How long is the course using this book?
+
+The first edition of the book was based on a single one-semester course. 
+
+The current edition is suitable for a two-semester introductory computer science sequence[^diff_from_'series'].
+
+[^diff_from_'series']: **sequence**:  The state of being sequent; succession; order of following; arrangement. *How art thou a king But by fair sequence and succession?* - Shak. *Sequence and series of the seasons of the year.* - Bacon. | **series**: A number of things or events standing or succeeding in order, and connected by a like relation; sequence; order; course; a succession of things; as, *a continuous series of calamitous events.*  *During some years his life a series of triumphs*.  -  Macaulay.
+
+### What kind of students is this book written for? And why does this book cover so many topics?
+
+The book is aimed at students with little or no prior[^prior] programming experience who have a desire to understand computational approaches[^approach] to problem solving. For some of the students the material in this book will be a stepping stone[^stepping-stone] to more advanced computer science courses. But for many of the students it will be their only formal exposure to computer science.
+
+Because this will be the only formal exposure to computer science for many of the students, we emphasize breadth rather than depth. The goal is to provide students with a brief introduction to many topics, so that they will have an idea of what’s possible when the time comes to think about how to use computation to accomplish a goal.
+
+[^prior]: **prior**: Preceding in the order of time; former; antecedent; anterior; previous; as, a prior discovery; prior obligation; – used elliptically in cases like the following: he lived alone [in the time] prior to his marriage.
+[^approach]: **approach**: The act of drawing near; a coming or advancing near. “The *approach* of summer.” - Horsley. *A nearer approach to the human type.* - Owen.
+[^stepping-stone]: **stepping-stone**: Fig.: A means of progress or advancement. T*hese obstacles his genius had turned into stepping-stones.* - Macaulay. *That men may rise on stepping-stones Of their dead selves to higher things.* - Tennyson.
+
+## The readers are armed by these:
+
+### What skill and knowledge should the student take away from this book?
+
+The main goal of this book is to help students become skillful at making productive use of computational techniques. They should learn to use computational modes of thoughts to frame problems and to guide the process of extracting information from data. The primary knowledge they will take away from this book is the art of computational problem solving[^hand-with-pen].
+
+[^hand-with-pen]: Computational problem solving is different from hand-with-pen solving. 
+
+### What is the pervasive[^ pervasive] themes of the book?
+
+- systematic problem solving, 
+- the power of abstraction, and 
+- computation as a way of thinking about the world
+
+[^ pervasive]: Per-va′sive (pẽr-vā′sĭv) Tending to pervade, or having power to spread throughout; of a pervading quality.  “Civilization *pervasive* and general.” M. Arnold.
+
+### What should I have been able to act when finished reading this book?
+
+1. Learned a language, Python, for expressing computations, 【not for showing off tricks and professional behaviors】
+1. Learned a systematic approach to organizing, writing, and debugging medium-sized programs, 【I don't think I have gotten this, but when I wrote out "TetraCamTion", I think I had got some of the systematic approach.】
+1. Developed an informal understanding of computational complexity, 【The formal one is Knuth's?】
+1. Developed some insight into the process of moving from an ambiguous problem statement to a computational formulation[^formulation] of a method for solving the problem, 【That's it. I spend a lot of time thinking in this process.】
+1. Learned a useful set of algorithmic and problem reduction[^reduction] techniques,
+1. Learned how to use randomness and simulations to shed light on problems that don’t easily succumb[^succumb] to closed-form solutions, and 【Not to say there is no closed-form solution, but saying that it is not easy to find one with limited time.】
+1. Learned how to use computational tools (including simple statistical, visualization, and machine learning tools) to model and understand data. 【It is the time of big data. We must know how to dig out information and knowledge from data.】
+
+[^formulation]: formulation/ˌfɔːmjʊˈleɪʃn; ˌfɔrmjə`leʃən/ n (a) [U] action of formulating 格式化; 公式化; 确切的表达. (b) [C] result of this 公式; 确切的表达: choose another formulation 选择另一种表达方式.
+[^reduction]: the simplification of a subject or problem to a particular form in presentation or analysis: *the reduction of classical genetics to molecular biology*.
+
+[^succumb]: To yield; to submit; to give up unresistingly; as, to succumb under calamities; to succumb to disease.
+
+2020-05-25
+
+2020-06-22
+

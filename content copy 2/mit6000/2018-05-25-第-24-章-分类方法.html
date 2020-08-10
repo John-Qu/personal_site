@@ -1,0 +1,1400 @@
+---
+title: 第 24 章　分类方法
+subtitle: 24 CLASSIFICATION METHODS
+author: 曲政
+date: 2018-05-25
+slug: classification-methods
+tags:
+- 
+categories:
+- MIT600
+- ICPP booknotes
+typora-root-url: ../../static
+show_toc: yes
+output: html_notebook
+---
+
+
+
+<div id="什么是-classification-model" class="section level3">
+<h3>什么是 classification model？</h3>
+<p>它是有监督的机器学习中最常用的办法。</p>
+<p>A <strong>classification model</strong>, or <strong>classifier 分类器 </strong>, is used to label an example as belonging to one of a finite set of categories.</p>
+<p>比如
+- 垃圾邮件分类。</p>
+<p>称为
+- belonging to a class
+- having a label</p>
+</div>
+<div id="分类学习有几种类型" class="section level3">
+<h3>分类学习有几种类型？</h3>
+<p>单分类学习 one-class learning
+- 很难找到不属于这个类别的训练数据。
+- 通常用于建立异常检测机制，例如在计算机网络中检测未知攻击。</p>
+<p>二分类学习 two-class learing (binary classification)
+- 训练集中的样本全部来自两个类别（通常称为阳性和阴性）。
+- 目标是找到一个可以区分两个类别的边界。</p>
+<p>多分类学习 multi-class learning</p>
+</div>
+<div id="evaluating-classifiers" class="section level2">
+<h2>24.1 Evaluating Classifiers</h2>
+<div id="训练一个分类器要面对什么矛盾" class="section level3">
+<h3>训练一个分类器，要面对什么矛盾？</h3>
+<ol style="list-style-type: decimal">
+<li><p>既能够非常好地拟合现有数据；provide a reasonable good fit for the available data.</p></li>
+<li><p>又能够对未知数据做出好的预测。have a reasonable chance of making good predictions about as yet unseen data.</p></li>
+</ol>
+</div>
+<div id="用训练集训练分类器最小化训练误差-training-error-时要满足一定的约束条件-subject-to-certain-constraints设计这些约束条件的目的是什么" class="section level3">
+<h3>用训练集训练分类器，最小化训练误差 training error 时，要满足一定的约束条件 subject to certain constraints。设计这些约束条件的目的是什么？</h3>
+<p>为了提高模型预测未知数据的准确率。to increase the probability that the model will perform reasonably well on as yet unseen data.</p>
+</div>
+<div id="什么是混淆矩阵-confusion-matrices怎么用" class="section level3">
+<h3>什么是混淆矩阵 confusion matrices？怎么用？</h3>
+<p><img src="http://www.ituring.com.cn/figures/2017/PythonIntroduction/27.d24z.001.png" /></p>
+<p>把 classifier 的结果统计入混淆矩阵。</p>
+<p><img src="http://www.ituring.com.cn/figures/2017/PythonIntroduction/27.d24z.002.png" /></p>
+</div>
+<div id="怎样用数据评价混淆矩阵" class="section level3">
+<h3>怎样用数据评价混淆矩阵？</h3>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="center">Predicted Positive</th>
+<th align="center">Predicted Negative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Actually Positive</td>
+<td align="center">+➕ truePos</td>
+<td align="center">+➖ falseNeg</td>
+</tr>
+<tr class="even">
+<td>Actually Negative</td>
+<td align="center">-➕ falsePos</td>
+<td align="center">-➖ trueNeg</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>accuracy 精确度，总体预测准确的程度，即正确识别阳性和阴性的比例，(++ –)/(++ -+ – +-)</li>
+<li>sensitivity 灵敏度，阳性中，被正确识别的比例，++/(++ +-)</li>
+<li>specificity 专一度，计算阴性中，被正确识别的比例，–/(– +-)</li>
+<li>positive predicted value 阳性预测中，正确的比例，++/(++ -+)</li>
+<li>negative predicted value 阴性预测中，正确的比例，–/(– +-)</li>
+</ul>
+<pre class="python"><code># -*- coding: utf-8 -*-
+
+def accuracy (truePos, falsePos, trueNeg, falseNeg):
+    &quot;&quot;&quot;
+    精确度，计算总体预测准确的程度，即正确识别阳性和阴性的比例，(++ --)/(++ -+ -- +-)
+    :param truePos: int，真阳性 ++
+    :param falsePos: int，假阳性 -+
+    :param trueNeg: int，真阴性 --
+    :param falseNeg: int，假阴性 +-
+    :return: float
+    &quot;&quot;&quot;
+    numerator = truePos + trueNeg
+    denominator = truePos + trueNeg + falsePos + falseNeg
+    return numerator/denominator
+
+
+def sensitivity (truePos, falseNeg):
+    &quot;&quot;&quot;
+    灵敏度，计算阳性中，被正确识别的比例，++/(++ +-)
+    :param truePos: int，真阳性 ++
+    :param falseNeg: int，假阴性 +-
+    :return: float
+    &quot;&quot;&quot;
+    try:
+        return truePos/(truePos + falseNeg)
+    except ZeroDivisionError:
+        return float (&#39;nan&#39;)
+
+def specificity (trueNeg, falsePos):
+    &quot;&quot;&quot;
+    专一度，计算阴性中，被正确识别的比例，--/(-- +-)
+    :param trueNeg: int，真阴性 --
+    :param falsePos: int，假阳性 -+
+    :return: float
+    &quot;&quot;&quot;
+    try:
+        return trueNeg/(trueNeg + falsePos)
+    except ZeroDivisionError:
+        return float (&#39;nan&#39;)
+
+def posPredVal (truePos, falsePos):
+    &quot;&quot;&quot;
+    阳性预测正确比例，++/(++ -+)
+    :param truePos: int，真阳性 ++
+    :param falsePos: int，假阳性 -+
+    :return:
+    &quot;&quot;&quot;
+    try:
+        return truePos/(truePos + falsePos)
+    except ZeroDivisionError:
+        return float (&#39;nan&#39;)
+
+def negPredVal (trueNeg, falseNeg):
+    &quot;&quot;&quot;
+    阴性预测正确比例，--/(-- +-)
+    :param trueNeg: int，真阴性 --
+    :param falseNeg: int，假阴性 +-
+    :return:
+    &quot;&quot;&quot;
+    try:
+        return trueNeg/(trueNeg + falseNeg)
+    except ZeroDivisionError:
+        return float (&#39;nan&#39;)
+
+def getStats (truePos, falsePos, trueNeg, falseNeg, toPrint = True):
+    &quot;&quot;&quot;
+    计算 classifiers 的各种正确比例
+    :param truePos: int，真阳性 ++
+    :param falsePos: int，假阳性 -+
+    :param trueNeg: int，真阴性 --
+    :param falseNeg: int，假阴性 +-
+    :param toPrint: bool，是否打印结果，默认 True
+    :return: (accur, sens, spec, ppv, npv)
+    &quot;&quot;&quot;
+    accur = accuracy (truePos, falsePos, trueNeg, falseNeg)
+    sens = sensitivity (truePos, falseNeg)
+    spec = specificity (trueNeg, falsePos)
+    ppv = posPredVal (truePos, falsePos)
+    npv = negPredVal (trueNeg, falseNeg)
+    if toPrint:
+        print (&#39; Accuracy =&#39;, round (accur, 3))
+        print (&#39; Sensitivity =&#39;, round (sens, 3))
+        print (&#39; Specificity =&#39;, round (spec, 3))
+        print (&#39; Pos. Pred. Val. =&#39;, round (ppv, 3))
+        print (&#39; Neg. Pred. Val. =&#39;, round (npv, 3))
+    return (accur, sens, spec, ppv, npv)</code></pre>
+</div>
+</div>
+<div id="predicting-the-gender-of-runners" class="section level2">
+<h2>24.2 Predicting the Gender of Runners</h2>
+<div id="波士顿马拉松看成绩和年龄就能大致猜出性别吗怎么准备类和数据" class="section level3">
+<h3>波士顿马拉松，看成绩和年龄，就能大致猜出性别吗？怎么准备类和数据？</h3>
+<pre class="python"><code># -*- coding: utf-8 -*-
+
+from em_17_1_getBMdata import getBMData
+import random
+class Runner (object):
+    def __init__(self, gender, age, time):
+        # 把年龄和成绩组成了特征向量。
+        self.featureVec = (age, time)
+        # 性别是标签
+        self.label = gender
+
+    def featureDist (self, other):
+        &quot;&quot;&quot;计算特征向量的欧氏距离&quot;&quot;&quot;
+        dist = 0.0 # 初始化，方便后面 +=
+        for i in range (len (self.featureVec)):
+            dist += abs (self.featureVec [i] - other.featureVec [i])**2
+        return dist**0.5
+
+    def getTime (self):
+        return self.featureVec [1]
+
+    def getAge (self):
+        return self.featureVec [0]
+
+    def getLabel (self):
+        return self.label
+
+    def getFeatures (self):
+        return self.featureVec
+
+    def __str__(self):
+        return str (self.getAge ()) + &#39;, &#39; + str (self.getTime ())\
+               + &#39;, &#39; + self.label
+
+def buildMarathonExamples (fileName):
+    &quot;&quot;&quot;提取数据，构建 Runner 对象，添加入 examples 列表。&quot;&quot;&quot;
+    data = getBMData (fileName) # 这个 bm_results2012.txt 文件没有找到
+    examples = []
+    for i in range (len (data [&#39;age&#39;])):
+        a = Runner (data [&#39;gender&#39;][i], data [&#39;age&#39;][i],
+                   data [&#39;time&#39;][i])
+        examples.append (a)
+    return examples
+
+def divide80_20 (examples):
+    &quot;&quot;&quot;把实例按照 80/20 比例，分成训练集和测试集&quot;&quot;&quot;
+    # 随机挑选出测试集实例对应的 index。不直接挑，挑剩下的不好处理。
+    sampleIndices = random.sample (range (len (examples)),
+                                  len (examples)//5)
+    trainingSet, testSet = [], []
+    for i in range (len (examples)):
+        if i in sampleIndices:
+            testSet.append (examples [i])
+        else:
+            trainingSet.append (examples [i])
+    return trainingSet, testSet</code></pre>
+</div>
+</div>
+<div id="k-nearest-neighbors" class="section level2">
+<h2>24.3 K-nearest Neighbors</h2>
+<div id="k-最近邻方法的原理是什么" class="section level3">
+<h3>K 最近邻方法的原理是什么？</h3>
+<p>在训练集中找到 K 个与手中对象最相似的邻居，他们大多数有什么标签，就把手中对像打上什么标签。</p>
+<p>比如</p>
+<ul>
+<li>公园里的鸟，查书，搜索引擎。</li>
+</ul>
+</div>
+<div id="knn-分类法有什么缺点" class="section level3">
+<h3>KNN 分类法有什么缺点？</h3>
+<p>如果训练集中的各种标签严重分类不均。</p>
+<p>比如</p>
+<ul>
+<li>K 个近邻中，真正与手中对象相似的，得不到大多数。</li>
+</ul>
+</div>
+<div id="k-最近邻分类器怎么写" class="section level3">
+<h3>k 最近邻分类器怎么写？</h3>
+<pre class="python"><code># -*- coding: utf-8 -*-
+
+import pylab, random
+from em_24_1_evaluating_classifiers import accuracy
+from em_24_2_runner import divide80_20
+
+
+def findKNearest (example, exampleSet, k):
+    &quot;&quot;&quot;
+    用手中的实例，在实例集中找到 k 个最近邻。
+    :param example: 手中有待贴标的对象实例
+    :param exampleSet: 作为搜索源的实例集
+    :param k: k 个最近邻
+    :return: k 个最近邻的列表，以及相应距离的列表
+    &quot;&quot;&quot;
+    kNearest, distances = [], []
+    #建立一个列表，包含最初 K 个样本和它们的距离
+    for i in range (k):
+        kNearest.append (exampleSet [i])
+        distances.append (example.featureDist (exampleSet [i]))
+    maxDist = max (distances) #找出最大距离
+    #检查其余样本，替换初始邻居
+    for e in exampleSet [k:]:
+        dist = example.featureDist (e)
+        if dist &lt; maxDist:
+            #通过查找 distances 列表，找到原始 maxDist 的索引位置
+            maxIndex = distances.index (maxDist)
+            #替换掉索引位置伤的实例和相应距离
+            kNearest [maxIndex] = e
+            distances [maxIndex] = dist
+            #重新计算出 k 个邻居中的最大距离，进入下一个循环
+            maxDist = max (distances)
+    return kNearest, distances
+
+
+def KNearestClassify (training, testSet, label, k):
+    &quot;&quot;&quot;
+    使用 K 最近邻分类器预测 testSet 中的每个样本是否具有给定的标签
+    :param training: 训练集
+    :param testSet: 测试集
+    :param label: 二类学习的标签
+    :param k: 选取 K 位邻居，过半数占优的标签胜出
+    :return: 真阳性、假阳性、真阴性和假阴性的数量
+    &quot;&quot;&quot;
+    truePos, falsePos, trueNeg, falseNeg = 0, 0, 0, 0
+    for e in testSet:
+        nearest, distances = findKNearest (e, training, k)
+        #进行投票
+        numMatch = 0
+        for i in range (len (nearest)):
+            if nearest [i].getLabel () == label:
+                numMatch += 1
+        if numMatch &gt; k//2: #预测 e 具有此标签
+            if e.getLabel () == label: #e 真有此标签
+                truePos += 1
+            else: #e 却没有此标签
+                falsePos += 1
+        else: #预测 e 不具有此标签
+            if e.getLabel () != label: #e 真没有此标签
+                trueNeg += 1
+            else: #e 却有这个标签
+                falseNeg += 1
+    return truePos, falsePos, trueNeg, falseNeg
+</code></pre>
+</div>
+<div id="k-最近邻分类算法的复杂度" class="section level3">
+<h3>k 最近邻分类算法的复杂度？</h3>
+<p>这个实现其实是一种暴力算法。</p>
+<p>函数 findKNearest 的复杂度与 exampleSet 中的样本数量成线性关系，因为它要计算 example 与 exampleSet 中每个元素之间的特征距离。</p>
+<p>函数 KNearestClassify 使用简单的多数票胜出原则来进行分类，它的复杂度是 O (len (training)* len (testSet))，因为它要对函数 findNearest 进行总共 len (testSet) 次调用。
+- 相当于 O (n2)?</p>
+</div>
+<div id="根据标签分布的概率算法怎么写比-k-最近邻算法结果差吗" class="section level3">
+<h3>根据标签分布的概率算法怎么写？比 k 最近邻算法结果差吗？</h3>
+<pre class="python"><code># -*- coding: utf-8 -*-
+
+def prevalenceClassify (training, testSet, label):
+    &quot;&quot;&quot;
+    把训练集中标签所占的比例（流行程度），作为给测试集对象分配标签的概率。
+    :param training: 训练集
+    :param testSet: 测试集
+    :param label: 标签
+    :return: 真阳性、假阳性、真阴性和假阴性的数量
+    &quot;&quot;&quot;
+    numWithLabel = 0
+    for e in training:
+        if e.getLabel ()== label:
+            numWithLabel += 1
+    probLabel = numWithLabel/len (training) #标签的概率
+    truePos, falsePos, trueNeg, falseNeg = 0, 0, 0, 0
+    for e in testSet:
+        if random.random () &lt; probLabel: #标签概率大于随机数，预测 e 具有标签
+            if e.getLabel () == label: #e 真有此标签
+                truePos += 1
+            else: #e 却没有此标签
+                falsePos += 1
+        else: #预测 e 不具有此标签
+            if e.getLabel () != label: #e 真没有此标签
+                trueNeg += 1
+            else: #e 却有这个标签
+                falseNeg += 1
+    return truePos, falsePos, trueNeg, falseNeg
+</code></pre>
+<pre class="commandline"><code>K 最近邻算法的结果：
+Accuracy = 0.65
+Sensitivity = 0.715
+Specificity = 0.563
+Pos. Pred. Val. = 0.684
+
+根据标签流行程度概率分配的结果：
+准确度 = 0.514 因为对训练集做了随机性的下采样，准确度低于总体的 58% 也正常。
+灵敏度 = 0.593
+特异度 = 0.41
+阳性预测值 = 0.57</code></pre>
+</div>
+<div id="在-k-最近邻算法里为什么把-k-设为-9" class="section level3">
+<h3>在 k 最近邻算法里，为什么把 K 设为 9？</h3>
+<p>与训练集有关，实验出来的。</p>
+<pre class="python"><code># -*- coding: utf-8 -*-
+
+def findK (training, minK, maxK, numFolds, label):
+    &quot;&quot;&quot;
+    k 最近邻法，检验什么 k 值足够好，取一定范围内的奇数值，分别计算 numFold 次的平均准确度，绘图输出
+    :param training: 训练集
+    :param minK: 尝试用的最小 K 值
+    :param maxK: 尝试用的最大 K 值
+    :param numFolds: 每个 K 值采样几次再取平均
+    :param label: 标签
+    :return: None
+    &quot;&quot;&quot;
+    #在 k 的奇数取值范围内找出平均准确度
+    accuracies = []
+    for k in range (minK, maxK + 1, 2):
+        score = 0.0
+        for i in range (numFolds):
+            #通过下采样减少计算时间
+            fold = random.sample (training, min (5000, len (training)))
+            examples, testSet = divide80_20 (fold)
+            truePos, falsePos, trueNeg, falseNeg =\
+                KNearestClassify (examples, testSet, label, k)
+            score += accuracy (truePos, falsePos, trueNeg, falseNeg)
+        accuracies.append (score/numFolds)
+    pylab.plot (range (minK, maxK + 1, 2), accuracies)
+    pylab.title (&#39;Average Accuracy vs k (&#39; + str (numFolds)\
+                + &#39; folds)&#39;)
+    pylab.xlabel (&#39;k&#39;)
+    pylab.ylabel (&#39;Accuracy&#39;)
+
+findK (training, 1, 21, 5, &#39;M&#39;)</code></pre>
+<p><img src="http://www.ituring.com.cn/figures/2017/PythonIntroduction/27.d24z.006.png" /></p>
+<ul>
+<li>从图中可以看出，对于 5 折交叉验证，获得最高准确度的 k 值是 17。</li>
+<li>当然，k&gt;21 时，完全有可能得到更高的准确度。</li>
+<li>但 k 达到 9 时，准确度就在一个相当狭窄的区间内波动，所以我们选择 9 作为 k 的值。</li>
+</ul>
+</div>
+</div>
+<div id="regression-based-classifiers" class="section level2">
+<h2>24.4 Regression-based Classifiers</h2>
+<div id="马拉松成绩年龄和性别三个变量谁做自变量" class="section level3">
+<h3>马拉松成绩、年龄和性别，三个变量，谁做自变量？</h3>
+<p>方法一：</p>
+<p>用年龄做自变量，成绩做因变量，性别做区别，可以得到男和女两个线性回归模型。</p>
+<p>测试集中的实例，年龄作为自变量分别带入两个模型，得到两个成绩，哪个更接近真实成绩，就打上哪个性别标签。</p>
+<p>问题：</p>
+<p>为什么这么不直接？不能用年龄和成绩做自变量，性别做因变量吗？性别值更靠近哪一个，就算哪个性别。</p>
+<p>方法二：</p>
+<p>使用 polyfit 将一个年龄和完成时间的函数映射成一个实数。</p>
+<p>问题：</p>
+<p>如果预测出某个跑步者在男性和女性之间，我们应该如何解释呢？</p>
+<p>或许我们可以将 Y 轴解释为跑步者是男性的概率。这样也不是很好，因为对模型应用 polyval 函数时，甚至不能保证返回值肯定在 0 和 1 之间。</p>
+</div>
+<div id="logistic-regression-为什么叫这个名字" class="section level3">
+<h3>logistic regression 为什么叫这个名字？</h3>
+<p>之所以称作 logistic 回归是因为，解决这种最优化问题时，目标函数是基于比值比（odds ratio）的对数的。这种函数称为 logit (分对数) 函数，它的反函数称为 logistic（对数的）函数。</p>
+<p>参考：</p>
+<p><a href="https://en.wikipedia.org/wiki/Logistic_regression" class="uri">https://en.wikipedia.org/wiki/Logistic_regression</a></p>
+<p><a href="http://www.stat.cmu.edu/~cshalizi/uADA/12/lectures/ch12.pdf" class="uri">http://www.stat.cmu.edu/~cshalizi/uADA/12/lectures/ch12.pdf</a></p>
+</div>
+<div id="logistic-regression-明确设计用来做什么它怎么写的" class="section level3">
+<h3>logistic regression 明确设计用来做什么？它怎么写的？</h3>
+<p>预测一个事件的概率。to predict the probability of an event.</p>
+<p>module <code>sklearn.linear_model.logistic.py</code> 中有</p>
+<pre class="python"><code># -*- coding: utf-8 -*-
+
+class LogisticRegression (BaseEstimator, LinearClassifierMixin,
+                         _LearntSelectorMixin, SparseCoefMixin):
+    &quot;&quot;&quot;Logistic Regression (aka logit, MaxEnt) classifier.
+
+    In the multiclass case, the training algorithm uses the one-vs-rest (OvR)
+    scheme if the &#39;multi_class&#39; option is set to &#39;ovr&#39;, and uses the cross-
+    entropy loss if the &#39;multi_class&#39; option is set to &#39;multinomial&#39;.
+    (Currently the &#39;multinomial&#39; option is supported only by the &#39;lbfgs&#39;,
+    &#39;sag&#39; and &#39;newton-cg&#39; solvers.)
+
+    This class implements regularized logistic regression using the
+    &#39;liblinear&#39; library, &#39;newton-cg&#39;, &#39;sag&#39; and &#39;lbfgs&#39; solvers. It can handle
+    both dense and sparse input. Use C-ordered arrays or CSR matrices
+    containing 64-bit floats for optimal performance; any other input format
+    will be converted (and copied).
+
+    The &#39;newton-cg&#39;, &#39;sag&#39;, and &#39;lbfgs&#39; solvers support only L2 regularization
+    with primal formulation. The &#39;liblinear&#39; solver supports both L1 and L2
+    regularization, with a dual formulation only for the L2 penalty.
+
+    Read more in the :ref:`User Guide &lt;logistic_regression&gt;`.
+
+    Parameters
+    ----------
+    penalty : str, &#39;l1&#39; or &#39;l2&#39;, default: &#39;l2&#39;
+        Used to specify the norm used in the penalization. The &#39;newton-cg&#39;,
+        &#39;sag&#39; and &#39;lbfgs&#39; solvers support only l2 penalties.
+
+    dual : bool, default: False
+        Dual or primal formulation. Dual formulation is only implemented for
+        l2 penalty with liblinear solver. Prefer dual=False when
+        n_samples &gt; n_features.
+
+    C : float, default: 1.0
+        Inverse of regularization strength; must be a positive float.
+        Like in support vector machines, smaller values specify stronger
+        regularization.
+
+    fit_intercept : bool, default: True
+        Specifies if a constant (a.k.a. bias or intercept) should be
+        added to the decision function.
+
+    intercept_scaling : float, default 1.
+        Useful only when the solver &#39;liblinear&#39; is used
+        and self.fit_intercept is set to True. In this case, x becomes
+        [x, self.intercept_scaling],
+        i.e. a &quot;synthetic&quot; feature with constant value equal to
+        intercept_scaling is appended to the instance vector.
+        The intercept becomes ``intercept_scaling * synthetic_feature_weight``.
+
+        Note! the synthetic feature weight is subject to l1/l2 regularization
+        as all other features.
+        To lessen the effect of regularization on synthetic feature weight
+        (and therefore on the intercept) intercept_scaling has to be increased.
+
+    class_weight : dict or &#39;balanced&#39;, default: None
+        Weights associated with classes in the form ``{class_label: weight}``.
+        If not given, all classes are supposed to have weight one.
+
+        The &quot;balanced&quot; mode uses the values of y to automatically adjust
+        weights inversely proportional to class frequencies in the input data
+        as ``n_samples / (n_classes * np.bincount (y))``.
+
+        Note that these weights will be multiplied with sample_weight (passed
+        through the fit method) if sample_weight is specified.
+
+        .. versionadded:: 0.17
+           *class_weight=&#39;balanced&#39;* instead of deprecated
+           *class_weight=&#39;auto&#39;*.
+
+    max_iter : int, default: 100
+        Useful only for the newton-cg, sag and lbfgs solvers.
+        Maximum number of iterations taken for the solvers to converge.
+
+    random_state : int seed, RandomState instance, default: None
+        The seed of the pseudo random number generator to use when
+        shuffling the data. Used only in solvers&#39;sag&#39; and &#39;liblinear&#39;.
+
+    solver : {&#39;newton-cg&#39;, &#39;lbfgs&#39;, &#39;liblinear&#39;, &#39;sag&#39;}, default: &#39;liblinear&#39;
+        Algorithm to use in the optimization problem.
+
+        - For small datasets, &#39;liblinear&#39; is a good choice, whereas&#39;sag&#39; is
+            faster for large ones.
+        - For multiclass problems, only &#39;newton-cg&#39;, &#39;sag&#39; and &#39;lbfgs&#39; handle
+            multinomial loss; &#39;liblinear&#39; is limited to one-versus-rest
+            schemes.
+        - &#39;newton-cg&#39;, &#39;lbfgs&#39; and&#39;sag&#39; only handle L2 penalty.
+
+        Note that&#39;sag&#39; fast convergence is only guaranteed on features with
+        approximately the same scale. You can preprocess the data with a
+        scaler from sklearn.preprocessing.
+
+        .. versionadded:: 0.17
+           Stochastic Average Gradient descent solver.
+
+    tol : float, default: 1e-4
+        Tolerance for stopping criteria.
+
+    multi_class : str, {&#39;ovr&#39;, &#39;multinomial&#39;}, default: &#39;ovr&#39;
+        Multiclass option can be either &#39;ovr&#39; or &#39;multinomial&#39;. If the option
+        chosen is &#39;ovr&#39;, then a binary problem is fit for each label. Else
+        the loss minimised is the multinomial loss fit across
+        the entire probability distribution. Works only for the &#39;newton-cg&#39;,
+        &#39;sag&#39; and &#39;lbfgs&#39; solver.
+
+        .. versionadded:: 0.18
+           Stochastic Average Gradient descent solver for &#39;multinomial&#39; case.
+
+    verbose : int, default: 0
+        For the liblinear and lbfgs solvers set verbose to any positive
+        number for verbosity.
+
+    warm_start : bool, default: False
+        When set to True, reuse the solution of the previous call to fit as
+        initialization, otherwise, just erase the previous solution.
+        Useless for liblinear solver.
+
+        .. versionadded:: 0.17
+           *warm_start* to support *lbfgs*, *newton-cg*, *sag* solvers.
+
+    n_jobs : int, default: 1
+        Number of CPU cores used during the cross-validation loop. If given
+        a value of -1, all cores are used.
+
+    Attributes
+    ----------
+    coef_ : array, shape (n_classes, n_features)
+        Coefficient of the features in the decision function.
+
+    intercept_ : array, shape (n_classes,)
+        Intercept (a.k.a. bias) added to the decision function.
+        If `fit_intercept` is set to False, the intercept is set to zero.
+
+    n_iter_ : array, shape (n_classes,) or (1,)
+        Actual number of iterations for all classes. If binary or multinomial,
+        it returns only 1 element. For liblinear solver, only the maximum
+        number of iteration across all classes is given.
+
+    See also
+    --------
+    SGDClassifier : incrementally trained logistic regression (when given
+        the parameter ``loss=&quot;log&quot;``).
+    sklearn.svm.LinearSVC : learns SVM models using the same algorithm.
+
+    Notes
+    -----
+    The underlying C implementation uses a random number generator to
+    select features when fitting the model. It is thus not uncommon,
+    to have slightly different results for the same input data. If
+    that happens, try with a smaller tol parameter.
+
+    Predict output may not match that of standalone liblinear in certain
+    cases. See :ref:`differences from liblinear &lt;liblinear_differences&gt;`
+    in the narrative documentation.
+
+    References
+    ----------
+
+    LIBLINEAR -- A Library for Large Linear Classification
+        http://www.csie.ntu.edu.tw/~cjlin/liblinear/
+
+    SAG -- Mark Schmidt, Nicolas Le Roux, and Francis Bach
+        Minimizing Finite Sums with the Stochastic Average Gradient
+        https://hal.inria.fr/hal-00860051/document
+
+    Hsiang-Fu Yu, Fang-Lan Huang, Chih-Jen Lin (2011). Dual coordinate descent
+        methods for logistic regression and maximum entropy models.
+        Machine Learning 85 (1-2):41-75.
+        http://www.csie.ntu.edu.tw/~cjlin/papers/maxent_dual.pdf
+    &quot;&quot;&quot;
+
+    def __init__(self, penalty=&#39;l2&#39;, dual=False, tol=1e-4, C=1.0,
+                 fit_intercept=True, intercept_scaling=1, class_weight=None,
+                 random_state=None, solver=&#39;liblinear&#39;, max_iter=100,
+                 multi_class=&#39;ovr&#39;, verbose=0, warm_start=False, n_jobs=1):
+
+        self.penalty = penalty
+        self.dual = dual
+        self.tol = tol
+        self.C = C
+        self.fit_intercept = fit_intercept
+        self.intercept_scaling = intercept_scaling
+        self.class_weight = class_weight
+        self.random_state = random_state
+        self.solver = solver
+        self.max_iter = max_iter
+        self.multi_class = multi_class
+        self.verbose = verbose
+        self.warm_start = warm_start
+        self.n_jobs = n_jobs
+
+     def fit (self, X, y, sample_weight=None):
+        &quot;&quot;&quot;Fit the model according to the given training data.
+
+        Parameters
+        ----------
+        X : {array-like, sparse matrix}, shape (n_samples, n_features)
+            Training vector, where n_samples is the number of samples and
+            n_features is the number of features.
+
+        y : array-like, shape (n_samples,)
+            Target vector relative to X.
+
+        sample_weight : array-like, shape (n_samples,) optional
+            Array of weights that are assigned to individual samples.
+            If not provided, then each sample is given unit weight.
+
+            .. versionadded:: 0.17
+               *sample_weight* support to LogisticRegression.
+
+        Returns
+        -------
+        self : object
+            Returns self.
+        &quot;&quot;&quot;
+        if not isinstance (self.C, numbers.Number) or self.C &lt; 0:
+            raise ValueError (&quot;Penalty term must be positive; got (C=% r)&quot;
+                             % self.C)
+        if not isinstance (self.max_iter, numbers.Number) or self.max_iter &lt; 0:
+            raise ValueError (&quot;Maximum number of iteration must be positive;&quot;
+                             &quot;got (max_iter=% r)&quot; % self.max_iter)
+        if not isinstance (self.tol, numbers.Number) or self.tol &lt; 0:
+            raise ValueError (&quot;Tolerance for stopping criteria must be&quot;
+                             &quot;positive; got (tol=% r)&quot; % self.tol)
+
+        X, y = check_X_y (X, y, accept_sparse=&#39;csr&#39;, dtype=np.float64,
+                         order=&quot;C&quot;)
+        check_classification_targets (y)
+        self.classes_ = np.unique (y)
+        n_samples, n_features = X.shape
+
+        _check_solver_option (self.solver, self.multi_class, self.penalty,
+                             self.dual)
+
+        if self.solver == &#39;liblinear&#39;:
+            self.coef_, self.intercept_, n_iter_ = _fit_liblinear (
+                X, y, self.C, self.fit_intercept, self.intercept_scaling,
+                self.class_weight, self.penalty, self.dual, self.verbose,
+                self.max_iter, self.tol, self.random_state,
+                sample_weight=sample_weight)
+            self.n_iter_ = np.array ([n_iter_])
+            return self
+
+        if self.solver == &#39;sag&#39;:
+            max_squared_sum = row_norms (X, squared=True).max ()
+        else:
+            max_squared_sum = None
+
+        n_classes = len (self.classes_)
+        classes_ = self.classes_
+        if n_classes &lt; 2:
+            raise ValueError (&quot;This solver needs samples of at least 2 classes&quot;
+                             &quot;in the data, but the data contains only one&quot;
+                             &quot;class: % r&quot; % classes_[0])
+
+        if len (self.classes_) == 2:
+            n_classes = 1
+            classes_ = classes_[1:]
+
+        if self.warm_start:
+            warm_start_coef = getattr (self, &#39;coef_&#39;, None)
+        else:
+            warm_start_coef = None
+        if warm_start_coef is not None and self.fit_intercept:
+            warm_start_coef = np.append (warm_start_coef,
+                                        self.intercept_[:, np.newaxis],
+                                        axis=1)
+
+        self.coef_ = list ()
+        self.intercept_ = np.zeros (n_classes)
+
+        # Hack so that we iterate only once for the multinomial case.
+        if self.multi_class == &#39;multinomial&#39;:
+            classes_ = [None]
+            warm_start_coef = [warm_start_coef]
+
+        if warm_start_coef is None:
+            warm_start_coef = [None] * n_classes
+
+        path_func = delayed (logistic_regression_path)
+
+        # The SAG solver releases the GIL so it&#39;s more efficient to use
+        # threads for this solver.
+        backend = &#39;threading&#39; if self.solver == &#39;sag&#39; else &#39;multiprocessing&#39;
+        fold_coefs_ = Parallel (n_jobs=self.n_jobs, verbose=self.verbose,
+                               backend=backend)(path_func (X, y, pos_class=class_, Cs=[self.C],
+                      fit_intercept=self.fit_intercept, tol=self.tol,
+                      verbose=self.verbose, solver=self.solver, copy=False,
+                      multi_class=self.multi_class, max_iter=self.max_iter,
+                      class_weight=self.class_weight, check_input=False,
+                      random_state=self.random_state, coef=warm_start_coef_,
+                      max_squared_sum=max_squared_sum,
+                      sample_weight=sample_weight)
+            for (class_, warm_start_coef_) in zip (classes_, warm_start_coef))
+
+        fold_coefs_, _, n_iter_ = zip (*fold_coefs_)
+        self.n_iter_ = np.asarray (n_iter_, dtype=np.int32)[:, 0]
+
+        if self.multi_class == &#39;multinomial&#39;:
+            self.coef_ = fold_coefs_[0][0]
+        else:
+            self.coef_ = np.asarray (fold_coefs_)
+            self.coef_ = self.coef_.reshape (n_classes, n_features +
+                                            int (self.fit_intercept))
+
+        if self.fit_intercept:
+            self.intercept_ = self.coef_[:, -1]
+            self.coef_ = self.coef_[:, :-1]
+
+        return self
+
+    def predict_proba (self, X):
+        &quot;&quot;&quot;Probability estimates.
+
+        The returned estimates for all classes are ordered by the
+        label of classes.
+
+        For a multi_class problem, if multi_class is set to be &quot;multinomial&quot;
+        the softmax function is used to find the predicted probability of
+        each class.
+        Else use a one-vs-rest approach, i.e calculate the probability
+        of each class assuming it to be positive using the logistic function.
+        and normalize these values across all the classes.
+
+        Parameters
+        ----------
+        X : array-like, shape = [n_samples, n_features]
+
+        Returns
+        -------
+        T : array-like, shape = [n_samples, n_classes]
+            Returns the probability of the sample for each class in the model,
+            where classes are ordered as they are in ``self.classes_``.
+        &quot;&quot;&quot;if not hasattr (self,&quot;coef_&quot;):
+            raise NotFittedError (&quot;Call fit before prediction&quot;)
+        calculate_ovr = self.coef_.shape [0] == 1 or self.multi_class == &quot;ovr&quot;
+        if calculate_ovr:
+            return super (LogisticRegression, self)._predict_proba_lr (X)
+        else:
+            return softmax (self.decision_function (X), copy=False)
+
+    def predict_log_proba (self, X):
+        &quot;&quot;&quot;Log of probability estimates.
+
+        The returned estimates for all classes are ordered by the
+        label of classes.
+
+        Parameters
+        ----------
+        X : array-like, shape = [n_samples, n_features]
+
+        Returns
+        -------
+        T : array-like, shape = [n_samples, n_classes]
+            Returns the log-probability of the sample for each class in the
+            model, where classes are ordered as they are in ``self.classes_``.
+        &quot;&quot;&quot;
+        return np.log (self.predict_proba (X))</code></pre>
+</div>
+<div id="怎么理解和怎么用好-logistic-regression" class="section level3">
+<h3>怎么理解和怎么用好 logistic regression?</h3>
+<p>结合例子，理解 LogisticRegression 类，以及关键函数 fit 和 predict_proba 的输入输出。</p>
+<pre class="python"><code># -*- coding: utf-8 -*-
+import sklearn.linear_model, random
+
+# 构建数据
+# 特征向量有三个值，第一第二个值符合高斯分布，ABCD 四个标签对应的平均值不同，第三个是随机数，ABCD 不做区分。
+# 注意将特征向量和标签同步添加，在两个列表中顺序对应。
+featureVecs, labels = [], []
+for i in range (25000): #每次迭代创建 4 个样本，总计 10000 个样本。
+    featureVecs.append ([random.gauss (0, 0.5), random.gauss (0, 0.5),
+                        random.random ()])
+    labels.append (&#39;A&#39;)
+    featureVecs.append ([random.gauss (0, 0.5), random.gauss (2, 0.),
+                        random.random ()])
+    labels.append (&#39;B&#39;)
+    featureVecs.append ([random.gauss (2, 0.5), random.gauss (0, 0.5),
+                        random.random ()])
+    labels.append (&#39;C&#39;)
+    featureVecs.append ([random.gauss (2, 0.5), random.gauss (2, 0.5),
+                        random.random ()])
+    labels.append (&#39;D&#39;)
+# fit 接受两个等长序列作为参数，前者是特征向量，后者是每个特征向量对应的标签。
+# 通过 fit 函数的返回值，创建一个 LogisticRegression 类对象，名叫 model。
+model = sklearn.linear_model.LogisticRegression ().fit (featureVecs,
+                                                     labels)
+
+# classes_属性就是 fit 函数输入的 labels 的种类。
+print (&#39;model.classes_ =&#39;, model.classes_) #直接访问了 model 的属性。
+# 输出：model.classes_ = [&#39;A&#39; &#39;B&#39; &#39;C&#39; &#39;D&#39;]
+# ---
+# coef_是列表的列表，如果不是二分类，它的长度等于标签 (classes_) 的数量，元素是特征向量的每个分量对相应的 class 的影响因子。
+print (&#39;model.coef =&#39;, model.coef_)
+# 输出：
+# model.coef = [[-4.64341152 -4.41153112  0.01183737]
+#  [-5.17871915  5.87236929  0.01170626]
+#  [4.00021738 -4.01591384  0.01597446]
+#  [4.26874022  5.27542104 -0.11529597]]
+for i in range (len (model.coef_)):
+    print (&#39;For label&#39;, model.classes_[i],
+          &#39;feature weights =&#39;, model.coef_[i])
+# 输出：
+# For label A feature weights = [-4.68704666 -4.43291562 -0.10498865]
+# For label B feature weights = [-5.15305285  5.81255566 -0.07642778]
+# For label C feature weights = [4.00713522 -3.97348906  0.08631709]
+# For label D feature weights = [4.34910126  5.37669745 -0.15221423]
+# ---
+# predict_proba 接受特征向量的列表作为参数，返回每个特征向量对应各个标签的概率向量的列表。
+# 虽然只有一个特征向量，也要写成列表的列表，输出也要打上 [0]，表示列表的第一个结果。
+print (&#39;[0, 0] probs =&#39;, model.predict_proba ([[0, 0, 1]])[0])
+print (&#39;[0, 2] probs =&#39;, model.predict_proba ([[0, 2, 2]])[0])
+print (&#39;[2, 0] probs =&#39;, model.predict_proba ([[2, 0, 3]])[0])
+print (&#39;[2, 2] probs =&#39;, model.predict_proba ([[2, 2, 4]])[0])
+# 输出样子
+# [0, 0] probs = [9.90415957e-01   4.33298057e-04   9.15043442e-03   3.10454282e-07]
+# [0, 2] probs = [7.25438263e-03   9.80483517e-01   3.54250873e-06   1.22585582e-02]
+# [2, 0] probs = [4.02966065e-03   1.26476971e-08   9.94576901e-01   1.39342538e-03]
+# [2, 2] probs = [5.03697707e-07   1.28278546e-03   1.25916937e-02   9.86125017e-01]</code></pre>
+</div>
+<div id="二分类-logistic-regression-样本例子" class="section level3">
+<h3>二分类 logistic regression 样本例子？</h3>
+<pre class="python"><code># -*- coding: utf-8 -*-
+
+import sklearn.linear_model, random
+
+# 构建数据
+# 特征向量有两个值，符合高斯分布，AD 两个标签对应的平均值不同。
+# 注意将特征向量和标签同步添加，在两个列表中顺序对应。
+featureVecs, labels = [], []
+for i in range (20000):
+    featureVecs.append ([random.gauss (0, 0.5), random.gauss (0, 0.5)])
+    labels.append (&#39;A&#39;)
+    featureVecs.append ([random.gauss (2, 0.5), random.gauss (2, 0.5)])
+    labels.append (&#39;D&#39;)
+model = sklearn.linear_model.LogisticRegression ().fit (featureVecs,
+
+# coef_是列表的列表，如果是二分类，它的长度等于 1，而不是 2，元素是 classes 中 str 较大的标签对应的特征向量的影响因子。
+print (&#39;model.coef =&#39;, model.coef_)
+print (&quot;model.labels =&quot;, model.classes_)
+# 输出：
+# model.coef = [[5.78618898  5.94267192]]
+# model.labels = [&#39;A&#39; &#39;D&#39;]
+print (&#39;[0, 0] probs =&#39;, model.predict_proba ([[0, 0]])[0])
+print (&#39;[0, 2] probs =&#39;, model.predict_proba ([[0, 2]])[0])
+print (&#39;[2, 0] probs =&#39;, model.predict_proba ([[2, 0]])[0])
+print (&#39;[2, 2] probs =&#39;, model.predict_proba ([[2, 2]])[0])
+# 输出：
+# [0, 0] probs = [9.99991305e-01   8.69471048e-06]
+# [0, 2] probs = [0.44212141  0.55787859]
+# [2, 0] probs = [0.52009144  0.47990856]
+# [2, 2] probs = [7.46755999e-06   9.99992532e-01]</code></pre>
+</div>
+<div id="什么是-roc-curve-reciever-operating-characteristic-curve-和-auroc-area-under-roc" class="section level3">
+<h3>什么是 ROC curve-reciever operating characteristic curve 和 AUROC-area under ROC？</h3>
+<p>tradeoff between false positive and false negatives.</p>
+<p>tradeoff between sensitivity and specificity.</p>
+<p>plot the true positive rate (sensitivity) against the false positive rate (1 - specificity) for multiple decision thresholds.</p>
+<p>对于线性回归模型，知道改变决策阈值所带来的影响非常容易。因此，人们通常使用受试者工作特征曲线 8，或称 ROC 曲线，来形象地表示灵敏度和特异度之间的折衷关系。这种曲线可以绘制出多个决策阈值的真阳性率（灵敏度）和假阳性率（1 - 特异度）之间的关系。</p>
+<p>AUROC 比较的是多个 ROC 曲线的性能，即模型的判别能力 discrimination of the model。</p>
+<blockquote>
+<p>对于一个随机选择的阳性样本，一个好的模型将其标注为阳性的概率应该高于将一个随机选择的阴性样本标注为阳性的概率。</p>
+</blockquote>
+<p>This area is equal to the probability that
+the model will asign a higher probability of
+being positive
+to a randomly chosen positive example than
+to a randomly chosen negative example.</p>
+<p>logistic regression 模型选取阈值 p = 0.578，得到</p>
+<pre class="commandline"><code>准确度 = 0.659
+灵敏度 = 0.714
+特异度 = 0.586
+阳性预测值 = 0.695</code></pre>
+<p>与 KNN 算法相同了。
+- 但是这个 p 值是怎么从 ROC 曲线中找到的？
+- 虚线是随便蒙模型的 ROC 曲线，它的 AUROC 就是 0.5。</p>
+</div>
+</div>
+<div id="surviving-the-titanic" class="section level2">
+<h2>24.5 Surviving the Titanic</h2>
+<div id="泰坦尼克号的基本信息" class="section level3">
+<h3>泰坦尼克号的基本信息？</h3>
+<p>April 15, 1912, the RMS Titanic hit an iceberg and sank in the North Atlantic.</p>
+<p>Of roughly 1300 passengers on board, 832 perished in the disaster.</p>
+<p>Whether or not individual passengers survived had an element of randomness, but was far from completely random.</p>
+</div>
+<div id="怎么读取和构建乘客数据结构" class="section level3">
+<h3>怎么读取和构建乘客数据结构？</h3>
+<p>源文件开头 10 行：</p>
+<pre class="txt"><code>1,29.0,F,1,Allen, Miss. Elisabeth Walton
+1,0.92,M,1,Allison, Master. Hudson Trevor
+1,2.0,F,0,Allison, Miss. Helen Loraine
+1,30.0,M,0,Allison, Mr. Hudson Joshua Creighton
+1,25.0,F,0,Allison, Mrs. Hudson J C (Bessie Waldo Daniels)
+1,48.0,M,1,Anderson, Mr. Harry
+1,63.0,F,1,Andrews, Miss. Kornelia Theodosia
+1,39.0,M,0,Andrews, Mr. Thomas Jr
+1,53.0,F,1,Appleton, Mrs. Edward Dale (Charlotte Lamson)
+1,71.0,M,0,Artagaveytia, Mr. Ramon</code></pre>
+<p>Passenger 类，读文件为字典，字典构建实例列表。</p>
+<pre class="python"><code># -*- coding: utf-8 -*-
+
+class Passenger (object):
+    featureNames = (&#39;C1&#39;, &#39;C2&#39;, &#39;C3&#39;, &#39;age&#39;, &#39;male gender&#39;)
+#    def __init__(self, pClass, age, gender, survived, name):
+#        self.name = name
+#        self.featureVec = [0, 0, 0, age, gender]
+#        self.featureVec [pClass - 1] = 1
+#        #self.featureVec [0] = 0 #Ugly hack
+#        self.label = survived
+#        self.cabinClass = pClass
+#     featureNames = (&#39;C2&#39;, &#39;C3&#39;, &#39;age&#39;, &#39;male gender&#39;)
+    def __init__(self, pClass, age, gender, survived, name):
+        self.name = name
+        self.featureVec = [0, 0, 0, age, gender]
+        self.featureVec [pClass - 1] = 1
+        # 两位二进制本可以表达四个数字
+        # if pClass == 2:
+        #     self.featureVec = [1, 0, age, gender]
+        # elif pClass == 3:
+        #     self.featureVec = [0, 1, age, gender]
+        # else:
+        #     self.featureVec = [0, 0, age, gender] # 这就是一等舱，但是不能计算权重。
+        self.label = survived
+        self.cabinClass = pClass
+    def distance (self, other):
+        return minkowskiDist (self.featureVec, other.featureVec, 2)
+    def getClass (self):
+        return self.cabinClass
+    def getAge (self):
+        return self.featureVec [3]
+    def getGender (self):
+        return self.featureVec [4]
+    def getName (self):
+        return self.name
+    def getFeatures (self):
+        return self.featureVec [:]
+    def getLabel (self):
+        return self.label
+        
+def getTitanicData (fname):
+    data = {}
+    data [&#39;class&#39;], data [&#39;survived&#39;], data [&#39;age&#39;] = [], [], []
+    data [&#39;gender&#39;], data [&#39;name&#39;] = [], []
+    f = open (fname)
+    line = f.readline ()
+    while line != &#39;&#39;:
+        split = line.split (&#39;,&#39;)
+        data [&#39;class&#39;].append (int (split [0]))
+        data [&#39;age&#39;].append (float (split [1]))
+        if split [2] == &#39;M&#39;:
+            data [&#39;gender&#39;].append (1)
+        else:
+            data [&#39;gender&#39;].append (0)
+        if split [3] == &#39;1&#39;:
+            data [&#39;survived&#39;].append (&#39;Survived&#39;)
+        else:
+            data [&#39;survived&#39;].append (&#39;Died&#39;)
+        data [&#39;name&#39;].append (split [4:])
+        line = f.readline ()
+    return data
+    
+    
+def buildTitanicExamples (fileName):
+    data = getTitanicData (fileName)
+    examples = []
+    for i in range (len (data [&#39;class&#39;])):
+        p = Passenger (data [&#39;class&#39;][i], data [&#39;age&#39;][i],
+                      data [&#39;gender&#39;][i], data [&#39;survived&#39;][i],
+                      data [&#39;name&#39;][i])
+        examples.append (p)
+    print (&#39;Finished processing&#39;, len (examples), &#39;passengers\n&#39;)    
+    return examples
+    </code></pre>
+</div>
+<div id="如何评价二分类预测用哪几个统计量代码怎么组织" class="section level3">
+<h3>如何评价二分类预测？用哪几个统计量？代码怎么组织？</h3>
+<p>二分类预测的结果与真实标签相乘，得到混淆矩阵。</p>
+<p>用五个统计量描述：
+- 准确度 —— 真阳性和真阴性在所有对象中的比例 accuracy
+- 敏感度 —— 真阳性在所有阳性中的比例 sensitivity
+- 专一度 —— 真阴性在所有阴性中的比例 specificity
+- 阳性预测值 —— 真阳性在阳性预测中的比例 positive predicted value
+- 阴性预测值 —— 真阴性在阴性预测中的比例 negative predicted value</p>
+<p>代码如下：</p>
+<pre class="python"><code># -*- coding: utf-8 -*-
+
+def accuracy (truePos, falsePos, trueNeg, falseNeg):
+    numerator = truePos + trueNeg
+    denominator = truePos + trueNeg + falsePos + falseNeg
+    return numerator/denominator
+
+def sensitivity (truePos, falseNeg):
+    try:
+        return truePos/(truePos + falseNeg)
+    except ZeroDivisionError:
+        return float (&#39;nan&#39;)
+    
+def specificity (trueNeg, falsePos):
+    try:
+        return trueNeg/(trueNeg + falsePos)
+    except ZeroDivisionError:
+        return float (&#39;nan&#39;)
+    
+def posPredVal (truePos, falsePos):
+    try:
+        return truePos/(truePos + falsePos)
+    except ZeroDivisionError:
+        return float (&#39;nan&#39;)
+    
+def negPredVal (trueNeg, falseNeg):
+    try:
+        return trueNeg/(trueNeg + falseNeg)
+    except ZeroDivisionError:
+        return float (&#39;nan&#39;)
+       
+def getStats (truePos, falsePos, trueNeg, falseNeg, toPrint = True):
+    accur = accuracy (truePos, falsePos, trueNeg, falseNeg)
+    sens = sensitivity (truePos, falseNeg)
+    spec = specificity (trueNeg, falsePos)
+    ppv = posPredVal (truePos, falsePos)
+    if toPrint:
+        print (&#39; Accuracy =&#39;, round (accur, 3))
+        print (&#39; Sensitivity =&#39;, round (sens, 3))
+        print (&#39; Specificity =&#39;, round (spec, 3))
+        print (&#39; Pos. Pred. Val. =&#39;, round (ppv, 3))
+    return (accur, sens, spec, ppv)</code></pre>
+</div>
+<div id="只有-1046-个样本用-8020-划分训练集和测试集如何克服偏颇" class="section level3">
+<h3>只有 1046 个样本，用 80/20 划分训练集和测试集，如何克服偏颇？</h3>
+<p>多做几次随机划分，求平均值，给 95% 置信区间，以此数据表明这种方法的有效性。</p>
+<pre class="python"><code># -*- coding: utf-8 -*-
+
+def split80_20 (examples):
+    &quot;&quot;&quot;
+    把实例集用 80/20 的比例划分为训练集和测试集。
+    :param examples: 实例集
+    :return: 训练集，测试集
+    &quot;&quot;&quot;
+    # 选的是 index
+    sampleIndices = random.sample (range (len (examples)),
+                                  len (examples)//5)
+    trainingSet, testSet = [], []
+    for i in range (len (examples)):
+        # 用 index 列表做区分
+        if i in sampleIndices:
+            testSet.append (examples [i])
+        else:
+            trainingSet.append (examples [i])
+    return trainingSet, testSet
+    
+def randomSplits (examples, method, numSplits, toPrint = True):
+    &quot;&quot;&quot;
+    将实例集随机划分多次，运算某种模型得到混淆矩阵的四个值，用各次实验的平均值求四个统计量，可选是否打印，输出混淆矩阵的四个平均值。
+    :param examples: 实例集
+    :param method: 函数，给他训练集和测试集，给出某种预测的四个统计量
+    :param numSplits: 划分多少次，即实验多少次
+    :param toPrint: 是否打印统计量
+    :return: 真阳性，假阳性，真阴性，假阴性的平均值
+    &quot;&quot;&quot;
+    truePos, falsePos, trueNeg, falseNeg = 0, 0, 0, 0
+    random.seed (0)
+    for t in range (numSplits):
+        trainingSet, testSet = split80_20 (examples)
+        results = method (trainingSet, testSet)
+        truePos += results [0]
+        falsePos += results [1]
+        trueNeg += results [2]
+        falseNeg += results [3]
+    getStats (truePos/numSplits, falsePos/numSplits,
+             trueNeg/numSplits, falseNeg/numSplits, toPrint)
+    return truePos/numSplits, falsePos/numSplits,\
+             trueNeg/numSplits, falseNeg/numSplits</code></pre>
+</div>
+<div id="怎样把求解模型和应用模型结合起来" class="section level3">
+<h3>怎样把求解模型和应用模型结合起来？</h3>
+<p>写一个用训练集求解模型的函数，再写一个把模型应用于测试集的函数，用一个函数将二者连接起来，在泰坦尼克名单上多次划分多次运行，求得平均值结果。</p>
+<pre class="python"><code># -*- coding: utf-8 -*-
+
+import sklearn
+from sklearn.linear_model import LogisticRegression
+from em_15_3_flip import stdDev
+
+def buildModel (examples, toPrint = True):
+    featureVecs, labels = [],[]
+    for e in examples:
+        featureVecs.append (e.getFeatures ())
+        labels.append (e.getLabel ())
+    model = LogisticRegression ().fit (featureVecs, labels)
+    if toPrint:
+        print (&#39;model.classes_ =&#39;, model.classes_)
+        for i in range (len (model.coef_)):
+            print (&#39;For label&#39;, model.classes_[1])
+            for j in range (len (model.coef_[0])):
+                print (&#39;   &#39;, Passenger.featureNames [j], &#39;=&#39;,
+                      model.coef_[0][j])
+    return model
+
+def applyModel (model, testSet, label, prob = 0.5):
+    &quot;&quot;&quot;
+    将 logistic regression 模型应用于测试集，将对应于第二个标签的概率于阈值比较作为预测依据，输出混淆矩阵的四个值。
+    :param model: 用 logistic regression 和训练集生成的模型
+    :param testSet: 测试集
+    :param label: prob 对应的第二个标签。
+    :param prob: 判断阈值，概率大于它，就预测该实例有第二个标签
+    :return: 混淆矩阵的四个值
+    &quot;&quot;&quot;
+    testFeatureVecs = [e.getFeatures () for e in testSet]
+    probs = model.predict_proba (testFeatureVecs)
+    truePos, falsePos, trueNeg, falseNeg = 0, 0, 0, 0
+    for i in range (len (probs)):
+        # probs 是列表的列表，内层列表长度为 2，因为只有 Died 和 Survived 两个标签。
+        if probs [i][1] &gt; prob:
+            if testSet [i].getLabel () == label:
+                truePos += 1
+            else:
+                falsePos += 1
+        else:
+            if testSet [i].getLabel () != label:
+                trueNeg += 1
+            else:
+                falseNeg += 1
+    return truePos, falsePos, trueNeg, falseNeg
+
+def lr (trainingData, testData, prob = 0.5):
+    &quot;&quot;&quot;
+    调用各函数，用训练集计算 logistic regression 模型、用测试集运行模型，得到混淆矩阵四值列表。
+    :param trainingData: 训练集
+    :param testData: 测试集
+    :param prob: 对测试集应用模型时，判断是否打标的概率阈值。
+    :return: 混淆矩阵四个值组成的元组
+    &quot;&quot;&quot;
+    model = buildModel (trainingData, False)
+    results = applyModel (model, testData, &#39;Survived&#39;, prob)
+    return results
+    </code></pre>
+</div>
+<div id="泰坦尼克号幸存者预测模型如何看各种数据" class="section level3">
+<h3>泰坦尼克号幸存者预测模型，如何看各种数据？</h3>
+<p>写一个 testModel 函数，构造模型、计算数据，给参数选择是否打印某项相关信息。</p>
+<p>如果打印的信息比较复杂，可以单提出来成为一个函数。</p>
+<pre class="python"><code># -*- coding: utf-8 -*-
+def testModels (examples, numTrials, printStats, printWeights):
+    &quot;&quot;&quot;
+    多次运行实例集，测试模型统计性能，可打印特征向量影响权重。
+    :param examples: 实例集
+    :param numTrials: 实验次数
+    :param printStats: 是否打印准确度等统计数据
+    :param printWeights: 是否打印特征向量对生还的影响权重
+    :return: None
+    &quot;&quot;&quot;
+    stats, weights = [], [[], [], [], [], []]
+    for i in range (numTrials):
+        training, testSet = split80_20 (examples)
+        xVals, yVals = [], []
+        for e in training:
+            xVals.append (e.getFeatures ())
+            yVals.append (e.getLabel ())
+        xVals = pylab.array (xVals)
+        yVals = pylab.array (yVals)
+        model = sklearn.linear_model.LogisticRegression ().fit (xVals,
+                                                              yVals)
+        for i in range (len (Passenger.featureNames)):
+            weights [i].append (model.coef_[0][i])
+        truePos, falsePos, trueNeg, falseNeg =\
+                         applyModel (model, testSet, &#39;Survived&#39;, prob = 0.44)
+        auroc = buildROC (training, testSet, &quot;auroc&quot;, False)[0]
+        tmp = getStats (truePos, falsePos, trueNeg, falseNeg, False)
+        stats.append (tmp + (auroc,))
+    print (&#39;Averages for&#39;, numTrials, &#39;trials&#39;) #下面两个项目至少打印一项，所以这句放在二者外面。
+    if printWeights:
+        for feature in range (len (weights)):
+            featureMean = sum (weights [feature])/numTrials
+            featureStd = stdDev (weights [feature])
+            print (&#39; Mean weight of&#39;, Passenger.featureNames [feature],
+              &#39;=&#39;, str (round (featureMean, 3)) + &#39;,&#39;,
+              &#39;95% confidence interval =&#39;, round (1.96*featureStd, 3))
+    if printStats:
+        summarizeStats (stats)
+
+
+def summarizeStats (stats):
+    &quot;&quot;&quot;
+    优化格式，用置信区间的形式，打印多次实验的统计信息。
+    :param stats: 元组的列表，多次实验得到的准确度、灵敏度、特异度、阳性预测值和 AUROC&quot;:return: None&quot;&quot;&quot;
+    #定义带置信区间的打印格式
+    def printStat (X, name):
+        mean = round (sum (X)/len (X), 3)
+        std = stdDev (X)
+        print (&#39; Mean&#39;, name, &#39;=&#39;, str (mean) + &#39;,&#39;,
+               &#39;95% confidence interval =&#39;, round (1.96*std, 3))
+    #把数据区分出来，分别放入列表中
+    accs, sens, specs, ppvs, aurocs = [], [], [], [], []
+    for stat in stats:
+        accs.append (stat [0])
+        sens.append (stat [1])
+        specs.append (stat [2])
+        ppvs.append (stat [3])
+        aurocs.append (stat [4])
+    #打印输出
+    printStat (accs, &#39;accuracy&#39;)
+    printStat (sens, &#39;sensitivity&#39;)
+    printStat (specs, &#39;specificity&#39;)
+    printStat (ppvs, &#39;pos. pred. val.&#39;)
+    printStat (aurocs, &#39;AUROC&#39;)</code></pre>
+</div>
+<div id="泰坦尼克号幸存者预测模型100-次平均性能如何" class="section level3">
+<h3>泰坦尼克号幸存者预测模型，100 次平均性能如何？</h3>
+<pre class="python"><code># -*- coding: utf-8 -*-
+
+#Look at mean statisics
+testModels (examples, 100, True, False)
+</code></pre>
+<pre class="commandline"><code>Averages for 100 trials
+ Mean accuracy = 0.776, 95% confidence interval = 0.05
+ Mean sensitivity = 0.736, 95% confidence interval = 0.098
+ Mean specificity = 0.805, 95% confidence interval = 0.066
+ Mean pos. pred. val. = 0.724, 95% confidence interval = 0.088
+ Mean AUROC = 0.839, 95% confidence interval = 0.051</code></pre>
+<p>比都猜&quot; 遇难 &quot; 要好一点。</p>
+</div>
+<div id="泰坦尼克号幸存者预测模型参与预测的几个指标对生还的影响权重如何" class="section level3">
+<h3>泰坦尼克号幸存者预测模型，参与预测的几个指标，对生还的影响权重如何？</h3>
+<pre class="python"><code># -*- coding: utf-8 -*-
+#Look at weights
+testModels (examples, 100, False, True)</code></pre>
+<pre class="commandline"><code>Averages for 100 trials
+ Mean weight of C1 = 1.649, 95% confidence interval = 0.153
+ Mean weight of C2 = 0.448, 95% confidence interval = 0.094
+ Mean weight of C3 = -0.498, 95% confidence interval = 0.11
+ Mean weight of age = -0.031, 95% confidence interval = 0.006
+ Mean weight of male gender = -2.368, 95% confidence interval = 0.145</code></pre>
+<p>一等舱生机大，二等舱有正作用，三等仓有副作用，越年轻越好，男性严重不如女性生机大。</p>
+</div>
+<div id="泰坦尼克号幸存者预测模型改变评价概率阈值几个统计指标如何消长" class="section level3">
+<h3>泰坦尼克号幸存者预测模型，改变评价概率阈值，几个统计指标如何消长？</h3>
+<pre class="python"><code># -*- coding: utf-8 -*-
+
+#Look at changing prob
+random.seed (0)
+trainingSet, testSet = split80_20 (examples)
+model = buildModel (trainingSet, False)
+print (&#39;Try p = 0.1&#39;)
+truePos, falsePos, trueNeg, falseNeg =\
+                  applyModel (model, testSet, &#39;Survived&#39;, 0.1)
+getStats (truePos, falsePos, trueNeg, falseNeg)
+print (&#39;Try p = 0.3&#39;)
+truePos, falsePos, trueNeg, falseNeg = \
+    applyModel (model, testSet, &#39;Survived&#39;, 0.3)
+getStats (truePos, falsePos, trueNeg, falseNeg)
+print (&#39;Try p = 0.6&#39;)
+truePos, falsePos, trueNeg, falseNeg = \
+    applyModel (model, testSet, &#39;Survived&#39;, 0.6)
+getStats (truePos, falsePos, trueNeg, falseNeg)
+print (&#39;Try p = 0.9&#39;)
+truePos, falsePos, trueNeg, falseNeg =\
+                  applyModel (model, testSet, &#39;Survived&#39;, 0.9)
+getStats (truePos, falsePos, trueNeg, falseNeg)
+</code></pre>
+<pre class="commandline"><code>Try p = 0.1
+ Accuracy = 0.493
+ Sensitivity = 0.976
+ Specificity = 0.161
+ Pos. Pred. Val. = 0.444
+Try p = 0.3
+ Accuracy = 0.751
+ Sensitivity = 0.859
+ Specificity = 0.677
+ Pos. Pred. Val. = 0.646
+Try p = 0.6
+ Accuracy = 0.813
+ Sensitivity = 0.694
+ Specificity = 0.895
+ Pos. Pred. Val. = 0.819
+Try p = 0.9
+ Accuracy = 0.656
+ Sensitivity = 0.176
+ Specificity = 0.984
+ Pos. Pred. Val. = 0.882</code></pre>
+<p>p 不是越大或越小越好，也不是大于 0.5 就判定是它。看 ROC 图，调整 p 阈值，在真阳性和假阳性之间权衡。</p>
+</div>
+<div id="泰坦尼克号幸存者预测模型改变评价概率阈值看-roc-图" class="section level3">
+<h3>泰坦尼克号幸存者预测模型，改变评价概率阈值，看 ROC 图？</h3>
+<pre class="python"><code># -*- coding: utf-8 -*-
+
+#Look at ROC
+random.seed (0)
+trainingSet, testSet = split80_20 (examples)
+sensi_p_pairs = buildROC (trainingSet, testSet, &quot;auroc&quot;, plot = True)[1]</code></pre>
+<p>看起来，sensitivity 超过 0.83 就比较平了，再通过提高 p 值来提高敏感度，会带来严重的假阳性，所以，在 sensi 和 p 阈值组成的队列里，找到相应的 p，约为 0.44.</p>
+<pre class="python"><code># -*- coding: utf-8 -*-
+
+#Take a better probability threshold
+print (sensi_p_pairs)
+print (&#39;Try p = 0.44&#39;)
+truePos, falsePos, trueNeg, falseNeg =\
+                  applyModel (model, testSet, &#39;Survived&#39;, 0.44)
+getStats (truePos, falsePos, trueNeg, falseNeg)</code></pre>
+<pre class="commandline"><code>0.8941176470588236: 0.22000000000000006, 
+0.8823529411764706: 0.25000000000000006, 
+0.8705882352941177: 0.2900000000000001, 
+0.8588235294117647: 0.36000000000000015, 
+0.8470588235294118: 0.4200000000000002, 
+0.8352941176470589: 0.4400000000000002, 
+0.8117647058823529: 0.49000000000000027, 
+0.8: 0.5100000000000002, 
+0.788235294117647: 0.5200000000000002, 
+0.7647058823529411: 0.5300000000000002, 
+0.7529411764705882: 0.5500000000000003,</code></pre>
+<pre class="commandline"><code>Try p = 0.44
+ Accuracy = 0.809
+ Sensitivity = 0.835
+ Specificity = 0.79
+ Pos. Pred. Val. = 0.732</code></pre>
+<p>注意了！</p>
+<p>数据量太小，如果不对随机采样分组做 random.seed (0) 的归零处理，ROC 每次都不一样，变化很大。所以几个统计量变化也很大。我这样选 p，基于一次的 ROC，很不靠谱。</p>
+</div>
+<div id="泰坦尼克号幸存者预测模型因为样本小随机分组-roc-变化大有没有办法克服" class="section level3">
+<h3>泰坦尼克号幸存者预测模型，因为样本小，随机分组 ROC 变化大，有没有办法克服？</h3>
+<p>用多次分组多次实验的平均值画 ROC。</p>
+<pre class="python"><code># -*- coding: utf-8 -*-
+
+def mean_ROC (examples, num_trials, title, plot = True):
+    xVals, yVals = [], []
+    p = 0.0
+    sensi_p_pairs = {}
+    while p &lt;= 1.0:
+        stats = testModels (examples, num_trials, False, False, p)
+        accs, sens, specs, ppvs, aurocs = [], [], [], [], []
+        for stat in stats:
+            accs.append (stat [0])
+            sens.append (stat [1])
+            specs.append (stat [2])
+            ppvs.append (stat [3])
+            aurocs.append (stat [4])
+        mean_spec = sum (specs)/len (specs)
+        xVals.append (1.0 - mean_spec)
+        mean_sensi = sum (sens)/len (sens)
+        yVals.append (mean_sensi)
+        sensi_p_pairs [mean_sensi] = p
+        p += 0.05
+    auroc = sklearn.metrics.auc (xVals, yVals, True)
+    if plot:
+        pylab.plot (xVals, yVals)
+        pylab.plot ([0,1], [0,1])
+        title = &#39;Averages for &#39; + str (num_trials) + &#39;trials &#39; + title + &#39;\nAUROC = &#39; + str (round (auroc,3))
+        pylab.title (title)
+        pylab.xlabel (&#39;1 - specificity&#39;)
+        pylab.ylabel (&#39;Sensitivity&#39;)
+    return sensi_p_pairs
+   
+   
+#Look at the mean ROC
+mean_ROC (examples, 20, &quot;auroc&quot;, plot = True)</code></pre>
+<p>平滑很多了</p>
+<hr />
+<p>以上，2018-05-25 16:57:16. 书本完结。</p>
+</div>
+</div>
