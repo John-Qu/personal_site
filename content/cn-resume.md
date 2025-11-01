@@ -3,6 +3,7 @@ title: "简历"
 slug: "cn/resume"
 disable_comments: true
 typora-root-url: ../static
+draft: true
 ---
 
 # 曲 政

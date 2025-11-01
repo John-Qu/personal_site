@@ -1,6 +1,7 @@
 ---
 title: "关于"
 slug: "cn/about"
+draft: true
 ---
 
 ## 我是谁
