@@ -167,7 +167,7 @@ rssLimit = 100
     customJS = [
     "js/fix-toc.js",
     "js/center-img.js",
-    "js/right-quote.js",ß
+    "js/right-quote.js",
     "js/no-highlight.js",
     "js/fix-footnote.js",
     "js/math-code.js",
