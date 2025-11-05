@@ -1,5 +1,36 @@
 body {
-  font-family: Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, 'source-han-serif-sc', 'Source Han Serif SC', 'Source Han Serif CN', 'Source Han Serif TC', 'Source Han Serif TW', 'Source Han Serif', 'Songti SC', 'Microsoft YaHei', serif;
+  /* 桌面保留衬线风格，中文优先用系统宋体/思源宋体可用者 */
+  font-family:
+    "Source Han Serif SC",
+    "Source Han Serif CN",
+    "Noto Serif CJK SC",
+    "Songti SC",
+    Palatino,
+    "Palatino Linotype",
+    "Palatino LT STD",
+    Georgia,
+    "Microsoft YaHei",
+    serif;
+}
+@media screen and (max-width: 960px) {
+  body {
+    font-family:
+      -apple-system,
+      BlinkMacSystemFont,
+      "PingFang SC",
+      "Hiragino Sans GB",
+      "Noto Sans CJK SC",
+      "Source Han Sans SC",
+      "Microsoft YaHei",
+      "Segoe UI",
+      "Roboto",
+      "Helvetica Neue",
+      Arial,
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    line-height: 1.7;
+  }
 }
 .home blockquote, .cn blockquote {
   font-family: 'KaiTi', '楷体', 'SimKai', 'DFKai-SB', 'Palatino Linotype', 'Book Antiqua', Palatino, 'STKaiti',  'NSimSun', serif;
