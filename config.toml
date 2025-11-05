@@ -163,11 +163,11 @@ rssLimit = 100
 
 [params]
     description = "Reflection in Transition"
-    footer = "&copy; [John Qu](https://johnqu.site) 2020 | [Github](https://github.com/john-qu)"
+    footer = "&copy; [John Qu](https://johnqu.site) 2020 - 2025 | [Github](https://github.com/john-qu)"
     customJS = [
     "js/fix-toc.js",
     "js/center-img.js",
-    "js/right-quote.js",
+    "js/right-quote.js",ß
     "js/no-highlight.js",
     "js/fix-footnote.js",
     "js/math-code.js",
