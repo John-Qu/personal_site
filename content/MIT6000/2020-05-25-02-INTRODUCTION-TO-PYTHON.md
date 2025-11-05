@@ -44,7 +44,7 @@ Variables provide a way to associate names with objects. In Python, a variable i
 
 Consider the two code fragments
 
-```{python}
+```python
 # too simple variable names
 a = 3.14159 
 b = 11.2
@@ -56,9 +56,9 @@ diameter = 11.2
 area = pi*(diameter**2)
 ```
 
-As far as Python is concerned, they are not different. When executed, they will do the same thing. To a human reader, however, they are quite different. When we read the fragment on the left, there is no a priori [^ a priori] reason to suspect that anything is amiss[^amiss]. However, a quick glance at the code on the right should prompt us to be suspicious that something is wrong. Either the variable should have been named radius rather than diameter, or diameter should have been divided by 2.0 in the calculation of the area.
+As far as Python is concerned, they are not different. When executed, they will do the same thing. To a human reader, however, they are quite different. When we read the fragment on the left, there is no a priori [^a_priori] reason to suspect that anything is amiss[^amiss]. However, a quick glance at the code on the right should prompt us to be suspicious that something is wrong. Either the variable should have been named radius rather than diameter, or diameter should have been divided by 2.0 in the calculation of the area.
 
-[^ a priori]:  〖＜ラテン〗形容詞 副詞 演繹（えんえき）的な[に]; 先天[先験]的な[に] (↔ a posteriori ｟かたく｠ 帰納的な[に](inductive); 経験に基づいた[て])
+[^a_priori]:  〖＜ラテン〗形容詞 副詞 演繹（えんえき）的な[に]; 先天[先験]的な[に] (↔ a posteriori ｟かたく｠ 帰納的な[に](inductive); 経験に基づいた[て])
 
 [^amiss]: a.  Wrong; faulty; out of order; improper; as, *it may not be amiss to ask advice.* [Used only in the predicate 表语.] 
 
