@@ -8,11 +8,11 @@ draft: False
 
 # 曲 政
 
-1982 年生于辽宁省铁岒市，现住在上海市浦东新区
+穿工服、使搬手、写程序的工程师，1982 年生于辽宁省铁岒市，现住在上海市浦东新区
 
 | 联系 | 方式 | 线上 | 内容 |
 | --- | --- | --- | --- |
-| 邮箱 | [JohnQuicker@163.com](mailto:JohnQuicker@163.com) | B 站 | 葡架鱼塘 |
+| 邮箱 | [JohnQuicker@163.com](mailto:JohnQuicker@163.com) | B 站 | [葡架鱼塘](https://space.bilibili.com/59552905) |
 | 手机 | 186-0179-3762 | 博客 | [johnqu.site](https://johnqu.site) |
 | 微信 | bbQuickor | 小红书 | 曲政 |
 
