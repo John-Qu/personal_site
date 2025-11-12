@@ -194,7 +194,7 @@ draft: true
 - 2011.11 利乐柔性机横封机构：参照零件手册，边建模边学习
 - 2020.04 《请 Inventor 用 FreeCAD》：12 美元买了书，一个月翻译完，校对三番润色五次，跟原作者沟通，在 [bookdown.org](https://bookdown.org/johnqu1982/FFI/) 上架
 - 2019.10 利乐柔性机双夹爪电子凸轮曲线，参考 Adams 会议 PDF 曲线，用 Python 计算机构位置，发表在 Github 仓库 [John-Qu/tetracamthon](https://github.com/John-Qu/tetracamthon)
-- 2023.01 给联动天翼做圆柱电池充放电时尺寸测量工装，用 FreeCAD 画图，在办公室装配，上门调试，有《备忘录》
+- 2023.01 给联动天翼做圆柱电池充放电时尺寸测量工装，用 FreeCAD 画图，在办公室装配，上门调试，有[《备忘录》](/cn-vitae/【设计备忘】圆柱电池充放电时尺寸测量工装.pdf)
 - 2025.08 用 Solidworks 导出嵌套 BOM 后整理格式，发表在 Github 仓库 [John-Qu/ExportNestedBOM](https://github.com/John-Qu/ExportNestedBOM)
 
 ## 文艺作品
