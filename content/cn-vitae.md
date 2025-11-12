@@ -2,7 +2,7 @@
 title: "履历"
 slug: "cn/vitae"
 disable_comments: true
-draft: true
+draft: false
 ---
 
 # 曲政
