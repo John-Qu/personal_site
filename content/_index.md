@@ -16,7 +16,7 @@ disable_highlight: true
 
 2025 年的内容是：
 
-<div style="text-align:center;">
+<div style="text-align:center; white-space: pre-line;">
 初心不改人间暖
 匠艺常新大道宽
 ——自在人生（她定的）
