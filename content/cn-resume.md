@@ -23,7 +23,7 @@ draft: False
 - 托盒热封包装机逆向与参展（上海曼亿，2024）：主导结构与控制重建，完成稳定运行并如期参展
 - 圆柱电池充放电尺寸测量工装（联动天翼，2023）：设计电笔测量支架与工装，在办公室装配、上门调试，有[《备忘录》](/cn-vitae/【设计备忘】圆柱电池充放电时尺寸测量工装.pdf)
 - 柔性灌装机双夹爪电子凸轮曲线（2019）：用 Python 计算机构位置与位移/速度曲线，验证同步与节拍，见 GitHub 仓库 [John-Qu/tetracamthon](https://github.com/John-Qu/tetracamthon)
-- 电子线束耐电压测量机优化（2012–2015）：改良工艺与细节，提升稳定性与通过率
+- 电子线束耐电压测量机优化（2012）：改良工艺与细节，提升稳定性与通过率
 - SolidWorks 嵌套 BOM 导出整理（2025）：导出嵌套 BOM 并整理格式，见仓库 [John-Qu/ExportNestedBOM](https://github.com/John-Qu/ExportNestedBOM)
 - 《请 Inventor 用 FreeCAD》中文翻译（2020）：校对润色并与原作者沟通，发布于 [bookdown.org/johnqu1982/FFI](https://bookdown.org/johnqu1982/FFI/)
 
@@ -58,7 +58,7 @@ draft: False
 - 装配电子电气接插件成型组立自动机，完成交付与现场调试
 - 改良电子线束耐电压测量机稳定性与流程
 
-#### 研发工程师（实习）｜上海普丽盛包装股份有限公司｜2009.03–2012.05
+#### 研发工程师｜上海普丽盛包装股份有限公司｜2009.03–2012.05
 
 - 参与新利乐灌装机校企合作与避开专利的排包机构设计
 - 参考图片建模柔性机部分机构；配合上市申报技术资料撰写
@@ -77,5 +77,5 @@ draft: False
 
 ## 开源与社区
 
-- FreeCAD 中文社区参与与译作：《请 Inventor 用 FreeCAD》
+- FreeCAD 中文社区参与与译作：《[请 Inventor 用 FreeCAD](https://bookdown.org/johnqu1982/FFI/)》
 - 技术文章与作品集：博客 [johnqu.site](https://johnqu.site)
