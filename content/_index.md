@@ -1,12 +1,5 @@
 ---
 title: Homepage
-date: '2025-11-01'
-disable_mathjax: true
-disable_highlight: true
----
-
----
-title: "首页"
 date: '2025-11-20'
 disable_mathjax: true
 disable_highlight: true
@@ -16,7 +9,7 @@ disable_highlight: true
     <img src="https://simpleicons.org/icons/github.svg" style="width:24px; vertical-align:middle;" alt="Github" /> 
     <a href="https://github.com/john-qu" target="_blank" style="margin-right: 15px;">Github</a>
     <span style="font-weight:bold;">·</span>
-    <a href="/cn/vitae/" style="margin: 0 15px; font-weight:bold;">我的履历 (CV)</a>
+    <a href="/cn/resume/" style="margin: 0 15px; font-weight:bold;">我的简历 (Resume)</a>
     <span style="font-weight:bold;">·</span>
     <a href="mailto:JohnQuicker@163.com" style="margin-left: 15px;">联系我</a>
 </div>
@@ -51,6 +44,7 @@ disable_highlight: true
 *   **入行**：从金山的利乐灌装机逆向工程起步，那是我的“少林寺”；后来变成“曲师傅”在车间装配自动机；又变成“曲经理”在测量事务所跑现场。
 *   **沉淀**：35 岁那年，我选择暂停，做了一段时间全职奶爸。那四年里，我自学了编程，翻译了开源书稿，看似“一事无成”，实则完成了职业生涯最重要的基因突变——**我意识到机械工程师必须拥抱代码**。
 *   **回归**：现在，我带着创业的心态回到了食品包装行业。做方案、算曲线、调试样机。
+
 我的双重底色：指尖有油，心中有数
 * **Code (代码)**：我用 Python 推导 5 次多项式曲线，追求数学上的绝对完美。
 * **Gemba (现场)**：我曾在装配车间蹲了三年，深知 SKD11 模具钢之间那一层薄油膜的手感。
@@ -62,7 +56,7 @@ disable_highlight: true
 ---
 
 <div style="text-align:center; margin-top: 40px; font-family: 'KaiTi', '楷体', serif; color: #555;">
-    <p>2025 新年自勉：</p>
-    <h3 style="margin: 10px 0;">初心不改人间暖<br>匠艺常新大道宽</h3>
-    <p style="font-size: 0.9em;">—— 自在人生（老婆定的）</p>
+    <p  style="font-size: 0.9em;">2025 新年作春联自勉：</p>
+    <p>初心不改人间暖<br>匠艺常新大道宽</p>
+    <p style="font-size: 1.1em;">—— 自在人生（横批老婆指定）</p>
 </div>
