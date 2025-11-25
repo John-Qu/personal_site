@@ -3,7 +3,7 @@ title: "简历"
 slug: "cn/resume"
 disable_comments: true
 typora-root-url: ../static
-draft: False
+draft: false
 ---
 # 曲政 (John Qu)
 **资深机械设计专家 | 计算驱动设计 (Calculation-Driven Design) 践行者**
