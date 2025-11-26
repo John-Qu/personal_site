@@ -5,17 +5,6 @@ disable_comments: true
 draft: false
 ---
 
-# 曲政
-
----
-title: "履历"
-slug: "cn/vitae"
-disable_comments: true
-draft: false
----
-
-# 曲政
-
 ## 叠甲声明 (Disclaimer)
 
 这不是一份用来炫耀的“功劳簿”，而是一个工程师的**“认知迭代数据库”**。
